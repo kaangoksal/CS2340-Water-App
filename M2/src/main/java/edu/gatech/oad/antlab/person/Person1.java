@@ -31,7 +31,23 @@ public class Person1 {
 	 */
 	private String calc(String input) {
 	  //Person 1 put your implementation here
-	  return null;
+      String rotate = name;
+      char[] rotation = new char[name.length()];
+
+      for (int i = 0; i < rotation.length; i++) {
+          rotation[i] = rotate.charAt(i);
+      }
+      char[] holder = rotation;
+      for (int i = 2; i < rotation.length; i++) {
+          holder[i - 2] = rotation[i];
+      }
+      holder[rotation.length - 2] = rotation[0];
+      holder[rotation.length - 1] = rotation[1];
+      rotate = "";
+      for (int i = 0; i < holder.length; i++) {
+          rotate = rotate + holder[i];
+      }
+      return rotate;
 	}
 	
 	/**
