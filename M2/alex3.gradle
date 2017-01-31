@@ -1,0 +1,18 @@
+apply plugin: 'java'
+repositories {
+    jcenter()
+    mavenCentral()
+}
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    testCompile 'junit:junit:4.12'
+    compile files('lib/resources.jar');
+}
+jar {
+    manifest.attributes(
+        'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain',
+        'Class-Path' : 'lib/resources.jar'
+    )
+    destinationDir = file("$rootDir")
+    archiveName = 'M2.jar'
+}
