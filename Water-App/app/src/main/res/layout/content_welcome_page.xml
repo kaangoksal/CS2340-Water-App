@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="gatech.water_app.welcomePage"
+    tools:context="gatech.water_app.controller.welcomePage"
     tools:showIn="@layout/activity_welcome_page">
 
 
@@ -53,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button2"
-            android:text="Registration" />
+            android:text="Registration"
+            android:onClick="startRegistrationPage"/>
     </LinearLayout>
 </LinearLayout>

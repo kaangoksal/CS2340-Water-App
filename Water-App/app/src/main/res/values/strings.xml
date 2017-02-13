@@ -14,4 +14,5 @@
         completions."
     </string>
     <string name="title_activity_welcome_page">welcomePage</string>
+    <string name="title_activity_registration">Registration</string>
 </resources>

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".welcomePage"
+            android:name=".controller.welcomePage"
             android:label="@string/title_activity_welcome_page"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,10 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name"/>
+            android:name=".controller.LoginActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".controller.Registration"
+            android:label="@string/title_activity_registration"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
