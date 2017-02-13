@@ -12,8 +12,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="gatech.water_app.welcomePage"
-    tools:showIn="@layout/activity_welcome_page"
-    android:background="@drawable/worldmapwater">
+    tools:showIn="@layout/activity_welcome_page">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/worldmapwater"
+        android:id="@+id/imageView" />
+
+    <TextView
+        android:text="Description"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView" />
+
+
+    <TextView
+        android:text="LOTS OF WORDS HERE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2" />
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:text="Login"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:onClick="startLoginPage"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:text="Registration" />
+    </LinearLayout>
 </LinearLayout>
