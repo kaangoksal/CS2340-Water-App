@@ -1,4 +1,4 @@
-package gatech.water_app.controller;
+package gatech.water_app.controller.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import gatech.water_app.R;
-import gatech.water_app.controller.LoginActivity;
+import gatech.water_app.controller.Controller.LoginActivity;
+import gatech.water_app.controller.Controller.Registration;
 
 public class welcomePage extends AppCompatActivity {
 

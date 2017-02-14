@@ -1,4 +1,4 @@
-package gatech.water_app.controller;
+package gatech.water_app.controller.Controller;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +26,8 @@ public class Registration extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
     }
 
 }
