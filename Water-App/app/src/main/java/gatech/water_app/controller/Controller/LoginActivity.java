@@ -3,10 +3,12 @@ package gatech.water_app.controller.Controller;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -28,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -194,6 +197,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 showProgress(true);
                 Intent intent = new Intent(this, Logout.class);
                 startActivity(intent);
+            } else {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                final TextView text = new TextView(this);
+                text.setText("The login did not work!");
+                alertDialogBuilder.setView(text);
+                alertDialogBuilder.setCancelable(true).setPositiveButton("OK", null);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
             //mAuthTask.execute((Void) null);
         }
