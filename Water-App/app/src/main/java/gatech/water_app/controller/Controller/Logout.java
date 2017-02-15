@@ -1,5 +1,6 @@
 package gatech.water_app.controller.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,11 @@ public class Logout extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void loginout(View view) {
+        Intent intent = new Intent(this, welcomePage.class);
+        startActivity(intent);
     }
 
 }
