@@ -16,4 +16,5 @@
     <string name="title_activity_welcome_page">welcomePage</string>
     <string name="title_activity_registration">Registration</string>
     <string name="title_activity_logout">Logout</string>
+    <string name="action_cancel_sign_in">Cancel</string>
 </resources>
