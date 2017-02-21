@@ -1,5 +1,7 @@
 package gatech.water_app.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alex Thien An Le on 2/15/2017.
  */
@@ -12,55 +14,28 @@ import gatech.water_app.R;
  * Represents an asynchronous login/registration task used to authenticate
  * the user.
  */
-public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+public class UserLoginTask {
 
-    private final String mUser;
-    private final String mPassword;
 
-    UserLoginTask(String username, String password) {
-        mUser = username;
-        mPassword = password;
+    //should directly interact with the database
+    //Check users and add users
+
+
+
+
+
+    //however for current Milestone 5, this is the databases/loginsystem/EVERYTHING
+
+    private static ArrayList<User> users = new ArrayList<>();
+
+
+    public static boolean attemptLogin(String user, String pass) {
+        return users.contains(new User(user, pass));
     }
 
-    @Override
-    protected Boolean doInBackground(Void... params) {
-        // TODO: attempt authentication against a network service.
-
-        try {
-            // Simulate network access.
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            return false;
-        }
-
-        for (String credential : DUMMY_CREDENTIALS) {
-            String[] pieces = credential.split(":");
-            if (pieces[0].equals(mUser)) {
-                // Account exists, return true if the password matches.
-                return pieces[1].equals(mPassword);
-            }
-        }
-
-        // TODO: register the new account here.
-        return false;
+    public static void addUser(String username, String password, String address, String email, String title) {
+        users.add(new User(username, password, address, email, title));
     }
 
-    @Override
-    protected void onPostExecute(final Boolean success) {
-        mAuthTask = null;
-        showProgress(false);
 
-        if (success) {
-            finish();
-        } else {
-            mPasswordView.setError(getString(R.string.error_incorrect_password));
-            mPasswordView.requestFocus();
-        }
-    }
-
-    @Override
-    protected void onCancelled() {
-        mAuthTask = null;
-        showProgress(false);
-    }
 }
