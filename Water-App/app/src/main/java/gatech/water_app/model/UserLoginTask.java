@@ -30,11 +30,18 @@ public class UserLoginTask {
 
 
     public static boolean attemptLogin(String user, String pass) {
+        addUser(user, pass, null, null, null);
+
         return users.contains(new User(user, pass));
     }
 
     public static void addUser(String username, String password, String address, String email, String title) {
-        users.add(new User(username, password, address, email, title));
+        users.add(Math.abs(new User(username, password).hashCode()) % (users.size() + 1), new User(username, password, address, email, title));
+    }
+
+    public static User retrieveUser(String username, String password) {
+        return users.get(new User(username, password).hashCode());
+
     }
 
 

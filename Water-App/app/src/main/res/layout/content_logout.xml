@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="gatech.water_app.controller.Controller.Logout"
+    tools:context="gatech.water_app.controller.Controller.LandingPage"
     tools:showIn="@layout/activity_logout">
 
     <Button
@@ -22,4 +22,22 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:onClick="loginout"/>
+
+    <Button
+        android:text="Edit Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:onClick="startEditPage"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:id="@+id/textView3"
+        tools:text="username" />
 </RelativeLayout>

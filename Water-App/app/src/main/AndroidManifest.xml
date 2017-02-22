@@ -31,8 +31,12 @@
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".controller.Controller.Logout"
+            android:name=".controller.Controller.LandingPage"
             android:label="@string/title_activity_logout"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controller.Controller.EditPage"
+            android:label="@string/title_activity_edit_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
