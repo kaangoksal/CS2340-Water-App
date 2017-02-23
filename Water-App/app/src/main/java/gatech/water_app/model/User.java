@@ -4,7 +4,7 @@ package gatech.water_app.model;
  * Created by Alex Thien An Le on 2/20/2017.
  */
 
-class User {
+public class User {
 
     private String username;
     private String password;

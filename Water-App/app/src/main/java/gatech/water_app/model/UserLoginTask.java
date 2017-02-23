@@ -40,7 +40,9 @@ public class UserLoginTask {
     }
 
     public static User retrieveUser(String username, String password) {
-        return users.get(new User(username, password).hashCode());
+        int hashcode = new User(username, password).hashCode();
+        hashcode = Math.abs(hashcode) % (users.size());
+        return users.get(hashcode);
 
     }
 
