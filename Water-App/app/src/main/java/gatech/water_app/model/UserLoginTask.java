@@ -35,7 +35,7 @@ public class UserLoginTask {
         return users.contains(new User(user, pass));
     }
 
-    public static void addUser(String username, String password, String address, String email, String title) {
+    public static void addUser(String username, String password, String address, String email, Title title) {
         users.add(Math.abs(new User(username, password).hashCode()) % (users.size() + 1), new User(username, password, address, email, title));
     }
 

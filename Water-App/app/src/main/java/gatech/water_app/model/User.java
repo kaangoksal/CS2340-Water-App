@@ -1,7 +1,8 @@
 package gatech.water_app.model;
 
 /**
- * Created by Alex Thien An Le on 2/20/2017.
+ * Created by Alex Thien An Le on 2/20/2017. Edited by John Ho 2/22/2017
+ * Standard user class with all getters and setters available
  */
 
 public class User {
@@ -10,9 +11,18 @@ public class User {
     private String password;
     private String address;
     private String email;
-    private String title;
+    private Title title;
 
-    User(String username, String password, String address, String email, String title) {
+    /**
+     *
+     * Constructor for User including everything
+     * @param username the user's username
+     * @param password the user's pass
+     * @param address the user's address
+     * @param email the user's email
+     * @param title the user's title
+     */
+    User(String username, String password, String address, String email, Title title) {
         this.username = username;
         this.password = password;
         this.address = address;
@@ -20,7 +30,15 @@ public class User {
         this.title = title;
     }
 
-    User(String username, String password, String email, String title) {
+    /**
+     *
+     * Constructor for User including everything except address
+     * @param username the user's username
+     * @param password the user's pass
+     * @param email the user's email
+     * @param title the user's title
+     */
+    User(String username, String password, String email, Title title) {
         this(username, password, null, email, title);
     }
 
@@ -60,11 +78,11 @@ public class User {
         this.email = email;
     }
 
-    public String getTitle() {
+    public Title getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(Title title) {
         this.title = title;
     }
 
