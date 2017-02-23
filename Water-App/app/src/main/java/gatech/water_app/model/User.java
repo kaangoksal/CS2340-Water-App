@@ -1,10 +1,13 @@
 package gatech.water_app.model;
-
+import java.util.List;
+import java.util.Arrays;
 /**
  * Created by Alex Thien An Le on 2/20/2017.
  */
 
 public class User {
+
+    public static List<String> titles = Arrays.asList("Administrator","Worker","Manager","User");
 
     private String username;
     private String password;
@@ -12,7 +15,7 @@ public class User {
     private String email;
     private String title;
 
-    User(String username, String password, String address, String email, String title) {
+    public User(String username, String password, String address, String email, String title) {
         this.username = username;
         this.password = password;
         this.address = address;
