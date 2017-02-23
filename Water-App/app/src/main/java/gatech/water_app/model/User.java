@@ -1,5 +1,6 @@
 package gatech.water_app.model;
-
+import java.util.List;
+import java.util.Arrays;
 /**
  * Created by Alex Thien An Le on 2/20/2017. Edited by John Ho 2/22/2017
  * Standard user class with all getters and setters available
@@ -7,10 +8,13 @@ package gatech.water_app.model;
 
 public class User {
 
+    public static List<String> titles = Arrays.asList("Administrator","Worker","Manager","User");
+
     private String username;
     private String password;
     private String address;
     private String email;
+<<<<<<< HEAD
     private Title title;
 
     /**
@@ -23,6 +27,11 @@ public class User {
      * @param title the user's title
      */
     User(String username, String password, String address, String email, Title title) {
+=======
+    private String title;
+
+    public User(String username, String password, String address, String email, String title) {
+>>>>>>> 3f1818a3fb9c438def44ee8260bab56cc6562b22
         this.username = username;
         this.password = password;
         this.address = address;

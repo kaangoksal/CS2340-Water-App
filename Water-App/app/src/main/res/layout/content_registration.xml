@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/usernameIn"
         android:textSize="18sp"
         android:layout_alignBaseline="@+id/Username"
         android:layout_alignBottom="@+id/Username"
@@ -39,17 +39,17 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/emailIn"
         android:layout_alignBaseline="@+id/Email"
         android:layout_alignBottom="@+id/Email"
-        android:layout_alignStart="@+id/editText6" />
+        android:layout_alignStart="@+id/passwordIn" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText6"
+        android:id="@+id/passwordIn"
         android:layout_alignBaseline="@+id/Password"
         android:layout_alignBottom="@+id/Password"
         android:layout_toEndOf="@+id/Password" />
@@ -61,8 +61,8 @@
         android:layout_marginTop="28dp"
         android:id="@+id/Password"
         android:textSize="18sp"
-        android:layout_below="@+id/editText"
-        android:layout_toStartOf="@+id/editText" />
+        android:layout_below="@+id/usernameIn"
+        android:layout_toStartOf="@+id/usernameIn" />
 
     <TextView
         android:text="Email:"
@@ -71,7 +71,7 @@
         android:layout_marginTop="21dp"
         android:id="@+id/Email"
         android:textSize="18sp"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/passwordIn"
         android:layout_alignStart="@+id/Password" />
 
     <EditText
@@ -79,10 +79,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/addressIn"
         android:layout_alignBaseline="@+id/Address"
         android:layout_alignBottom="@+id/Address"
-        android:layout_alignStart="@+id/editText3" />
+        android:layout_alignStart="@+id/emailIn" />
 
     <TextView
         android:text="Address"
@@ -91,17 +91,8 @@
         android:layout_marginTop="28dp"
         android:id="@+id/Address"
         android:textSize="18sp"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/emailIn"
         android:layout_alignStart="@+id/Email" />
-
-    <Button
-        android:text="SUBMIT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:id="@+id/submitreg"
-        android:layout_below="@+id/editText2"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Username:   "
@@ -111,7 +102,7 @@
         android:layout_marginTop="79dp"
         android:textSize="18sp"
         android:layout_below="@+id/RegistrationText"
-        android:layout_toStartOf="@+id/editText" />
+        android:layout_toStartOf="@+id/usernameIn" />
 
     <TextView
         android:text="Title"
@@ -119,7 +110,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/Title"
         android:textSize="18sp"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/usernameIn"
         android:layout_alignStart="@+id/Username"
         android:layout_marginBottom="23dp" />
 
@@ -128,7 +119,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:layout_alignTop="@+id/Title"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_alignStart="@+id/usernameIn"
+        android:layout_alignEnd="@+id/usernameIn" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:id="@+id/submitreg"
+        android:layout_below="@+id/addressIn"
+        android:layout_toEndOf="@+id/Title" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/submitreg"
+        android:layout_alignEnd="@+id/addressIn"
+        android:layout_marginEnd="49dp"
+        android:id="@+id/cancel" />
 
 </RelativeLayout>
