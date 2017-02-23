@@ -13,4 +13,84 @@
     tools:context="gatech.water_app.controller.Controller.Registration"
     tools:showIn="@layout/activity_registration">
 
+    <TextView
+        android:text="Email:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="71dp"
+        android:id="@+id/Email"
+        android:textSize="18sp"
+        android:layout_below="@+id/Password"
+        android:layout_alignStart="@+id/Password" />
+
+    <TextView
+        android:text="Password:   "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:id="@+id/Password"
+        android:textSize="18sp"
+        android:layout_below="@+id/Username"
+        android:layout_alignStart="@+id/Username" />
+
+    <TextView
+        android:text="Username:   "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Username"
+        android:layout_marginTop="101dp"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/RegistrationText" />
+
+    <TextView
+        android:text="Registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/RegistrationText"
+        android:textSize="26sp"
+        android:layout_marginTop="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:id="@+id/submitreg" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/Username"
+        android:layout_alignBottom="@+id/Username"
+        android:layout_alignStart="@+id/RegistrationText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:layout_alignBaseline="@+id/Email"
+        android:layout_alignBottom="@+id/Email"
+        android:layout_alignStart="@+id/editText6" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText6"
+        android:layout_alignBaseline="@+id/Password"
+        android:layout_alignBottom="@+id/Password"
+        android:layout_toEndOf="@+id/Password" />
+
 </RelativeLayout>
