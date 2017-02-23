@@ -88,7 +88,7 @@ public class Registration extends AppCompatActivity {
     }
 
     public void afterEdit() {
-        Intent intent = new Intent(this, LandingPage.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         Bundle bundle1 = new Bundle();
         bundle1.putString("pass", curUser.getPassword());
         bundle1.putString("username", curUser.getUsername());

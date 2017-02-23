@@ -14,7 +14,6 @@ public class User {
     private String password;
     private String address;
     private String email;
-<<<<<<< HEAD
     private Title title;
 
     /**
@@ -26,12 +25,7 @@ public class User {
      * @param email the user's email
      * @param title the user's title
      */
-    User(String username, String password, String address, String email, Title title) {
-=======
-    private String title;
-
-    public User(String username, String password, String address, String email, String title) {
->>>>>>> 3f1818a3fb9c438def44ee8260bab56cc6562b22
+    public User(String username, String password, String address, String email, Title title) {
         this.username = username;
         this.password = password;
         this.address = address;
@@ -47,11 +41,11 @@ public class User {
      * @param email the user's email
      * @param title the user's title
      */
-    User(String username, String password, String email, Title title) {
+    public User(String username, String password, String email, Title title) {
         this(username, password, null, email, title);
     }
 
-    User(String username, String password) {
+    public User(String username, String password) {
         this(username, password, null, null);
     }
 
