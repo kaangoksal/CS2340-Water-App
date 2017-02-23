@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import gatech.water_app.R;
 
@@ -26,6 +27,10 @@ public class Registration extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+//        Button btnClick = (Button) findViewById(R.id.submitreg);
+//        btnClick.o
+
 
 
     }
