@@ -15,7 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SimpleAdapter;
 
-import gatech.water_app.model.User;
+import gatech.water_app.model.Title;
+import gatech.water_app.model.UserLoginTask;
 
 import gatech.water_app.R;
 
@@ -28,7 +29,6 @@ public class Registration extends AppCompatActivity {
     Button editButton;
     Button cancelButton;
     Spinner newSpin;
-    User curUser = new User("v","v","v","v","v");
     String[] arraySpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class Registration extends AppCompatActivity {
         cancelButton = (Button) findViewById(R.id.cancel);
         newSpin = (Spinner) findViewById(R.id.spinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, User.titles);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Title.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newSpin.setAdapter(adapter);
 
@@ -66,10 +66,7 @@ public class Registration extends AppCompatActivity {
                         || email.getText().toString() == null) {
                     Toast.makeText(getApplicationContext(), "One of your fields was null!" ,Toast.LENGTH_SHORT).show();
                 } else {
-                    curUser.setUsername(username.getText().toString());
-                    curUser.setPassword(password.getText().toString());
-                    curUser.setEmail(email.getText().toString());
-                    curUser.setAddress(address.getText().toString());
+                    UserLoginTask.addUser(username.getText().toString(), password.getText().toString(), address.getText().toString(), email.getText().toString(), (Title) newSpin.getSelectedItem());
                     afterEdit();
                 }
             }
@@ -89,10 +86,6 @@ public class Registration extends AppCompatActivity {
 
     public void afterEdit() {
         Intent intent = new Intent(this, LoginActivity.class);
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", curUser.getPassword());
-        bundle1.putString("username", curUser.getUsername());
-        intent.putExtras(bundle1);
         startActivity(intent);
     }
 

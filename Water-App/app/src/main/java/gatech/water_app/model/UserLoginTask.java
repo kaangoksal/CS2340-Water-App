@@ -30,8 +30,6 @@ public class UserLoginTask {
 
 
     public static boolean attemptLogin(String user, String pass) {
-        addUser(user, pass, null, null, null);
-
         return users.contains(new User(user, pass));
     }
 
