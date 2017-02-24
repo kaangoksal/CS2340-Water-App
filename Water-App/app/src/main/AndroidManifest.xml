@@ -37,6 +37,10 @@
         <activity
             android:name=".controller.Controller.EditPage"
             android:label="@string/title_activity_edit_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controller.Controller.waterReport"
+            android:label="@string/title_activity_water_report"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

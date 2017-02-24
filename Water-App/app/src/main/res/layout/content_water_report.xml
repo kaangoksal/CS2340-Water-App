@@ -13,4 +13,120 @@
     tools:context="gatech.water_app.controller.Controller.waterReport"
     tools:showIn="@layout/activity_water_report">
 
+    <TextView
+        android:text="Water Report Submission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/titleWater"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Report Number:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location"
+        android:layout_alignStart="@+id/location"
+        android:layout_marginTop="35dp"
+        android:id="@+id/Report"
+        android:textSize="14sp" />
+
+    <TextView
+        android:text="Date and time:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/location"
+        android:layout_below="@+id/titleWater"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Autogen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/location"
+        android:layout_toEndOf="@+id/location"
+        android:layout_marginStart="44dp"
+        android:id="@+id/autogen" />
+
+    <TextView
+        android:text="autogen2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Report"
+        android:layout_alignStart="@+id/autogen"
+        android:id="@+id/autogen2" />
+
+    <TextView
+        android:text="Reporter:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Report"
+        android:layout_alignStart="@+id/Report"
+        android:layout_marginTop="37dp"
+        android:id="@+id/textView12" />
+
+    <TextView
+        android:text="autogen3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView12"
+        android:layout_alignStart="@+id/autogen2"
+        android:id="@+id/autogen3" />
+
+    <TextView
+        android:text="Type of Water:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:id="@+id/textView15"
+        android:layout_below="@+id/textView12"
+        android:layout_toStartOf="@+id/autogen" />
+
+    <TextView
+        android:text="Condition:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView15"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_marginTop="38dp"
+        android:id="@+id/condition" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:layout_alignBottom="@+id/condition"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/spinner3" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView15"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/spinner3"
+        android:layout_alignStart="@+id/autogen3" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/condition"
+        android:layout_toStartOf="@+id/spinner2"
+        android:layout_marginTop="39dp"
+        android:id="@+id/button4" />
+
+    <Button
+        android:text="CANCEL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button4"
+        android:layout_toEndOf="@+id/button4"
+        android:layout_marginStart="33dp"
+        android:id="@+id/button5" />
+
 </RelativeLayout>
