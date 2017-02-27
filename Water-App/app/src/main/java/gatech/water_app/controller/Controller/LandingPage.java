@@ -29,7 +29,7 @@ public class LandingPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView text1 = (TextView) findViewById(R.id.textView3);
-        Button water = (Button) findViewById(R.id.addReport);
+//        Button water = (Button) findViewById(R.id.addReport);
 
         text1.setText("Hello " + username);
 

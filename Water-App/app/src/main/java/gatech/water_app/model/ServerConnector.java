@@ -5,4 +5,5 @@ package gatech.water_app.model;
  */
 
 public class ServerConnector {
+
 }
