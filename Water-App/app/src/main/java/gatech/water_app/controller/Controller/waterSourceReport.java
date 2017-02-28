@@ -9,12 +9,12 @@ import android.view.View;
 
 import gatech.water_app.R;
 
-public class waterReport extends AppCompatActivity {
+public class waterSourceReport extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_water_report);
+        setContentView(R.layout.activity_water_source_report);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

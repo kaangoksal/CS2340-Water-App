@@ -10,8 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="gatech.water_app.controller.Controller.waterReport"
-    tools:showIn="@layout/activity_water_report">
+    tools:context="gatech.water_app.controller.Controller.waterSourceReport"
+    tools:showIn="@layout/activity_water_source_report">
 
     <TextView
         android:text="Water Report Submission"
@@ -78,22 +78,13 @@
         android:id="@+id/autogen3" />
 
     <TextView
-        android:text="Type of Water:"
+        android:text="Location:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:id="@+id/textView15"
         android:layout_below="@+id/textView12"
-        android:layout_toStartOf="@+id/autogen" />
-
-    <TextView
-        android:text="Condition:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView15"
-        android:layout_alignStart="@+id/textView12"
-        android:layout_marginTop="38dp"
-        android:id="@+id/condition" />
+        android:layout_alignStart="@+id/Report"
+        android:layout_marginTop="37dp"
+        android:id="@+id/textView13" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -112,21 +103,49 @@
         android:layout_alignStart="@+id/autogen3" />
 
     <Button
-        android:text="SUBMIT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/condition"
-        android:layout_toStartOf="@+id/spinner2"
-        android:layout_marginTop="39dp"
-        android:id="@+id/button4" />
-
-    <Button
         android:text="CANCEL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button4"
-        android:layout_toEndOf="@+id/button4"
-        android:layout_marginStart="33dp"
-        android:id="@+id/button5" />
+        android:layout_marginStart="21dp"
+        android:id="@+id/water_report_cancel"
+        android:layout_alignBaseline="@+id/water_report_add"
+        android:layout_alignBottom="@+id/water_report_add"
+        android:layout_toEndOf="@+id/water_report_add" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/water_report_add"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/spinner2"
+        android:layout_marginBottom="22dp" />
+
+    <TextView
+        android:text="autogen4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/autogen4"
+        android:layout_alignBaseline="@+id/textView13"
+        android:layout_alignBottom="@+id/textView13"
+        android:layout_alignStart="@+id/autogen3" />
+
+    <TextView
+        android:text="Condition:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/condition"
+        android:layout_above="@+id/water_report_add"
+        android:layout_alignStart="@+id/textView13"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:text="Type of Water:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:layout_above="@+id/condition"
+        android:layout_toStartOf="@+id/autogen"
+        android:layout_marginBottom="30dp" />
 
 </RelativeLayout>
