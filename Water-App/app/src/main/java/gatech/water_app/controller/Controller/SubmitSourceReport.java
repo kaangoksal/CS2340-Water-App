@@ -9,7 +9,7 @@ import android.view.View;
 
 import gatech.water_app.R;
 
-public class waterSourceReport extends AppCompatActivity {
+public class SubmitSourceReport extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

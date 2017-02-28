@@ -21,7 +21,8 @@ public class WaterSourceReport {
      * @param reportNumber
      * @param dataTime
      */
-    public WaterSourceReport(WaterCondition condition, WaterType type, String reporter, int reportNumber, int dataTime) {
+    public WaterSourceReport(
+            int dataTime, int reportNumber, String reporter, WaterType type, WaterCondition condition) {
         this.condition = condition;
         this.type = type;
         Reporter = reporter;

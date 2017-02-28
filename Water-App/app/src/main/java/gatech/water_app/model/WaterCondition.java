@@ -9,7 +9,8 @@ public enum WaterCondition {
     Waste("Waste"),
     TreatableClear("Treatable-Clear"),
     TreatableMuddy("Treatable-Muddy"),
-    Potable("Potable");
+    Potable("Potable"),
+    NA("NA");
 
     private String nameCondition;
 
