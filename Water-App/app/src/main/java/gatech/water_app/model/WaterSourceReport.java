@@ -36,10 +36,10 @@ public class WaterSourceReport {
     /**
      * Constructor (default)
      */
-    public WaterSourceReport() {
+    public WaterSourceReport(String reporter) {
         dataTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
         reportNumber = 1;
-        reporter = "Bob";
+        this.reporter = reporter;
         type = WaterType.Lake;
         condition = WaterCondition.Potable;
 

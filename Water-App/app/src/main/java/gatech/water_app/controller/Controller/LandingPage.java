@@ -44,8 +44,11 @@ public class LandingPage extends AppCompatActivity {
     }
 
 
-    public void water(View view) {
+    public void addSourceReport(View view) {
         Intent intent = new Intent(this, SubmitSourceReport.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("username", username);
+        intent.putExtras(bundle1);
         startActivity(intent);
     }
 
