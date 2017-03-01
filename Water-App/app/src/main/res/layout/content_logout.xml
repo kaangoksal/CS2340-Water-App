@@ -53,22 +53,13 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-<<<<<<< HEAD
-        android:text="Your Reports"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:id="@+id/button4"
-        android:onClick="allReports"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true" />
-=======
         android:text="View Reports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="49dp"
         android:id="@+id/view_report_button"
         android:layout_alignBottom="@+id/logout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp" />
->>>>>>> 3b3cc4f12860fa26804962ca5f5ccf281ff395c3
+        android:onClick="startReportView"/>
+
 </RelativeLayout>

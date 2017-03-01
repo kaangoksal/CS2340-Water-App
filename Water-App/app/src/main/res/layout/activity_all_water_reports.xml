@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="gatech.water_app.controller.Controller.ListViewActivity">
+    tools:context="gatech.water_app.controller.Controller.ReportView">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,8 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_all_water_reports" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -30,5 +28,24 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <include layout="@layout/content_all_water_reports"
+            android:layout_height="385dp"
+            android:layout_width="match_parent"
+            android:layout_weight="0.96" />
+
+        <Button
+            android:text="Back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_from_reportview"
+            android:onClick="backFromReportView"/>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

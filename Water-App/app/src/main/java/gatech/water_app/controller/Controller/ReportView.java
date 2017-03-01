@@ -1,5 +1,6 @@
 package gatech.water_app.controller.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,8 +24,12 @@ import gatech.water_app.R;
  * This is just filled with examples to see if list view works
  */
 
-public class ListViewActivity extends AppCompatActivity {
+public class ReportView extends AppCompatActivity {
     ListView listView ;
+    String username;
+    String password;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,10 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_water_reports);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        username = extras.getString("username");
+        password = extras.getString("pass");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +99,15 @@ public class ListViewActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void backFromReportView(View view) {
+        Intent intent = new Intent(this, LandingPage.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("pass", password);
+        bundle1.putString("username", username);
+        intent.putExtras(bundle1);
+        startActivity(intent);
     }
 
 }
