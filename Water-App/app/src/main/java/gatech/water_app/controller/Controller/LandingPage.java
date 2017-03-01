@@ -44,7 +44,7 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void water(View view) {
-        Intent intent = new Intent(this, waterReport.class);
+        Intent intent = new Intent(this, SubmitSourceReport.class);
         startActivity(intent);
     }
 
