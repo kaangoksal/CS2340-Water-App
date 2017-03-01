@@ -22,18 +22,18 @@ import gatech.water_app.model.WaterType;
 
 public class SubmitSourceReport extends AppCompatActivity {
 
-    TextView date;
-    TextView reportNum;
-    TextView reporter;
-    TextView location;
-    Button submit;
-    Button cancelButton;
-    Spinner typeWater;
-    Spinner condition;
+    private TextView date;
+    private TextView reportNum;
+    private TextView reporter;
+    private TextView location;
+    private Button submit;
+    private Button cancelButton;
+    private Spinner typeWater;
+    private Spinner condition;
 
 
-    WaterSourceReport newReport = new WaterSourceReport();
 
+    private WaterSourceReport newReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,8 @@ public class SubmitSourceReport extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        newReport = new WaterSourceReport(getIntent().getExtras().getString("username"));
 
         submit = (Button) findViewById(R.id.submitreg);
         date = (TextView) findViewById(R.id.autogen);

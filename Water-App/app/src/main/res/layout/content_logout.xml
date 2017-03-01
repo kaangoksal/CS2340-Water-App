@@ -31,7 +31,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textView3"
-        android:onClick="water" />
+        android:onClick="addSourceReport" />
 
     <Button
         android:text="Edit Profile"
@@ -51,4 +51,13 @@
         android:onClick="loginout"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="View Reports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_report_button"
+        android:layout_alignBottom="@+id/logout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="57dp" />
 </RelativeLayout>
