@@ -43,12 +43,17 @@ public class LandingPage extends AppCompatActivity {
         });
     }
 
-
+<<<<<<< HEAD
+//    public void water(View view) {
+//        Intent intent = new Intent(this, waterReport.class);
+//        startActivity(intent);
+//    }
+=======
     public void water(View view) {
         Intent intent = new Intent(this, SubmitSourceReport.class);
         startActivity(intent);
     }
-
+>>>>>>> 88d5610ef6abfff4f2d6432cea4c649108453ad6
 
     public void loginout(View view) {
         Intent intent = new Intent(this, welcomePage.class);
