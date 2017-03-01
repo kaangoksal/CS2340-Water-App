@@ -1,5 +1,8 @@
 package gatech.water_app.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by vy on 2/24/17.
  */
@@ -7,9 +10,9 @@ package gatech.water_app.model;
 public class WaterSourceReport {
 
     //Not sure if dataTime should be an int
-    private int dataTime;
+    private String dataTime;
     private int reportNumber;
-    private String Reporter;
+    private String reporter;
     private WaterType type;
     private WaterCondition condition;
 
@@ -22,19 +25,39 @@ public class WaterSourceReport {
      * @param dataTime
      */
     public WaterSourceReport(
-            int dataTime, int reportNumber, String reporter, WaterType type, WaterCondition condition) {
+            String dataTime, int reportNumber, String reporter, WaterType type, WaterCondition condition) {
         this.condition = condition;
         this.type = type;
-        Reporter = reporter;
+        reporter = reporter;
         this.reportNumber = reportNumber;
         this.dataTime = dataTime;
+    }
+
+    /**
+     * Constructor (default)
+     */
+    public WaterSourceReport() {
+        dataTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
+        reportNumber = 1;
+        reporter = "Bob";
+        type = WaterType.Lake;
+        condition = WaterCondition.Potable;
+
     }
 
     /**
      * Getter
      * @return
      */
-    public int getDataTime() {
+    public void incReportNum() {
+        reportNumber++;
+    }
+
+    /**
+     * Getter
+     * @return dataTime the date and time
+     */
+    public String getDataTime() {
         return dataTime;
     }
 
@@ -42,7 +65,7 @@ public class WaterSourceReport {
      * Setter
      * @param dataTime
      */
-    public void setDataTime(int dataTime) {
+    public void setDataTime(String dataTime) {
         this.dataTime = dataTime;
     }
 
@@ -67,7 +90,7 @@ public class WaterSourceReport {
      * @return
      */
     public String getReporter() {
-        return Reporter;
+        return reporter;
     }
 
     /**
@@ -75,7 +98,7 @@ public class WaterSourceReport {
      * @param reporter
      */
     public void setReporter(String reporter) {
-        Reporter = reporter;
+        reporter = reporter;
     }
 
     /**
@@ -115,7 +138,7 @@ public class WaterSourceReport {
         return "WaterSourceReport{" +
                 "dataTime=" + dataTime +
                 ", reportNumber=" + reportNumber +
-                ", Reporter='" + Reporter + '\'' +
+                ", Reporter='" + reporter + '\'' +
                 ", type=" + type +
                 ", condition=" + condition +
                 '}';
