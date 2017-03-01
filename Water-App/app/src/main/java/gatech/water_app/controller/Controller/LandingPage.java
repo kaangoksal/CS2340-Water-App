@@ -43,10 +43,10 @@ public class LandingPage extends AppCompatActivity {
         });
     }
 
-    public void water(View view) {
-        Intent intent = new Intent(this, waterReport.class);
-        startActivity(intent);
-    }
+//    public void water(View view) {
+//        Intent intent = new Intent(this, waterReport.class);
+//        startActivity(intent);
+//    }
 
     public void loginout(View view) {
         Intent intent = new Intent(this, welcomePage.class);
