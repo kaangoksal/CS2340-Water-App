@@ -29,9 +29,9 @@ public class LandingPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView text1 = (TextView) findViewById(R.id.textView3);
-//        Button water = (Button) findViewById(R.id.addReport);
 
         text1.setText("Hello " + username);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +64,10 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void allReports(View view) {
+        Intent intent = new Intent(this, ListViewActivity.class);
+        startActivity(intent);
+    }
 
 
 }
