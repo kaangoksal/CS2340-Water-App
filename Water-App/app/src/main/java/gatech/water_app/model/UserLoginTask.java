@@ -55,8 +55,6 @@ public class UserLoginTask {
         Request request = new Request.Builder()
                 .url("http://35.157.30.110:5235/login")
                 .post(body)
-                .addHeader("cache-control", "no-cache")
-                .addHeader("postman-token", "7d937010-3232-0c72-7796-d8d05be3b4b4")
                 .build();
 
         Response response = client.newCall(request).execute();
