@@ -7,10 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import gatech.water_app.R;
 
@@ -29,9 +26,9 @@ public class LandingPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView text1 = (TextView) findViewById(R.id.textView3);
-//        Button water = (Button) findViewById(R.id.addReport);
 
         text1.setText("Hello " + username);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +41,11 @@ public class LandingPage extends AppCompatActivity {
     }
 
 
-    public void water(View view) {
+    public void addSourceReport(View view) {
         Intent intent = new Intent(this, SubmitSourceReport.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("username", username);
+        intent.putExtras(bundle1);
         startActivity(intent);
     }
 
@@ -64,6 +64,15 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void startReportView(View view) {
+        Intent intent = new Intent(this, ReportView.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("pass", password);
+        bundle1.putString("username", username);
+        intent.putExtras(bundle1);
+        startActivity(intent);
+
+    }
 
 
 }

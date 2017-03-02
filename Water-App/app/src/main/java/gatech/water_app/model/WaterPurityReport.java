@@ -102,7 +102,7 @@ public class WaterPurityReport extends Report {
         return "WaterSourceReport{" +
                 "dataTime=" + dataTime +
                 ", reportNumber=" + reportNumber +
-                ", Reporter='" + Reporter + '\'' +
+                ", Reporter='" + super.reporter + '\'' +
                 ", OverAll Condition=" + overallCondition +
                 '}';
     }

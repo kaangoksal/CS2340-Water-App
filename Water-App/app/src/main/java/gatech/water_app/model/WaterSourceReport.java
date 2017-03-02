@@ -1,7 +1,9 @@
 package gatech.water_app.model;
 import android.location.Location;
 
+
 import java.util.Date;
+
 /**
  * Created by vy on 2/24/17.
  */
@@ -9,6 +11,7 @@ import java.util.Date;
 public class WaterSourceReport extends Report {
 
     //Not sure if dataTime should be an int
+
 
     private WaterType type;
     private WaterCondition condition;
@@ -37,9 +40,9 @@ public class WaterSourceReport extends Report {
         super(dataTime,reportNumber,reporter, location);
         this.condition = condition;
         this.type = type;
-
-
     }
+
+
 
     /**
      * Getter
@@ -53,6 +56,7 @@ public class WaterSourceReport extends Report {
      * Setter
      * @param dataTime
      */
+
     public void setDataTime(Date dataTime) {
         super.dataTime = dataTime;
     }
@@ -74,19 +78,11 @@ public class WaterSourceReport extends Report {
     }
 
     /**
-     * Getter
-     * @return
-     */
-    public String getReporter() {
-        return Reporter;
-    }
-
-    /**
      * Setter
      * @param reporter
      */
     public void setReporter(String reporter) {
-        Reporter = reporter;
+        reporter = reporter;
     }
 
     /**
@@ -126,7 +122,7 @@ public class WaterSourceReport extends Report {
         return "WaterSourceReport{" +
                 "dataTime=" + dataTime +
                 ", reportNumber=" + reportNumber +
-                ", Reporter='" + Reporter + '\'' +
+                ", Reporter='" + super.reporter + '\'' +
                 ", type=" + type +
                 ", condition=" + condition +
                 '}';
