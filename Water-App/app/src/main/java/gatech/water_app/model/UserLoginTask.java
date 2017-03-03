@@ -102,12 +102,14 @@ public class UserLoginTask {
         return false;
     }
 
+    //Connect to database to get actually user
     public static User retrieveUser(String username, String password) {
-        int hashcode = new User(username, password).hashCode();
-        hashcode = Math.abs(hashcode) % (users.size());
-        return users.get(hashcode);
-
+        return new User(username, password, "hello", Title.USER);
     }
 
+    //The new object may have a new username, password, or email
+    public static void editUser(User editProfile) {
+
+    }
 
 }

@@ -119,16 +119,20 @@
         android:id="@+id/water_report_add"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/spinner2"
-        android:layout_marginBottom="22dp" />
+        android:layout_marginBottom="22dp"
+        android:onClick="submitSourceReport"/>
 
-    <TextView
-        android:text="autogen4"
+    <EditText
+        android:text="Location"
+        android:inputType="textPersonName"
+        android:ems="8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/autogen4"
         android:layout_alignBaseline="@+id/textView13"
         android:layout_alignBottom="@+id/textView13"
-        android:layout_alignStart="@+id/autogen3" />
+        android:layout_alignStart="@+id/autogen3"
+        tools:textSize="14sp" />
 
     <TextView
         android:text="Condition:"

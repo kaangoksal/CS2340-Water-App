@@ -5,4 +5,12 @@ package gatech.water_app.model;
  */
 
 public class WaterReportTask {
+
+    /**
+     * Adds Water Source Report to database
+     * @param sourceReport
+     */
+    public static void addWaterSourceReport(Report sourceReport) {
+
+    }
 }

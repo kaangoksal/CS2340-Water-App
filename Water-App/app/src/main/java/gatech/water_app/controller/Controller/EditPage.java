@@ -26,6 +26,7 @@ public class EditPage extends AppCompatActivity {
     Button cancelButton;
 
     User curUser;
+    User newUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,8 @@ public class EditPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        curUser = UserLoginTask.retrieveUser(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("pass"));
+        Bundle extras = getIntent().getExtras();
+        curUser = UserLoginTask.retrieveUser(extras.getString("username"), extras.getString("password"));
 
         TextView curUsername = (TextView) findViewById(R.id.textView4);
         TextView curPass = (TextView) findViewById(R.id.textView5);
@@ -59,9 +61,9 @@ public class EditPage extends AppCompatActivity {
                                                       || email.getText().toString() == null) {
                                                   Toast.makeText(getApplicationContext(), "One of your fields was null!" ,Toast.LENGTH_SHORT).show();
                                               } else {
-                                                  curUser.setUsername(username.getText().toString());
-                                                  curUser.setPassword(password.getText().toString());
-                                                  curUser.setEmail(email.getText().toString());
+                                                  newUser.setUsername(username.getText().toString());
+                                                  newUser.setPassword(password.getText().toString());
+                                                  newUser.setEmail(email.getText().toString());
                                                   afterEdit();
                                               }
                                           }
@@ -90,10 +92,11 @@ public class EditPage extends AppCompatActivity {
     }
 
     public void afterEdit() {
+        UserLoginTask.editUser(newUser);
         Intent intent = new Intent(this, LandingPage.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", curUser.getPassword());
-        bundle1.putString("username", curUser.getUsername());
+        bundle1.putString("pass", newUser.getPassword());
+        bundle1.putString("username", newUser.getUsername());
         intent.putExtras(bundle1);
         startActivity(intent);
     }

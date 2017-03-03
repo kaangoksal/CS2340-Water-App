@@ -42,6 +42,14 @@ public class WaterSourceReport extends Report {
         this.type = type;
     }
 
+    /**
+     * Constructor
+     * @param reporter
+     */
+    public WaterSourceReport(String reporter) {
+        this(new Date(), Integer.toString((int) (Math.random() * 1000)), reporter, null, null, null);
+    }
+
 
 
     /**

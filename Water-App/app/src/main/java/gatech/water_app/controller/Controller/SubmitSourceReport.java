@@ -1,5 +1,7 @@
 package gatech.water_app.controller.Controller;
 
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +19,7 @@ import gatech.water_app.R;
 import gatech.water_app.model.Title;
 import gatech.water_app.model.UserLoginTask;
 import gatech.water_app.model.WaterCondition;
+import gatech.water_app.model.WaterReportTask;
 import gatech.water_app.model.WaterSourceReport;
 import gatech.water_app.model.WaterType;
 
@@ -25,13 +28,14 @@ public class SubmitSourceReport extends AppCompatActivity {
     private TextView date;
     private TextView reportNum;
     private TextView reporter;
-    private TextView location;
+    private EditText location;
     private Button submit;
     private Button cancelButton;
     private Spinner typeWater;
     private Spinner condition;
 
-
+    String username;
+    String password;
 
     private WaterSourceReport newReport;
 
@@ -51,13 +55,17 @@ public class SubmitSourceReport extends AppCompatActivity {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        username = extras.getString("username");
+        password = extras.getString("pass");
+
         newReport = new WaterSourceReport(getIntent().getExtras().getString("username"));
 
         submit = (Button) findViewById(R.id.submitreg);
         date = (TextView) findViewById(R.id.autogen);
         reportNum = (TextView) findViewById(R.id.autogen2);
         reporter = (TextView) findViewById(R.id.autogen3);
-        location = (TextView) findViewById(R.id.autogen4);
+        location = (EditText) findViewById(R.id.autogen4);
         typeWater = (Spinner) findViewById(R.id.spinner3);
         condition = (Spinner) findViewById(R.id.spinner2);
         cancelButton = (Button) findViewById(R.id.water_report_cancel);
@@ -70,8 +78,8 @@ public class SubmitSourceReport extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(adapter2);
 
-        date.setText(newReport.getDataTime());
-        reportNum.setText((Integer.toString(newReport.getReportNumber())));
+        date.setText(newReport.getDataTime().toString());
+        reportNum.setText(newReport.getReportNumber());
         reporter.setText(newReport.getReporter());
 
 //        submit.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +97,20 @@ public class SubmitSourceReport extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void submitSourceReport(View view) {
+        newReport.setLocation(new Location(location.getText().toString()));
+        newReport.getLocation().setLatitude(0.0);
+        newReport.getLocation().setLongitude(0.0);
+        WaterReportTask.addWaterSourceReport(newReport);
+
+        Intent intent = new Intent(this, ReportView.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("pass", password);
+        bundle1.putString("username", username);
+        intent.putExtras(bundle1);
+        startActivity(intent);
     }
 
 
