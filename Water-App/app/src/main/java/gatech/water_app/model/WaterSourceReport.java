@@ -15,6 +15,7 @@ public class WaterSourceReport extends Report {
 
     private WaterType type;
     private WaterCondition condition;
+    private static int next_Id = 1;
 
 //    Water source report
 //    A user can submit this report any time they are logged in. This report consists of:
@@ -47,7 +48,7 @@ public class WaterSourceReport extends Report {
      * @param reporter
      */
     public WaterSourceReport(String reporter) {
-        this(new Date(), Integer.toString((int) (Math.random() * 1000)), reporter, null, null, null);
+        this(new Date(), Integer.toString((int) next_Id++), reporter, null, null, null);
     }
 
 
