@@ -122,10 +122,35 @@ public class WaterSourceReport extends Report {
      * Setter
      * @param condition
      */
+
+    /**
+     * Setter for location
+     * @param location sets the location
+     */
+    public void setLocation(Location location) {
+        super.setLocation(location);
+    }
+
+    /**
+     * Setter for location
+     * @return gets the location
+     */
+    public Location getLocation() {
+        return super.getLocation();
+    }
+
+    /**
+     * Setter condition
+     * @return gets the location
+     */
     public void setCondition(WaterCondition condition) {
         this.condition = condition;
     }
 
+    /**
+     * formats water report into string method
+     * @return String entry for JSON format
+     */
     @Override
     public String toString() {
         return "WaterSourceReport{" +
@@ -135,6 +160,14 @@ public class WaterSourceReport extends Report {
                 ", type=" + type +
                 ", condition=" + condition +
                 '}';
+    }
+
+    /**
+     * Gets the string for printing purposes
+     * @return String entry for printing
+     */
+    public String toStringTemp() {
+        return "Report #" + this.reportNumber + ": \n\nDate/Time: " + this.dataTime + "\nReporter: " + this.reporter + "\nLocation: " + super.getLocation().getProvider() + "\nType: " + this.type + "\nCondition: " + this.condition + "\n";
     }
 
 

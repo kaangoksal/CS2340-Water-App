@@ -103,6 +103,8 @@ public class SubmitSourceReport extends AppCompatActivity {
         newReport.setLocation(new Location(location.getText().toString()));
         newReport.getLocation().setLatitude(0.0);
         newReport.getLocation().setLongitude(0.0);
+        newReport.setCondition((WaterCondition) condition.getSelectedItem());
+        newReport.setType((WaterType) typeWater.getSelectedItem());
         WaterReportTask.addWaterSourceReport(newReport);
 
         Intent intent = new Intent(this, ReportView.class);
