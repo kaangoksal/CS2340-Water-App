@@ -62,4 +62,13 @@
         android:layout_centerHorizontal="true"
         android:onClick="startReportView"/>
 
+    <Button
+        android:text="Water"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view_report_button"
+        android:layout_alignEnd="@+id/logout"
+        android:id="@+id/waterButton"
+        android:onClick="startWaterMap"/>
+
 </RelativeLayout>

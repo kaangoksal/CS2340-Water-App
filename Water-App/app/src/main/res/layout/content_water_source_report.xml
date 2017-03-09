@@ -151,4 +151,13 @@
         android:layout_toStartOf="@+id/autogen"
         android:layout_marginBottom="30dp" />
 
+    <Button
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/autogen4"
+        android:layout_toEndOf="@+id/water_report_cancel"
+        android:id="@+id/search_source_location"
+        android:onClick="searchLocation"/>
+
 </RelativeLayout>

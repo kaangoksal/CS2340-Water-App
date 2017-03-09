@@ -71,8 +71,14 @@ public class LandingPage extends AppCompatActivity {
         bundle1.putString("username", username);
         intent.putExtras(bundle1);
         startActivity(intent);
-
     }
 
-
+    public void startWaterMap(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("pass", password);
+        bundle1.putString("username", username);
+        intent.putExtras(bundle1);
+        startActivity(intent);
+    }
 }

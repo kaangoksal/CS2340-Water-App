@@ -1,5 +1,7 @@
 package gatech.water_app.model;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,13 @@ public class WaterReportTask {
             temp[i] = list.get(i).toStringTemp();
         }
         return temp;
+    }
+
+    /**
+     * List of the water sources reports
+     */
+    public static List<WaterSourceReport> waterSourceReportList() {
+        return list;
     }
 
 }

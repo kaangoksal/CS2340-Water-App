@@ -1,12 +1,16 @@
 package gatech.water_app.controller.Controller;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +18,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
 
 import gatech.water_app.R;
 import gatech.water_app.model.Title;
@@ -33,6 +40,11 @@ public class SubmitSourceReport extends AppCompatActivity {
     private Button cancelButton;
     private Spinner typeWater;
     private Spinner condition;
+    private Address address;
+
+    String afterTextChanged = "";
+    String beforeTextChanged = "";
+    String onTextChanged = "";
 
     String username;
     String password;
@@ -70,6 +82,7 @@ public class SubmitSourceReport extends AppCompatActivity {
         condition = (Spinner) findViewById(R.id.spinner2);
         cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
+
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeWater.setAdapter(adapter);
@@ -99,10 +112,28 @@ public class SubmitSourceReport extends AppCompatActivity {
         );
     }
 
+    public void searchLocation(View view) {
+        if (location.getText().toString() != null && !location.getText().toString().equals("")) {
+            String locationName = location.getText().toString();
+            List<Address> addressList = null;
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(locationName, 1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            address = addressList.get(0);
+            location.setText(address.getFeatureName());
+        } else {
+            Toast.makeText(getApplicationContext(), "Input Location", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void submitSourceReport(View view) {
-        newReport.setLocation(new Location(location.getText().toString()));
-        newReport.getLocation().setLatitude(0.0);
-        newReport.getLocation().setLongitude(0.0);
+        newReport.setLocation(new Location(address.getFeatureName()));
+        newReport.getLocation().setLatitude(address.getLatitude());
+        newReport.getLocation().setLongitude(address.getLongitude());
         newReport.setCondition((WaterCondition) condition.getSelectedItem());
         newReport.setType((WaterType) typeWater.getSelectedItem());
         WaterReportTask.addWaterSourceReport(newReport);
