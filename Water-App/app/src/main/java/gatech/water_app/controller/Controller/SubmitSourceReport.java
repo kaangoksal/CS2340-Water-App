@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import gatech.water_app.R;
 import gatech.water_app.model.Title;
@@ -40,7 +41,7 @@ public class SubmitSourceReport extends AppCompatActivity {
     private Button cancelButton;
     private Spinner typeWater;
     private Spinner condition;
-    private Address address;
+    private Address address = new Address(new Locale("US"));
 
     String afterTextChanged = "";
     String beforeTextChanged = "";
@@ -71,7 +72,8 @@ public class SubmitSourceReport extends AppCompatActivity {
         username = extras.getString("username");
         password = extras.getString("pass");
 
-        newReport = new WaterSourceReport(getIntent().getExtras().getString("username"));
+        address.setLatitude(0.0);
+        address.setLongitude(0.0);
 
         submit = (Button) findViewById(R.id.submitreg);
         date = (TextView) findViewById(R.id.autogen);
@@ -90,17 +92,6 @@ public class SubmitSourceReport extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(adapter2);
-
-        date.setText(newReport.getDataTime().toString());
-        reportNum.setText(newReport.getReportNumber());
-        reporter.setText(newReport.getReporter());
-
-//        submit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                newReport.incReportNum();
-//            }
-//        });
 
         cancelButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -131,19 +122,28 @@ public class SubmitSourceReport extends AppCompatActivity {
     }
 
     public void submitSourceReport(View view) {
-        newReport.setLocation(new Location(address.getFeatureName()));
-        newReport.getLocation().setLatitude(address.getLatitude());
-        newReport.getLocation().setLongitude(address.getLongitude());
-        newReport.setCondition((WaterCondition) condition.getSelectedItem());
-        newReport.setType((WaterType) typeWater.getSelectedItem());
-        WaterReportTask.addWaterSourceReport(newReport);
+        if (address.getLatitude() != 0 && address.getLongitude() != 0) {
+            newReport = new WaterSourceReport(getIntent().getExtras().getString("username"));
+            date.setText(newReport.getDataTime().toString());
+            reportNum.setText(newReport.getReportNumber());
+            reporter.setText(newReport.getReporter());
 
-        Intent intent = new Intent(this, ReportView.class);
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password);
-        bundle1.putString("username", username);
-        intent.putExtras(bundle1);
-        startActivity(intent);
+            newReport.setLocation(new Location(address.getFeatureName()));
+            newReport.getLocation().setLatitude(address.getLatitude());
+            newReport.getLocation().setLongitude(address.getLongitude());
+            newReport.setCondition((WaterCondition) condition.getSelectedItem());
+            newReport.setType((WaterType) typeWater.getSelectedItem());
+            WaterReportTask.addWaterSourceReport(newReport);
+
+            Intent intent = new Intent(this, ReportView.class);
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("pass", password);
+            bundle1.putString("username", username);
+            intent.putExtras(bundle1);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

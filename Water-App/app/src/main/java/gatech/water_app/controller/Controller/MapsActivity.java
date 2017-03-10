@@ -21,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.Manifest;
 import android.view.View;
@@ -87,10 +88,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        // LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            public boolean onMarkerClick(Marker marker) {
+                String markerMessage = WaterReportTask.getSourceReportInfo(marker.getPosition());
+                Toast.makeText(getApplicationContext(), markerMessage, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
         return false;
     }
+
 }

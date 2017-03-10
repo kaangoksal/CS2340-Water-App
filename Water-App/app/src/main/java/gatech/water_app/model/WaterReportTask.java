@@ -2,6 +2,8 @@ package gatech.water_app.model;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,21 @@ public class WaterReportTask {
             temp[i] = list.get(i).toStringTemp();
         }
         return temp;
+    }
+
+    /**
+     * Search for water source report
+     * @param position
+     * @return
+     */
+    public static String getSourceReportInfo(LatLng position) {
+        String returnData = "";
+        for (WaterSourceReport element: list) {
+            if (element.getLocation().getLatitude() == position.latitude && element.getLocation().getLongitude() == position.longitude) {
+                returnData += element.toString() + "\n\n";
+            }
+        }
+        return returnData;
     }
 
     /**
