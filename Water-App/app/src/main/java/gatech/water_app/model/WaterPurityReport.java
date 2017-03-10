@@ -16,6 +16,7 @@ public class WaterPurityReport extends Report {
     private OverallCondition overallCondition;
     private double virusPPM;
     private double  contaminantPPM;
+    private static int next_Id = 1;
 
 
 //    Water Purity Report
@@ -45,6 +46,14 @@ public class WaterPurityReport extends Report {
         this.overallCondition = overallCondition;
         this.virusPPM = virusPPM;
         this.contaminantPPM = contaminantPPM;
+    }
+
+    /**
+     * Constructor
+     * @param reporter
+     */
+    public WaterPurityReport(String reporter) {
+        this(new Date(), Integer.toString((int) next_Id++), reporter, null, null, 0, 0, null);
     }
 
     /**

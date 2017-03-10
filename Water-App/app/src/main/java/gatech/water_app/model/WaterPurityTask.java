@@ -1,27 +1,25 @@
 package gatech.water_app.model;
 
-import android.location.Location;
-
 import com.google.android.gms.maps.model.LatLng;
-
+import android.location.Location;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Handles and stores water reports
- * Created by Alex Thien An Le on 2/23/2017.
+ * Handles and stores purity reports
+ * Created by John on 3/10/2017.
  */
 
-public class WaterReportTask {
+public class WaterPurityTask {
 
     //temp
-    private static List<WaterSourceReport> list = new ArrayList<>();
+    private static List<WaterPurityReport> list = new ArrayList<>();
 
     /**
      * Adds Water Source Report to database
      * @param sourceReport
      */
-    public static void addWaterSourceReport(WaterSourceReport sourceReport) {
+    public static void addWaterPurityReport(WaterPurityReport sourceReport) {
         //temp debugging code
         list.add(sourceReport);
     }
@@ -30,7 +28,7 @@ public class WaterReportTask {
     /**
      * returns the static list
      */
-    public static List<WaterSourceReport> getList() {
+    public static List<WaterPurityReport> getList() {
         return list;
     }
 
@@ -41,7 +39,7 @@ public class WaterReportTask {
     public static String[] getListString() {
         String[] temp = new String[list.size()];
         for (int i = 0; i < list.size(); i++){
-            temp[i] = list.get(i).toStringTemp();
+            temp[i] = list.get(i).toString();
         }
         return temp;
     }
@@ -51,9 +49,9 @@ public class WaterReportTask {
      * @param position
      * @return
      */
-    public static String getSourceReportInfo(LatLng position) {
+    public static String getPurityReportInfo(LatLng position) {
         String returnData = "";
-        for (WaterSourceReport element: list) {
+        for (WaterPurityReport element: list) {
             if (element.getLocation().getLatitude() == position.latitude && element.getLocation().getLongitude() == position.longitude) {
                 returnData += element.toString() + "\n\n";
             }
@@ -64,7 +62,7 @@ public class WaterReportTask {
     /**
      * List of the water sources reports
      */
-    public static List<WaterSourceReport> waterSourceReportList() {
+    public static List<WaterPurityReport> waterSourceReportList() {
         return list;
     }
 

@@ -24,16 +24,21 @@ import java.util.List;
 import java.util.Locale;
 
 import gatech.water_app.R;
+import gatech.water_app.model.OverallCondition;
 import gatech.water_app.model.Title;
 import gatech.water_app.model.UserLoginTask;
 import gatech.water_app.model.WaterCondition;
-import gatech.water_app.model.WaterReportTask;
+import gatech.water_app.model.WaterPurityReport;
+import gatech.water_app.model.WaterPurityTask;
 import gatech.water_app.model.WaterSourceReport;
 import gatech.water_app.model.WaterType;
+
 /**
- *Controller class for submitting a normal water source report
+ * Controller class for submitting a purity report for workers
+ * Created by John on 3/10/2017.
  */
-public class SubmitSourceReport extends AppCompatActivity {
+
+public class SubmitPurityReport extends AppCompatActivity {
 
     private TextView date;
     private TextView reportNum;
@@ -41,8 +46,9 @@ public class SubmitSourceReport extends AppCompatActivity {
     private EditText location;
     private Button submit;
     private Button cancelButton;
-    private Spinner typeWater;
     private Spinner condition;
+    private TextView virus;
+    private TextView contaminant;
     private Address address = new Address(new Locale("US"));
 
     String afterTextChanged = "";
@@ -52,14 +58,12 @@ public class SubmitSourceReport extends AppCompatActivity {
     String username;
     String password;
 
-    private WaterSourceReport newReport;
+    private WaterPurityReport newReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_water_source_report);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_purity_source_report);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,18 +86,15 @@ public class SubmitSourceReport extends AppCompatActivity {
         reportNum = (TextView) findViewById(R.id.autogen2);
         reporter = (TextView) findViewById(R.id.autogen3);
         location = (EditText) findViewById(R.id.autogen4);
-        typeWater = (Spinner) findViewById(R.id.spinner3);
-        condition = (Spinner) findViewById(R.id.spinner2);
+        condition = (Spinner) findViewById(R.id.spinner3);
+        virus = (TextView) findViewById(R.id.virus);
+        contaminant = (TextView) findViewById(R.id.contaminant);
         cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterType.values());
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, OverallCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeWater.setAdapter(adapter);
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterCondition.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        condition.setAdapter(adapter2);
+        condition.setAdapter(adapter);
 
         cancelButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -123,9 +124,9 @@ public class SubmitSourceReport extends AppCompatActivity {
         }
     }
 
-    public void submitSourceReport(View view) {
+    public void submitPurityReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {
-            newReport = new WaterSourceReport(getIntent().getExtras().getString("username"));
+            newReport = new WaterPurityReport((getIntent().getExtras().getString("username")));
             date.setText(newReport.getDataTime().toString());
             reportNum.setText(newReport.getReportNumber());
             reporter.setText(newReport.getReporter());
@@ -133,9 +134,10 @@ public class SubmitSourceReport extends AppCompatActivity {
             newReport.setLocation(new Location(address.getFeatureName()));
             newReport.getLocation().setLatitude(address.getLatitude());
             newReport.getLocation().setLongitude(address.getLongitude());
-            newReport.setCondition((WaterCondition) condition.getSelectedItem());
-            newReport.setType((WaterType) typeWater.getSelectedItem());
-            WaterReportTask.addWaterSourceReport(newReport);
+            newReport.setOverallCondition((OverallCondition) condition.getSelectedItem());
+            newReport.setVirusPPM(Double.parseDouble(virus.getText().toString()));
+            newReport.setContaminantPPM(Double.parseDouble(contaminant.getText().toString()));
+            WaterPurityTask.addWaterPurityReport(newReport);
 
             Intent intent = new Intent(this, ReportView.class);
             Bundle bundle1 = new Bundle();
@@ -147,6 +149,7 @@ public class SubmitSourceReport extends AppCompatActivity {
             Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 }

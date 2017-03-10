@@ -18,14 +18,14 @@ import android.widget.Toast;
 
 import gatech.water_app.R;
 import gatech.water_app.model.Report;
-import gatech.water_app.model.WaterReportTask;
+import gatech.water_app.model.WaterPurityTask;
 
 /**
  * Created by John on 3/1/2017.
- * Activity that contains all water reports *needs working report database first*
+ * Activity that contains all purity reports *needs working report database first*
  */
 
-public class ReportView extends AppCompatActivity {
+public class PurityView extends AppCompatActivity {
     ListView listView ;
     String username;
     String password;
@@ -35,9 +35,8 @@ public class ReportView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_water_reports);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_all_purity_reports);
+
 
         Bundle extras = getIntent().getExtras();
         username = extras.getString("username");
@@ -53,10 +52,10 @@ public class ReportView extends AppCompatActivity {
         });
 
         // Get ListView object from xml
-        listView = (ListView) findViewById(R.id.waterlist);
+        listView = (ListView) findViewById(R.id.puritylist);
 
 
-        String[] values = WaterReportTask.getListString();
+        String[] values = WaterPurityTask.getListString();
 
         // Define a new Adapter
         // First parameter - Context
@@ -95,7 +94,7 @@ public class ReportView extends AppCompatActivity {
     }
 
     public void backFromReportView(View view) {
-        Intent intent = new Intent(this, LandingPage.class);
+        Intent intent = new Intent(this, WorkerLandingPage.class);
         Bundle bundle1 = new Bundle();
         bundle1.putString("pass", password);
         bundle1.putString("username", username);
@@ -104,5 +103,3 @@ public class ReportView extends AppCompatActivity {
     }
 
 }
-
-
