@@ -25,7 +25,7 @@ import gatech.water_app.model.WaterReportTask;
  * Activity that contains all water reports *needs working report database first*
  */
 
-public class ReportView extends AppCompatActivity {
+public class SourceView extends AppCompatActivity {
     ListView listView ;
     String username;
     String password;
@@ -56,7 +56,7 @@ public class ReportView extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.waterlist);
 
 
-        String[] values = WaterReportTask.getListString();
+        String[] values = WaterReportTask.getSourceListString();
 
         // Define a new Adapter
         // First parameter - Context

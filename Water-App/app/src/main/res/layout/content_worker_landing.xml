@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/view_report_button"
-        android:onClick="startReportView"
+        android:onClick="startSourceView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

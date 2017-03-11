@@ -64,8 +64,8 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void startReportView(View view) {
-        Intent intent = new Intent(this, ReportView.class);
+    public void startSourceView(View view) {
+        Intent intent = new Intent(this, SourceView.class);
         Bundle bundle1 = new Bundle();
         bundle1.putString("pass", password);
         bundle1.putString("username", username);

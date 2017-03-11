@@ -15,7 +15,10 @@ import java.util.List;
 public class WaterReportTask {
 
     //temp
-    private static List<WaterSourceReport> list = new ArrayList<>();
+    private static List<WaterSourceReport> sourceList = new ArrayList<>();
+
+    //temp
+    private static List<WaterPurityReport> purityList = new ArrayList<>();
 
     /**
      * Adds Water Source Report to database
@@ -23,25 +26,25 @@ public class WaterReportTask {
      */
     public static void addWaterSourceReport(WaterSourceReport sourceReport) {
         //temp debugging code
-        list.add(sourceReport);
+        sourceList.add(sourceReport);
     }
 
     //temp
     /**
-     * returns the static list
+     * returns the static sourceList
      */
-    public static List<WaterSourceReport> getList() {
-        return list;
+    public static List<WaterSourceReport> getSourceList() {
+        return sourceList;
     }
 
     //temp
     /**
-     * returns the static list
+     * returns the static sourceList
      */
-    public static String[] getListString() {
-        String[] temp = new String[list.size()];
-        for (int i = 0; i < list.size(); i++){
-            temp[i] = list.get(i).toStringTemp();
+    public static String[] getSourceListString() {
+        String[] temp = new String[sourceList.size()];
+        for (int i = 0; i < sourceList.size(); i++){
+            temp[i] = sourceList.get(i).toStringTemp();
         }
         return temp;
     }
@@ -53,7 +56,7 @@ public class WaterReportTask {
      */
     public static String getSourceReportInfo(LatLng position) {
         String returnData = "";
-        for (WaterSourceReport element: list) {
+        for (WaterSourceReport element: sourceList) {
             if (element.getLocation().getLatitude() == position.latitude && element.getLocation().getLongitude() == position.longitude) {
                 returnData += element.toString() + "\n\n";
             }
@@ -65,7 +68,58 @@ public class WaterReportTask {
      * List of the water sources reports
      */
     public static List<WaterSourceReport> waterSourceReportList() {
-        return list;
+        return sourceList;
+    }
+
+    /**
+     * Adds Water Source Report to database
+     * @param sourceReport
+     */
+    public static void addWaterPurityReport(WaterPurityReport sourceReport) {
+        //temp debugging code
+        purityList.add(sourceReport);
+    }
+
+    //temp
+    /**
+     * returns the static purityList
+     */
+    public static List<WaterPurityReport> getPurityList() {
+        return purityList;
+    }
+
+    //temp
+    /**
+     * returns the static purityList
+     */
+    public static String[] getPurityListString() {
+        String[] temp = new String[purityList.size()];
+        for (int i = 0; i < purityList.size(); i++){
+            temp[i] = purityList.get(i).toString();
+        }
+        return temp;
+    }
+
+    /**
+     * Search for water source report
+     * @param position
+     * @return
+     */
+    public static String getPurityReportInfo(LatLng position) {
+        String returnData = "";
+        for (WaterPurityReport element: purityList) {
+            if (element.getLocation().getLatitude() == position.latitude && element.getLocation().getLongitude() == position.longitude) {
+                returnData += element.toString() + "\n\n";
+            }
+        }
+        return returnData;
+    }
+
+    /**
+     * List of the water sources reports
+     */
+    public static List<WaterPurityReport> waterPurityReportList() {
+        return purityList;
     }
 
 }

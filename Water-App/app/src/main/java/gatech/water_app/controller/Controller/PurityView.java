@@ -17,8 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import gatech.water_app.R;
-import gatech.water_app.model.Report;
-import gatech.water_app.model.WaterPurityTask;
+import gatech.water_app.model.WaterReportTask;
 
 /**
  * Created by John on 3/1/2017.
@@ -55,7 +54,7 @@ public class PurityView extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.puritylist);
 
 
-        String[] values = WaterPurityTask.getListString();
+        String[] values = WaterReportTask.getPurityListString();
 
         // Define a new Adapter
         // First parameter - Context

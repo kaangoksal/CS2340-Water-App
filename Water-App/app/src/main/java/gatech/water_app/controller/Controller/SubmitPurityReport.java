@@ -29,7 +29,7 @@ import gatech.water_app.model.Title;
 import gatech.water_app.model.UserLoginTask;
 import gatech.water_app.model.WaterCondition;
 import gatech.water_app.model.WaterPurityReport;
-import gatech.water_app.model.WaterPurityTask;
+import gatech.water_app.model.WaterReportTask;
 import gatech.water_app.model.WaterSourceReport;
 import gatech.water_app.model.WaterType;
 
@@ -137,9 +137,9 @@ public class SubmitPurityReport extends AppCompatActivity {
             newReport.setOverallCondition((OverallCondition) condition.getSelectedItem());
             newReport.setVirusPPM(Double.parseDouble(virus.getText().toString()));
             newReport.setContaminantPPM(Double.parseDouble(contaminant.getText().toString()));
-            WaterPurityTask.addWaterPurityReport(newReport);
+            WaterReportTask.addWaterPurityReport(newReport);
 
-            Intent intent = new Intent(this, ReportView.class);
+            Intent intent = new Intent(this, SourceView.class);
             Bundle bundle1 = new Bundle();
             bundle1.putString("pass", password);
             bundle1.putString("username", username);

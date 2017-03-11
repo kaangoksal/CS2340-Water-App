@@ -60,7 +60,7 @@
         android:id="@+id/view_report_button"
         android:layout_alignBottom="@+id/logout"
         android:layout_centerHorizontal="true"
-        android:onClick="startReportView"/>
+        android:onClick="startSourceView"/>
 
     <Button
         android:text="Water"

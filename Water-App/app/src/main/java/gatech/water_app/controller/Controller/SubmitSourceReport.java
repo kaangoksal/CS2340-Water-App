@@ -137,7 +137,7 @@ public class SubmitSourceReport extends AppCompatActivity {
             newReport.setType((WaterType) typeWater.getSelectedItem());
             WaterReportTask.addWaterSourceReport(newReport);
 
-            Intent intent = new Intent(this, ReportView.class);
+            Intent intent = new Intent(this, SourceView.class);
             Bundle bundle1 = new Bundle();
             bundle1.putString("pass", password);
             bundle1.putString("username", username);
