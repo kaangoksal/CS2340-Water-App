@@ -16,6 +16,13 @@ public class User {
     private String email;
     private Title title;
 
+
+
+    public User(String Username, String password, String email) {
+        this.username = Username;
+        this.password = password;
+        this.email = email;
+    }
     /**
      *
      * Constructor for User including everything

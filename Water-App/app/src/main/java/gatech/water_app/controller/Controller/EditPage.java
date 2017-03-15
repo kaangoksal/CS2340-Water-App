@@ -64,7 +64,7 @@ public class EditPage extends AppCompatActivity {
                                                   Toast.makeText(getApplicationContext(), "One of your fields was null!" ,Toast.LENGTH_SHORT).show();
                                               } else {
                                                   new HTTPEditTask().execute(username.getText().toString(),password.getText().toString(), email.getText().toString());
-
+                                                  newUser = new User(username.getText().toString(),password.getText().toString(), email.getText().toString());
                                               }
                                           }
                                       });
@@ -114,10 +114,18 @@ public class EditPage extends AppCompatActivity {
         UserLoginTask.editUser(newUser);
         Intent intent = new Intent(this, LandingPage.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", "gogo");
-        bundle1.putString("username", "tes");
-//        intent.putExtras(bundle1);
+        bundle1.putString("pass", newUser.getPassword());
+        bundle1.putString("username", newUser.getUsername());
+        intent.putExtras(bundle1);
         startActivity(intent);
+
+
+//        Intent intent = new Intent(this, LandingPage.class);
+//        Bundle bundle1 = new Bundle();
+//        bundle1.putString("pass", password.getText().toString());
+//        bundle1.putString("username", username.getText().toString());
+//        intent.putExtras(bundle1);
+//        startActivity(intent);
     }
 
 }
