@@ -48,7 +48,7 @@ public class WaterSourceReport extends Report {
      * @param reporter
      */
     public WaterSourceReport(String reporter) {
-        this(new Date(), Integer.toString((int) next_Id++), reporter, null, null, null);
+        this(new Date(), Integer.toString(next_Id++), reporter, null, null, null);
     }
 
 

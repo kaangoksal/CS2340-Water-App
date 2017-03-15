@@ -53,7 +53,7 @@ public class WaterPurityReport extends Report {
      * @param reporter
      */
     public WaterPurityReport(String reporter) {
-        this(new Date(), Integer.toString((int) next_Id++), reporter, null, null, 0, 0, null);
+        this(new Date(), Integer.toString(next_Id++), reporter, null, null, 0, 0, null);
     }
 
     /**

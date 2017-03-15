@@ -46,11 +46,11 @@
         android:inputType="textPersonName"
         android:text="Username"
         android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView4"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="41dp"
-        android:id="@+id/userNameInput" />
+        android:layout_marginStart="11dp"
+        android:id="@+id/userNameInput"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -59,9 +59,9 @@
         android:text="Password"
         android:ems="10"
         android:id="@+id/passwordInput"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_alignStart="@+id/userNameInput" />
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/userNameInput"
+        android:layout_marginTop="11dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -70,26 +70,25 @@
         android:text="Email"
         android:ems="10"
         android:id="@+id/emailInput"
-        android:layout_alignBaseline="@+id/textView6"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignStart="@+id/passwordInput" />
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/passwordInput"
+        android:layout_marginTop="14dp" />
 
     <Button
         android:text="Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cancelButton"
-        android:layout_marginEnd="34dp"
-        android:layout_alignBaseline="@+id/doneEditing"
         android:layout_alignBottom="@+id/doneEditing"
-        android:layout_alignEnd="@+id/emailInput" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
 
     <Button
         android:text="Done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/doneEditing"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/textView6"
-        android:layout_marginBottom="81dp" />
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/emailInput"
+        android:layout_alignStart="@+id/emailInput" />
 </RelativeLayout>

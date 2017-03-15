@@ -1,11 +1,13 @@
 package gatech.water_app.controller.Controller;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +45,7 @@ public class EditPage extends AppCompatActivity {
         TextView curEmail = (TextView) findViewById(R.id.textView6);
 
 
-        curUsername.setText("Current Username: " + curUser.getUsername());
+        curUsername.setText("Current Email: " + curUser.getUsername());
         curPass.setText("Current Password: " + curUser.getPassword());
         curEmail.setText("Current Email: " + curUser.getEmail());
 
@@ -61,10 +63,8 @@ public class EditPage extends AppCompatActivity {
                                                       || email.getText().toString() == null) {
                                                   Toast.makeText(getApplicationContext(), "One of your fields was null!" ,Toast.LENGTH_SHORT).show();
                                               } else {
-                                                  newUser.setUsername(username.getText().toString());
-                                                  newUser.setPassword(password.getText().toString());
-                                                  newUser.setEmail(email.getText().toString());
-                                                  afterEdit();
+                                                  new HTTPEditTask().execute(username.getText().toString(),password.getText().toString(), email.getText().toString());
+
                                               }
                                           }
                                       });
@@ -91,13 +91,32 @@ public class EditPage extends AppCompatActivity {
         });
     }
 
+    private class HTTPEditTask extends AsyncTask<String, Integer, Boolean> {
+        protected Boolean doInBackground(String[] params) {
+            try {
+                return UserLoginTask.attemptEditUser(params[0], params[1], params[2]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                afterEdit();
+            }else {
+                Log.d("[EditPage]", "Edit failed http returned false");
+            }
+        }
+    }
+
     public void afterEdit() {
         UserLoginTask.editUser(newUser);
         Intent intent = new Intent(this, LandingPage.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", newUser.getPassword());
-        bundle1.putString("username", newUser.getUsername());
-        intent.putExtras(bundle1);
+        bundle1.putString("pass", "gogo");
+        bundle1.putString("username", "tes");
+//        intent.putExtras(bundle1);
         startActivity(intent);
     }
 

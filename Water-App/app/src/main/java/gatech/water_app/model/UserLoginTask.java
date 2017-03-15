@@ -102,6 +102,38 @@ public class UserLoginTask {
         return false;
     }
 
+    public static boolean attemptEditUser(String user, String pass, String Email) throws IOException{
+
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType mediaType = MediaType.parse("application/octet-stream");
+        RequestBody body = RequestBody.create(mediaType,
+//                "{\n\t\"email\" : \"kaangoksal@groopapp.com\", " +
+                "{\n\t\"username\" : \""+ user + "\", " +
+                        // "\n\t\"password\" : \"cukubik\"," +
+                        "\n\t\"password\" : \"" + pass + "\"," +
+                        "\n\t\"email\" : \""+ Email +"\"," +
+                        "\n\t\"username\" : \"\"\n}\n");
+        Request request = new Request.Builder()
+                .url("http://35.157.30.110:5235/edit_user")
+                .post(body)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseString = response.body().string();
+        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
+        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+
+        Log.d("[HTTP]", "Server Response " + responseString + responseString.indexOf("Successful"));
+        if (responseString.indexOf("Failed") > 0) {
+            return false;
+        } else if (responseString.indexOf("Successful") > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     //Connect to database to get actually user
     public static User retrieveUser(String username, String password) {
         return new User(username, password, "hello", Title.USER);
