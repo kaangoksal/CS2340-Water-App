@@ -22,6 +22,7 @@ import gatech.water_app.model.WaterReportTask;
 /**
  * Created by John on 3/1/2017.
  * Activity that contains all purity reports *needs working report database first*
+ * only water purity sorce repot
  */
 
 public class PurityView extends AppCompatActivity {

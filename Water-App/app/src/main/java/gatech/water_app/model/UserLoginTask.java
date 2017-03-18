@@ -9,17 +9,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import android.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by Alex Thien An Le on 2/15/2017.
  */
-
-import android.os.AsyncTask;
-
-import gatech.water_app.R;
 
 /**
  * Represents an asynchronous login/registration task used to authenticate
@@ -31,30 +27,40 @@ public class UserLoginTask {
     //should directly interact with the database
     //Check users and add users
 
-
-
-
-
     //however for current Milestone 5, this is the databases/loginsystem/EVERYTHING
 
     private static ArrayList<User> users = new ArrayList<>();
 
 
-    public static boolean attemptLogin(String user, String pass) throws IOException{
+    public static boolean attemptLogin(String email, String password) throws IOException{
 
         OkHttpClient client = new OkHttpClient();
 
+        String authentication = email + ":" + password;
+        byte[] authentication_bytes = authentication.getBytes("UTF-8");
+        String base64_encoded = Base64.encodeToString(authentication_bytes, Base64.DEFAULT);
+        base64_encoded = "Basic " + base64_encoded;
+        base64_encoded = base64_encoded.replace("\n", "");
+
+        String bodyString = "";
+        try {
+            JSONObject bodyJson = new JSONObject();
+            bodyJson.put("email", email);
+            bodyJson.put("password", password);
+            bodyJson.put("username", "");
+            bodyJson.put("token", "");
+            bodyString = bodyJson.toString();
+
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+
         MediaType mediaType = MediaType.parse("application/octet-stream");
-        RequestBody body = RequestBody.create(mediaType,
-//                "{\n\t\"email\" : \"kaangoksal@groopapp.com\", " +
-                "{\n\t\"email\" : \""+ user + "\", " +
-               // "\n\t\"password\" : \"cukubik\"," +
-                        "\n\t\"password\" : \"" + pass + "\"," +
-                "\n\t\"token\" : \"\"," +
-                "\n\t\"username\" : \"\"\n}\n");
+        RequestBody body = RequestBody.create(mediaType, bodyString);
         Request request = new Request.Builder()
-                .url("http://35.157.30.110:5235/login")
+                .url("http://umb.kaangoksal.com:5235/login")
                 .post(body)
+                .addHeader("authentication", base64_encoded)
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -74,19 +80,36 @@ public class UserLoginTask {
 
     public static boolean addUser(String username, String password, String address, String email) throws IOException{
         //users.add(Math.abs(new User(username, password).hashCode()) % (users.size() + 1), new User(username, password, address, email, title));
+
+        String authentication = email + ":" + password;
+        byte[] authentication_bytes = authentication.getBytes("UTF-8");
+        String base64_encoded = Base64.encodeToString(authentication_bytes, Base64.DEFAULT);
+        base64_encoded = "Basic " + base64_encoded;
+        base64_encoded = base64_encoded.replace("\n", "");
+
+        String bodyString = "";
+        try {
+            JSONObject bodyJson = new JSONObject();
+            bodyJson.put("email", email);
+            bodyJson.put("password", password);
+            bodyJson.put("username", username);
+            bodyJson.put("token", "");
+            bodyJson.put("address", address);
+            bodyString = bodyJson.toString();
+
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+
+
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
-        RequestBody body = RequestBody.create(mediaType,
-                "{\n\t\"email\" : \""+ email +"\", " +
-                        "\n\t\"password\" : \""+ password +"\"," +
-                        "\n\t\"token\" : \"\"," +
-                        "\n\t\"username\" : \""+username+"\"\n}\n");
+        RequestBody body = RequestBody.create(mediaType, bodyString);
         Request request = new Request.Builder()
                 .url("http://35.157.30.110:5235/register")
                 .post(body)
-                .addHeader("cache-control", "no-cache")
-                .addHeader("postman-token", "611c31bc-c038-0149-8e56-b45591edd8ae")
+                .addHeader("authentication", base64_encoded)
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -102,21 +125,35 @@ public class UserLoginTask {
         return false;
     }
 
-    public static boolean attemptEditUser(String user, String pass, String Email) throws IOException{
+    public static boolean attemptEditUser(String username, String password, String email) throws IOException{
+
+        String authentication = email + ":" + password;
+        byte[] authentication_bytes = authentication.getBytes("UTF-8");
+        String base64_encoded = Base64.encodeToString(authentication_bytes, Base64.DEFAULT);
+        base64_encoded = "Basic " + base64_encoded;
+        base64_encoded = base64_encoded.replace("\n", "");
+
+        String bodyString = "";
+        try {
+            JSONObject bodyJson = new JSONObject();
+            bodyJson.put("email", email);
+            bodyJson.put("password", password);
+            bodyJson.put("username", username);
+            bodyJson.put("token", "");
+            bodyString = bodyJson.toString();
+
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
 
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
-        RequestBody body = RequestBody.create(mediaType,
-//                "{\n\t\"email\" : \"kaangoksal@groopapp.com\", " +
-                "{\n\t\"username\" : \""+ user + "\", " +
-                        // "\n\t\"password\" : \"cukubik\"," +
-                        "\n\t\"password\" : \"" + pass + "\"," +
-                        "\n\t\"email\" : \""+ Email +"\"," +
-                        "\n\t\"username\" : \"\"\n}\n");
+        RequestBody body = RequestBody.create(mediaType, bodyString);
         Request request = new Request.Builder()
                 .url("http://35.157.30.110:5235/edit_user")
                 .post(body)
+                .addHeader("authentication", base64_encoded)
                 .build();
 
         Response response = client.newCall(request).execute();

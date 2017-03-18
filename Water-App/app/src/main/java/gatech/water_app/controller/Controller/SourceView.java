@@ -23,6 +23,7 @@ import gatech.water_app.model.WaterReportTask;
 /**
  * Created by John on 3/1/2017.
  * Activity that contains all water reports *needs working report database first*
+ * This views water source reports.
  */
 
 public class SourceView extends AppCompatActivity {
