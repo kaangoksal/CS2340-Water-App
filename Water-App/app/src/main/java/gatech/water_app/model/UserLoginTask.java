@@ -60,7 +60,7 @@ public class UserLoginTask {
         Request request = new Request.Builder()
                 .url("http://umb.kaangoksal.com:5235/login")
                 .post(body)
-                .addHeader("authentication", base64_encoded)
+                .addHeader("Authorization", base64_encoded)
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -107,9 +107,9 @@ public class UserLoginTask {
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
         Request request = new Request.Builder()
-                .url("http://35.157.30.110:5235/register")
+                .url("http://umb.kaangoksal.com:5235/register")
                 .post(body)
-                .addHeader("authentication", base64_encoded)
+                .addHeader("Authorization", base64_encoded)
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -151,9 +151,9 @@ public class UserLoginTask {
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
         Request request = new Request.Builder()
-                .url("http://35.157.30.110:5235/edit_user")
+                .url("http://umb.kaangoksal.com:5235/edit_user")
                 .post(body)
-                .addHeader("authentication", base64_encoded)
+                .addHeader("Authorization", base64_encoded)
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -171,14 +171,51 @@ public class UserLoginTask {
         return false;
     }
 
-    //Connect to database to get actually user
-    public static User retrieveUser(String username, String password) {
-        return new User(username, password, "hello", Title.USER);
+    public static boolean addWaterReport(User user, JSONObject reportJson) throws IOException{
+
+        String base64_encoded = parseBase64BasicAuth(user);
+
+        String bodyString = reportJson.toString();
+
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType mediaType = MediaType.parse("application/octet-stream");
+        RequestBody body = RequestBody.create(mediaType, bodyString);
+        Request request = new Request.Builder()
+                .url("http://umb.kaangoksal.com:5235/add_water_report")
+                .post(body)
+                .addHeader("Authorization", base64_encoded)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseString = response.body().string();
+        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
+        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+
+        Log.d("[HTTP]", "Server Response " + responseString + responseString.indexOf("Successful"));
+        if (responseString.indexOf("Failed") > 0) {
+            return false;
+        } else if (responseString.indexOf("Successful") > 0) {
+            return true;
+        }
+
+        return false;
     }
 
-    //The new object may have a new username, password, or email
-    public static void editUser(User editProfile) {
+    public static String parseBase64BasicAuth(User user)  {
+        String authentication = user.getEmail() + ":" + user.getPassword();
 
+        byte[] authentication_bytes;
+        try {
+            authentication_bytes = authentication.getBytes("UTF-8");
+        } catch (IOException E){
+            authentication_bytes ="Error".getBytes();
+        }
+        String base64_encoded = Base64.encodeToString(authentication_bytes, Base64.DEFAULT);
+        base64_encoded = "Basic " + base64_encoded;
+        base64_encoded = base64_encoded.replace("\n", "");
+        return base64_encoded;
     }
+
 
 }

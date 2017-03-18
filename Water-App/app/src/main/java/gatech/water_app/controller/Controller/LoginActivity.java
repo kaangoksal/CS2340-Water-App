@@ -49,27 +49,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new HTTPLoginTask().execute(username.getText().toString(),password.getText().toString());
-//                Log.d("[Interaction]", "User button login pressed");
-//                try {
-//                    if (UserLoginTask.attemptLogin(username.getText().toString(), password.getText().toString())) {
-//                        //ENTER THE SYSTEM
-//                        //afterLogin();
-//                        new DownloadImageTask().execute(username.getText().toString(),password.getText().toString());
-//                    } else {
-//                        counterAttempt--;
-//                        Toast.makeText(getApplicationContext(), "Incorrect Credentials, Attempts Left " + counterAttempt, Toast.LENGTH_SHORT).show();
-//                        Log.d("[Interaction]", "User Login failed");
-//                        if (counterAttempt == 0) {
-//                            signInButton.setEnabled(false);
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    Log.d("[Interaction]", "Exception");
-//                    e.printStackTrace();
-//                }
             }
         });
     }
+
     //HI GUYZ, since we are sending an http request, it needs to be async
     //you cant execute http requests in the main thread, because it would freeze the app
     //so we need a task which executes by itself and when it is done it does something (afterlogin)

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,12 +21,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 import gatech.water_app.R;
 import gatech.water_app.model.OverallCondition;
+import gatech.water_app.model.User;
 import gatech.water_app.model.Title;
 import gatech.water_app.model.UserLoginTask;
 import gatech.water_app.model.WaterCondition;
@@ -137,17 +142,51 @@ public class SubmitPurityReport extends AppCompatActivity {
             newReport.setOverallCondition((OverallCondition) condition.getSelectedItem());
             newReport.setVirusPPM(Double.parseDouble(virus.getText().toString()));
             newReport.setContaminantPPM(Double.parseDouble(contaminant.getText().toString()));
-            WaterReportTask.addWaterPurityReport(newReport);
 
-            Intent intent = new Intent(this, SourceView.class);
-            Bundle bundle1 = new Bundle();
-            bundle1.putString("pass", password);
-            bundle1.putString("username", username);
-            intent.putExtras(bundle1);
-            startActivity(intent);
+            JSONObject reportJson = newReport.toJSONObject();
+
+            User currentuser = new User(this.username, this.password, "");
+
+//            WaterReportTask.addWaterPurityReport(newReport);
+            new HTTPSubmitReportTask().execute(currentuser,reportJson);
+
+
         } else {
             Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private class HTTPSubmitReportTask extends AsyncTask<Object, Integer, Boolean> {
+        protected Boolean doInBackground(Object[] params) {
+            try {
+                User castedUser = (User) params[0];
+                JSONObject castedJson = (JSONObject) params[1];
+
+                return UserLoginTask.addWaterReport(castedUser, castedJson);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                afterSuccess();
+            }else {
+                Log.d("[Login]", "Login failed http returned false");
+            }
+        }
+    }
+
+
+    private void afterSuccess(){
+
+        Intent intent = new Intent(this, SourceView.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("pass", password);
+        bundle1.putString("username", username);
+        intent.putExtras(bundle1);
+        startActivity(intent);
     }
 
 

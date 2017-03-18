@@ -37,8 +37,13 @@ public class EditPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         Bundle extras = getIntent().getExtras();
-        curUser = UserLoginTask.retrieveUser(extras.getString("username"), extras.getString("password"));
+        String username1 = extras.getString("username");
+        String password1 = extras.getString("pass");
+
+        curUser = new User(username1, password1, "");
 
         TextView curUsername = (TextView) findViewById(R.id.textView4);
         TextView curPass = (TextView) findViewById(R.id.textView5);
@@ -111,7 +116,7 @@ public class EditPage extends AppCompatActivity {
     }
 
     public void afterEdit() {
-        UserLoginTask.editUser(newUser);
+//        UserLoginTask.editUser(newUser);
         Intent intent = new Intent(this, LandingPage.class);
         Bundle bundle1 = new Bundle();
         bundle1.putString("pass", newUser.getPassword());

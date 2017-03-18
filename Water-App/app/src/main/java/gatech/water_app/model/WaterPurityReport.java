@@ -3,6 +3,9 @@ package gatech.water_app.model;
 
 import android.location.Location;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 /**
  * Created by Alex Thien An Le on 2/28/2017.
@@ -103,7 +106,29 @@ public class WaterPurityReport extends Report {
     public void setOverallCondition(OverallCondition overallCondition) {
         this.overallCondition = overallCondition;
     }
+    public JSONObject toJSONObject(){
+        try {
+            JSONObject data = new JSONObject();
+            data.put("virus_ppm", this.virusPPM);
+            data.put("contamination_ppm", this.contaminantPPM);
+            data.put("overall_condition", this.overallCondition.toString());
+            String dataString = data.toString();
 
+
+            JSONObject returnJson = new JSONObject();
+            returnJson.put("date", this.dataTime);
+            returnJson.put("report_number", this.reportNumber);
+            returnJson.put("reporter", this.reporter);
+            returnJson.put("location", this.getLocation().toString());
+            returnJson.put("data", dataString);
+            return returnJson;
+        } catch (JSONException E) {
+            return null;
+        }
+
+
+
+    }
 
     //TODO : FINISH THIS
     @Override

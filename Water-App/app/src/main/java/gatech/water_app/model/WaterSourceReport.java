@@ -1,11 +1,14 @@
 package gatech.water_app.model;
 import android.location.Location;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 
 /**
  * Created by vy on 2/24/17.
+ * Modified by Kaan
  */
 
 public class WaterSourceReport extends Report {
@@ -145,6 +148,28 @@ public class WaterSourceReport extends Report {
      */
     public void setCondition(WaterCondition condition) {
         this.condition = condition;
+    }
+
+
+    public JSONObject toJSONObject() {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("water_type", this.type.toString());
+            data.put("water_condition", this.condition.toString());
+            String dataString = data.toString();
+
+            JSONObject returnJson = new JSONObject();
+            returnJson.put("date", this.dataTime);
+            returnJson.put("report_number", this.reportNumber);
+            returnJson.put("reporter", this.reporter);
+            returnJson.put("location", this.getLocation().toString());
+            returnJson.put("data", dataString);
+
+            return returnJson;
+        } catch (JSONException E){
+            return null;
+        }
+
     }
 
     /**
