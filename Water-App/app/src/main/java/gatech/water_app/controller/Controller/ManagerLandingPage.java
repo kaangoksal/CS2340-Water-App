@@ -33,7 +33,7 @@ public class ManagerLandingPage extends LandingPage {
         Intent intent = new Intent(this, PurityView.class);
         Bundle bundle1 = new Bundle();
         bundle1.putString("pass", password);
-        bundle1.putString("username", username);
+        bundle1.putString("email", email);
         intent.putExtras(bundle1);
         startActivity(intent);
     }

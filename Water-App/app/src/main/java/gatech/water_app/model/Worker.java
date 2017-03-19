@@ -33,8 +33,8 @@ public class Worker extends User {
         super(username, password, email, title);
     }
 
-    Worker(String username, String password) {
-        super(username, password);
+    Worker(String email, String password) {
+        super(email, password);
     }
 
     @Override

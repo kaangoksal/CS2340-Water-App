@@ -1,4 +1,5 @@
 package gatech.water_app.model;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Arrays;
 /**
@@ -6,7 +7,7 @@ import java.util.Arrays;
  * Standard user class with all getters and setters available
  */
 
-public class User {
+public class User implements Serializable {
 
     public static List<String> titles = Arrays.asList("Administrator","Worker","Manager","User");
 
@@ -52,8 +53,9 @@ public class User {
         this(username, password, null, email, title);
     }
 
-    public User(String username, String password) {
-        this(username, password, null, null);
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public String getUsername() {

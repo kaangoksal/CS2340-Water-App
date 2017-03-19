@@ -22,12 +22,12 @@ public class WorkerLandingPage extends LandingPage {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
-        username = extras.getString("username");
-        password = extras.getString("pass");
+        email = extras.getString("email");
+        password = extras.getString("password");
         setContentView(R.layout.activity_worker_landing);
         TextView text1 = (TextView) findViewById(R.id.textView3);
 
-        text1.setText("Hello " + username);
+        text1.setText("Hello " + email);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -44,7 +44,7 @@ public class WorkerLandingPage extends LandingPage {
     public void addPurityReport(View view) {
         Intent intent = new Intent(this, SubmitPurityReport.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("username", username);
+        bundle1.putString("email", email);
         intent.putExtras(bundle1);
         startActivity(intent);
     }
@@ -52,8 +52,8 @@ public class WorkerLandingPage extends LandingPage {
     public void startPurityView(View view) {
         Intent intent = new Intent(this, PurityView.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password);
-        bundle1.putString("username", username);
+        bundle1.putString("password", password);
+        bundle1.putString("email", email);
         intent.putExtras(bundle1);
         startActivity(intent);
     }

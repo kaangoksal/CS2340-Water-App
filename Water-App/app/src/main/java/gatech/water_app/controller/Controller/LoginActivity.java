@@ -14,6 +14,7 @@ import android.widget.Toast;
 import gatech.water_app.R;
 
 
+import gatech.water_app.model.User;
 import gatech.water_app.model.UserLoginTask;
 
 /**
@@ -21,25 +22,20 @@ import gatech.water_app.model.UserLoginTask;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    EditText username;
+    EditText email;
     EditText password;
     Button signInButton;
     Button cancelButton;
     int counterAttempt;
+    User loginUser;
 
-    public String getUserName() {
-        return username.getText().toString();
-    }
-    public String getPassWord() {
-        return password.getText().toString();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
 
-        username = (EditText) findViewById(R.id.usernameInput);
+        email = (EditText) findViewById(R.id.usernameInput);
         password = (EditText) findViewById(R.id.passwordInput);
         signInButton = (Button) findViewById(R.id.sign_in_button);
         cancelButton = (Button) findViewById(R.id.login_cancel);
@@ -48,7 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HTTPLoginTask().execute(username.getText().toString(),password.getText().toString());
+                loginUser = new User("", password.getText().toString(), email.getText().toString());
+                new HTTPLoginTask().execute(email.getText().toString(),password.getText().toString());
             }
         });
     }
@@ -82,9 +79,10 @@ public class LoginActivity extends AppCompatActivity {
     private void afterLogin() {
         Intent intent = new Intent(this, LandingPage.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password.getText().toString());
-        bundle1.putString("username", username.getText().toString());
+        bundle1.putString("password", password.getText().toString());
+        bundle1.putString("email", email.getText().toString());
         intent.putExtras(bundle1);
+        intent.putExtra("user", loginUser);
         startActivity(intent);
     }
 

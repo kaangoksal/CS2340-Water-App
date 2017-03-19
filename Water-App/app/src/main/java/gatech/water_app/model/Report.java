@@ -2,6 +2,7 @@ package gatech.water_app.model;
 
 import android.location.Location;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,8 +17,8 @@ public class Report {
     private Location location;
 
 
-    public Report(
-            Date dataTime, String reportNumber, String reporter, Location location) {
+    public Report(Date dataTime, String reportNumber, String reporter, Location location) {
+        this.dataTime = new Date();
         this.reporter = reporter;
         this.reportNumber = reportNumber;
         this.dataTime = dataTime;
@@ -31,7 +32,14 @@ public class Report {
     public Date getDataTime() {
         return dataTime;
     }
-
+    /**
+     * Getter SQL compliant
+     * @return string of the date which is compatible with SQL
+     */
+    public String getDateString() {
+        SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return iso8601Format.format(this.dataTime);
+    }
     /**
      * Setter
      * @param dataTime this is the date time that the report is created

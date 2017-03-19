@@ -4,6 +4,7 @@ import android.location.Location;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -41,6 +42,7 @@ public class WaterSourceReport extends Report {
      */
     public WaterSourceReport(
             Date dataTime, String reportNumber, String reporter, WaterType type, WaterCondition condition, Location location) {
+
         super(dataTime,reportNumber,reporter, location);
         this.condition = condition;
         this.type = type;
@@ -51,9 +53,19 @@ public class WaterSourceReport extends Report {
      * @param reporter
      */
     public WaterSourceReport(String reporter) {
+//
+//        mysql> select NOW();
+//        +---------------------+
+//        | NOW()               |
+//        +---------------------+
+//        | 2017-03-19 17:45:39 |
+//        +---------------------+
+//        1 row in set (0.00 sec)
+
+
+
         this(new Date(), Integer.toString(next_Id++), reporter, null, null, null);
     }
-
 
 
     /**
@@ -61,6 +73,7 @@ public class WaterSourceReport extends Report {
      * @return
      */
     public Date getDataTime() {
+
         return super.getDataTime();
     }
 
@@ -86,6 +99,7 @@ public class WaterSourceReport extends Report {
      * @param reportNumber
      */
     public void setReportNumber(String reportNumber) {
+
         this.reportNumber = reportNumber;
     }
 
@@ -94,7 +108,8 @@ public class WaterSourceReport extends Report {
      * @param reporter
      */
     public void setReporter(String reporter) {
-        reporter = reporter;
+
+        this.reporter = reporter;
     }
 
     /**
@@ -102,6 +117,7 @@ public class WaterSourceReport extends Report {
      * @return
      */
     public WaterType getType() {
+
         return type;
     }
 
@@ -159,7 +175,7 @@ public class WaterSourceReport extends Report {
             String dataString = data.toString();
 
             JSONObject returnJson = new JSONObject();
-            returnJson.put("date", this.dataTime);
+            returnJson.put("date", this.getDateString());
             returnJson.put("report_number", this.reportNumber);
             returnJson.put("reporter", this.reporter);
             returnJson.put("location", this.getLocation().toString());
@@ -179,7 +195,7 @@ public class WaterSourceReport extends Report {
     @Override
     public String toString() {
         return "WaterSourceReport{" +
-                "dataTime=" + dataTime +
+                "dataTime=" + super.getDateString() +
                 ", reportNumber=" + reportNumber +
                 ", Reporter='" + super.reporter + '\'' +
                 ", type=" + type +
@@ -192,7 +208,11 @@ public class WaterSourceReport extends Report {
      * @return String entry for printing
      */
     public String toStringTemp() {
-        return "Report #" + this.reportNumber + ": \n\nDate/Time: " + this.dataTime + "\nReporter: " + this.reporter + "\nLocation: " + super.getLocation().getProvider() + "\nType: " + this.type + "\nCondition: " + this.condition + "\n";
+        return "Report #" + this.reportNumber +
+                ": \n\nDate/Time: " + this.dataTime +
+                "\nReporter: " + this.reporter + "\nLocation: " +
+                super.getLocation().getProvider() + "\nType: " +
+                this.type + "\nCondition: " + this.condition + "\n";
     }
 
 

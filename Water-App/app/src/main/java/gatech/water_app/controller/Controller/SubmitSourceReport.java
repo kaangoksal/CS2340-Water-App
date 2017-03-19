@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import gatech.water_app.R;
 import gatech.water_app.model.Title;
@@ -40,22 +41,20 @@ import gatech.water_app.model.WaterType;
  */
 public class SubmitSourceReport extends AppCompatActivity {
 
-    private TextView date;
-    private TextView reportNum;
-    private TextView reporter;
+    private TextView dateView;
+    private TextView reportNumView;
+    private TextView reporterView;
     private EditText location;
-    private Button submit;
+    private Button submitButton;
     private Button cancelButton;
-    private Spinner typeWater;
-    private Spinner condition;
+    private Spinner typeWaterSpinner;
+    private Spinner conditionSpinner;
     private Address address = new Address(new Locale("US"));
 
-    String afterTextChanged = "";
-    String beforeTextChanged = "";
-    String onTextChanged = "";
 
     String username;
     String password;
+    User loginUser;
 
     private WaterSourceReport newReport;
 
@@ -79,26 +78,36 @@ public class SubmitSourceReport extends AppCompatActivity {
         username = extras.getString("username");
         password = extras.getString("pass");
 
+        loginUser =(User)extras.getSerializable("user");
+        Log.d("SubmitSourceReport", "User received, Email = " + loginUser.getEmail() + " " + loginUser.getPassword());
+
         address.setLatitude(0.0);
         address.setLongitude(0.0);
 
-        submit = (Button) findViewById(R.id.submitreg);
-        date = (TextView) findViewById(R.id.autogen);
-        reportNum = (TextView) findViewById(R.id.autogen2);
-        reporter = (TextView) findViewById(R.id.autogen3);
+        submitButton = (Button) findViewById(R.id.submitreg);
+        dateView = (TextView) findViewById(R.id.autogen);
+        reportNumView = (TextView) findViewById(R.id.autogen2);
+        reporterView = (TextView) findViewById(R.id.autogen3);
         location = (EditText) findViewById(R.id.autogen4);
-        typeWater = (Spinner) findViewById(R.id.spinner3);
-        condition = (Spinner) findViewById(R.id.spinner2);
+        typeWaterSpinner = (Spinner) findViewById(R.id.spinner3);
+        conditionSpinner = (Spinner) findViewById(R.id.spinner2);
         cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeWater.setAdapter(adapter);
+        typeWaterSpinner.setAdapter(adapter);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        condition.setAdapter(adapter2);
+        conditionSpinner.setAdapter(adapter2);
+
+        newReport = new WaterSourceReport(loginUser.getEmail());
+
+        newReport.setReportNumber(UUID.randomUUID().toString());
+        dateView.setText(newReport.getDateString().toString());
+        reportNumView.setText(newReport.getReportNumber());
+        reporterView.setText(newReport.getReporter());
 
         cancelButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -130,23 +139,24 @@ public class SubmitSourceReport extends AppCompatActivity {
 
     public void submitSourceReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {
-            newReport = new WaterSourceReport(getIntent().getExtras().getString("username"));
-            date.setText(newReport.getDataTime().toString());
-            reportNum.setText(newReport.getReportNumber());
-            reporter.setText(newReport.getReporter());
+
+
 
             newReport.setLocation(new Location(address.getFeatureName()));
             newReport.getLocation().setLatitude(address.getLatitude());
             newReport.getLocation().setLongitude(address.getLongitude());
-            newReport.setCondition((WaterCondition) condition.getSelectedItem());
-            newReport.setType((WaterType) typeWater.getSelectedItem());
+
+            newReport.setCondition((WaterCondition) conditionSpinner.getSelectedItem());
+            newReport.setType((WaterType) typeWaterSpinner.getSelectedItem());
+            newReport.setReporter(loginUser.getEmail());
+
 
 
             JSONObject reportJson = newReport.toJSONObject();
 
-            User currentuser = new User(this.username, this.password, "");
+            Log.d("SubmitSourceReport", "JSON Sending " + reportJson.toString());
 
-            new HTTPSubmitReportTask().execute(currentuser,reportJson);
+            new HTTPSubmitReportTask().execute(loginUser,reportJson);
 
 
         } else {
@@ -182,6 +192,7 @@ public class SubmitSourceReport extends AppCompatActivity {
         Bundle bundle1 = new Bundle();
         bundle1.putString("pass", password);
         bundle1.putString("username", username);
+        intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
     }
