@@ -162,7 +162,7 @@ public class SubmitPurityReport extends AppCompatActivity {
                 User castedUser = (User) params[0];
                 JSONObject castedJson = (JSONObject) params[1];
 
-                return UserLoginTask.addWaterReport(castedUser, castedJson);
+                return WaterReportTask.addWaterSourceReport(castedUser, castedJson);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;

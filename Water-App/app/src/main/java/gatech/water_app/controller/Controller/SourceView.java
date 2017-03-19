@@ -1,11 +1,13 @@
 package gatech.water_app.controller.Controller;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import gatech.water_app.R;
 import gatech.water_app.model.Report;
+import gatech.water_app.model.ServerConnector;
+import gatech.water_app.model.User;
 import gatech.water_app.model.WaterReportTask;
 
 /**
@@ -28,9 +35,7 @@ import gatech.water_app.model.WaterReportTask;
 
 public class SourceView extends AppCompatActivity {
     ListView listView ;
-    String username;
-    String password;
-
+    User loginUser;
 
 
     @Override
@@ -41,9 +46,9 @@ public class SourceView extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Bundle extras = getIntent().getExtras();
-        username = extras.getString("username");
-        password = extras.getString("pass");
+        loginUser =(User)extras.getSerializable("user");
 
+        Log.d("SourceView", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,14 +98,31 @@ public class SourceView extends AppCompatActivity {
             }
 
         });
+
+        new HTTPGetReportTask().execute(loginUser);
     }
+
+    private class HTTPGetReportTask extends AsyncTask<Object, Integer, JSONArray> {
+        protected JSONArray doInBackground(Object[] params) {
+            try {
+                User castedUser = (User) params[0];
+
+                return ServerConnector.getReports(castedUser);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        protected void onPostExecute(JSONArray result) {
+            Log.d("SourceView", "It appears that the request was successfull ");
+        }
+    }
+
 
     public void backFromReportView(View view) {
         Intent intent = new Intent(this, LandingPage.class);
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password);
-        bundle1.putString("username", username);
-        intent.putExtras(bundle1);
+        intent.putExtra("user", loginUser);
         startActivity(intent);
     }
 

@@ -50,7 +50,7 @@ public class LandingPage extends AppCompatActivity {
     public void addSourceReport(View view) {
         Intent intent = new Intent(this, SubmitSourceReport.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("username", email);
+//        bundle1.putString("username", email);
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
@@ -65,8 +65,8 @@ public class LandingPage extends AppCompatActivity {
     public void startEditPage(View view) {
         Intent intent = new Intent(this, EditPage.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("password", password);
-        bundle1.putString("email", email);
+//        bundle1.putString("password", password);
+//        bundle1.putString("email", email);
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
@@ -75,8 +75,7 @@ public class LandingPage extends AppCompatActivity {
     public void startSourceView(View view) {
         Intent intent = new Intent(this, SourceView.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("password", password);
-        bundle1.putString("email", email);
+
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
@@ -85,8 +84,8 @@ public class LandingPage extends AppCompatActivity {
     public void startWaterMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("password", password);
-        bundle1.putString("email", email);
+//        bundle1.putString("password", password);
+//        bundle1.putString("email", email);
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);

@@ -52,8 +52,7 @@ public class SubmitSourceReport extends AppCompatActivity {
     private Address address = new Address(new Locale("US"));
 
 
-    String username;
-    String password;
+
     User loginUser;
 
     private WaterSourceReport newReport;
@@ -75,8 +74,6 @@ public class SubmitSourceReport extends AppCompatActivity {
         });
 
         Bundle extras = getIntent().getExtras();
-        username = extras.getString("username");
-        password = extras.getString("pass");
 
         loginUser =(User)extras.getSerializable("user");
         Log.d("SubmitSourceReport", "User received, Email = " + loginUser.getEmail() + " " + loginUser.getPassword());
@@ -171,7 +168,7 @@ public class SubmitSourceReport extends AppCompatActivity {
                 User castedUser = (User) params[0];
                 JSONObject castedJson = (JSONObject) params[1];
 
-                return UserLoginTask.addWaterReport(castedUser, castedJson);
+                return WaterReportTask.addWaterSourceReport(castedUser, castedJson);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -190,8 +187,6 @@ public class SubmitSourceReport extends AppCompatActivity {
     private void afterHTTPSuccess(){
         Intent intent = new Intent(this, SourceView.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password);
-        bundle1.putString("username", username);
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);

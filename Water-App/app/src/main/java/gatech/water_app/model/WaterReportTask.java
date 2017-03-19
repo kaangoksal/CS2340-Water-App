@@ -4,6 +4,9 @@ import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +23,21 @@ public class WaterReportTask {
     //temp
     private static List<WaterPurityReport> purityList = new ArrayList<>();
 
-    /**
-     * Adds Water Source Report to database
-     * @param sourceReport
-     */
-    public static void addWaterSourceReport(WaterSourceReport sourceReport) {
-        //temp debugging code
-        sourceList.add(sourceReport);
+//    /**
+//     * Adds Water Source Report to database
+//     * @param sourceReport
+//     */
+//    public static void addWaterSourceReport(WaterSourceReport sourceReport) {
+//        //temp debugging code
+//        sourceList.add(sourceReport);
+//    }
+
+    public static boolean addWaterSourceReport(User user, JSONObject reportJson)  {
+        try {
+            return ServerConnector.addReport(user, reportJson);
+        } catch (IOException E){
+            return false;
+        }
     }
 
     //temp
