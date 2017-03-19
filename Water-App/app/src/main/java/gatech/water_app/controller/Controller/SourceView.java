@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import gatech.water_app.R;
@@ -36,7 +37,8 @@ import gatech.water_app.model.WaterReportTask;
 public class SourceView extends AppCompatActivity {
     ListView listView ;
     User loginUser;
-
+    String[] values;
+    ArrayAdapter<String> listViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,33 +51,25 @@ public class SourceView extends AppCompatActivity {
         loginUser =(User)extras.getSerializable("user");
 
         Log.d("SourceView", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+
+
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.waterlist);
 
 
-        String[] values = WaterReportTask.getSourceListString();
-
-        // Define a new Adapter
-        // First parameter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        values = WaterReportTask.getSourceListString();
 
 
-        // Assign adapter to ListView
-        listView.setAdapter(adapter);
 
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -115,11 +109,41 @@ public class SourceView extends AppCompatActivity {
         }
 
         protected void onPostExecute(JSONArray result) {
-            Log.d("SourceView", "It appears that the request was successfull ");
+            if (result != null) {
+                populateList(result);
+                Log.d("SourceView", "It appears that the request was successfull ");
+            }
         }
     }
 
+    public void populateList(JSONArray reportJSONArray) {
+        String[] newList = new String[reportJSONArray.length()];
+        try {
+            for (int i = 0; i < reportJSONArray.length(); i++) {
+                JSONObject reportJsonChild = reportJSONArray.getJSONObject(i);
+                newList[i] = reportJsonChild.toString();
+                Log.e("SourceView", "Populating the list " + reportJsonChild.toString());
+            }
+//            values = newList;
 
+            // Define a new Adapter
+            // First parameter - Context
+            // Second parameter - Layout for the row
+            // Third parameter - ID of the TextView to which the data is written
+            // Forth - the Array of data
+            listViewAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, newList);
+
+
+            // Assign adapter to ListView
+            listView.setAdapter(listViewAdapter);
+        } catch (JSONException e) {
+            Log.e("SourceView", "Encountered a problem while populating the list");
+        }
+
+
+
+    }
     public void backFromReportView(View view) {
         Intent intent = new Intent(this, LandingPage.class);
         intent.putExtra("user", loginUser);

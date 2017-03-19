@@ -218,9 +218,10 @@ public class ServerConnector {
         JSONArray returnarray = null;
         try {
             received = new JSONObject(responseString);
-            returnarray = new JSONArray(received);
+            Log.d("ServerConnector", "JsonObj " + received.toString());
+            returnarray = received.getJSONArray("reports");
         } catch (JSONException E){
-            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() );
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
 
