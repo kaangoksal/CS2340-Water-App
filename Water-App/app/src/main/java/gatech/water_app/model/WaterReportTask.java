@@ -44,14 +44,6 @@ public class WaterReportTask {
     /**
      * returns the static sourceList
      */
-    public static List<WaterSourceReport> getSourceList() {
-        return sourceList;
-    }
-
-    //temp
-    /**
-     * returns the static sourceList
-     */
     public static String[] getSourceListString() {
         String[] temp = new String[sourceList.size()];
         for (int i = 0; i < sourceList.size(); i++){
@@ -89,14 +81,6 @@ public class WaterReportTask {
     public static void addWaterPurityReport(WaterPurityReport sourceReport) {
         //temp debugging code
         purityList.add(sourceReport);
-    }
-
-    //temp
-    /**
-     * returns the static purityList
-     */
-    public static List<WaterPurityReport> getPurityList() {
-        return purityList;
     }
 
     //temp

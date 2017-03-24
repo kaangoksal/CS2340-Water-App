@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="gatech.water_app.controller.Controller.HistoricalReport"
+    tools:showIn="@layout/activity_historical_report">
+
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="29dp">
+
+        <com.androidplot.xy.XYPlot
+            android:id="@+id/plot"
+            style="@style/APDefacto.Dark"
+            android:layout_width="321dp"
+            android:layout_height="414dp"
+            app:domainTitle="Month"
+            app:rangeTitle="PPM"
+            app:title="A Simple XY Plot" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

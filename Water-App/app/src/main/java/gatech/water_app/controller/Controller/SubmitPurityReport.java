@@ -56,10 +56,6 @@ public class SubmitPurityReport extends AppCompatActivity {
     private TextView contaminant;
     private Address address = new Address(new Locale("US"));
 
-    String afterTextChanged = "";
-    String beforeTextChanged = "";
-    String onTextChanged = "";
-
     String username;
     String password;
 

@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/logout"
         android:onClick="loginout"
-        android:layout_marginBottom="117dp"
+        android:layout_marginBottom="73dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -78,7 +78,16 @@
         android:onClick="startPurityView"
         android:text="View Purities"
         android:layout_marginBottom="56dp"
-        android:layout_alignBottom="@+id/logout"
+        android:layout_alignBottom="@+id/historicalReportButton"
         android:layout_alignEnd="@+id/view_report_button" />
+
+    <Button
+        android:id="@+id/historicalReportButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Historical Report"
+        android:layout_above="@+id/logout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
 
 </RelativeLayout>

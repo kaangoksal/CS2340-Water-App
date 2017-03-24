@@ -76,6 +76,10 @@
         <activity
             android:name=".controller.Controller.ManagerLandingPage"
             android:label="@string/title_activity_manager_landing_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controller.Controller.HistoricalReport"
+            android:label="@string/title_activity_historical_report"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
