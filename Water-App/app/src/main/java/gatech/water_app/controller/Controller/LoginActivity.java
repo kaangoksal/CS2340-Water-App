@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginUser = new User("", password.getText().toString(), email.getText().toString());
-                new HTTPLoginTask().execute(email.getText().toString(),password.getText().toString());
+                new HTTPLoginTask().execute(loginUser);
             }
         });
     }
@@ -53,19 +53,19 @@ public class LoginActivity extends AppCompatActivity {
     //HI GUYZ, since we are sending an http request, it needs to be async
     //you cant execute http requests in the main thread, because it would freeze the app
     //so we need a task which executes by itself and when it is done it does something (afterlogin)
-    private class HTTPLoginTask extends AsyncTask<String, Integer, Boolean> {
-        protected Boolean doInBackground(String[] params) {
+    private class HTTPLoginTask extends AsyncTask<Object, Integer, User> {
+        protected User doInBackground(Object[] params) {
             try {
-                return UserLoginTask.attemptLogin(params[0], params[1]);
+                return UserLoginTask.attemptLogin((User)params[0]);
             } catch (Exception e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
         }
 
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                afterLogin();
+        protected void onPostExecute(User dbuser) {
+            if (dbuser != null) {
+                afterLogin(dbuser);
             }else {
                 Log.d("[Login]", "Login failed http returned false");
             }
@@ -76,11 +76,10 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void afterLogin() {
+    private void afterLogin(User dbuser) {
+        loginUser = dbuser;
         Intent intent = new Intent(this, LandingPage.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("password", password.getText().toString());
-        bundle1.putString("email", email.getText().toString());
         intent.putExtras(bundle1);
         intent.putExtra("user", loginUser);
         startActivity(intent);

@@ -23,11 +23,12 @@ import org.json.JSONObject;
  */
 public class UserLoginTask {
 
-    public static boolean attemptLogin(String email, String password){
+    public static User attemptLogin(User halfUser){
         try {
-            return ServerConnector.attemptLogin(email, password);
+
+            return ServerConnector.attemptLogin(halfUser.getEmail(), halfUser.getPassword());
         } catch (IOException e) {
-            return false;
+            return null;
         }
     }
 //

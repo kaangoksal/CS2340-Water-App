@@ -23,7 +23,7 @@ import okhttp3.Response;
 
 public class ServerConnector {
 
-    public static boolean attemptLogin(String email, String password) throws IOException {
+    public static User attemptLogin(String email, String password) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -34,17 +34,17 @@ public class ServerConnector {
         base64_encoded = base64_encoded.replace("\n", "");
 
         String bodyString = "";
-        try {
-            JSONObject bodyJson = new JSONObject();
-            bodyJson.put("email", email);
-            bodyJson.put("password", password);
-            bodyJson.put("username", "");
-            bodyJson.put("token", "");
-            bodyString = bodyJson.toString();
-
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            JSONObject bodyJson = new JSONObject();
+//            bodyJson.put("email", email);
+//            bodyJson.put("password", password);
+//            bodyJson.put("username", "");
+//            bodyJson.put("token", "");
+//            bodyString = bodyJson.toString();
+//
+//        } catch (JSONException ex) {
+//            ex.printStackTrace();
+//        }
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
@@ -59,14 +59,24 @@ public class ServerConnector {
         //Yo WTF you can only check the response object once! FUCK JAVA #LAME
         //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
 
-        Log.d("[HTTP]", "Server Response " + responseString + responseString.indexOf("Successful"));
-        if (responseString.indexOf("Failed") > 0) {
-            return false;
-        } else if (responseString.indexOf("Successful") > 0) {
-            return true;
+        Log.d("ServerConnector", "Server returned response for attemp login = " +responseString );
+        JSONObject received;
+        User retrieveduser = null;
+        try {
+
+            received = new JSONObject(responseString);
+            retrieveduser = new User(received.getString("email"), received.getString("password"));
+            retrieveduser.setUsername(received.getString("username"));
+            received.getString("account_type");
+            received.getString("created_at");
+            Log.d("ServerConnector", "JsonObj " + received.toString());
+
+        } catch (JSONException E){
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
-        return false;
+        return retrieveduser;
+
     }
 
     public static boolean addUser(String username, String password, String address, String email) throws IOException{
