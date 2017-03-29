@@ -6,6 +6,7 @@ import android.location.Location;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  * Created by Alex Thien An Le on 2/28/2017.
@@ -39,12 +40,11 @@ public class WaterPurityReport extends Report {
      * @param dataTime
      * @param reportNumber
      * @param Reporter
-     * @param type
      * @param overallCondition
      * @param virusPPM
      * @param contaminantPPM
      */
-    public WaterPurityReport(Date dataTime, String reportNumber, String Reporter, WaterType type, OverallCondition overallCondition, double virusPPM, double contaminantPPM, Location location) {
+    public WaterPurityReport(Date dataTime, String reportNumber, String Reporter, OverallCondition overallCondition, double virusPPM, double contaminantPPM, Location location) {
        super(dataTime, reportNumber, Reporter, location);
         this.overallCondition = overallCondition;
         this.virusPPM = virusPPM;
@@ -56,7 +56,7 @@ public class WaterPurityReport extends Report {
      * @param reporter
      */
     public WaterPurityReport(String reporter) {
-        this(new Date(), Integer.toString(next_Id++), reporter, null, null, 0, 0, null);
+        this(new Date(), "", reporter, null, 0, 0, null);
     }
 
     /**
@@ -133,6 +133,35 @@ public class WaterPurityReport extends Report {
         }
 
 
+
+    }
+
+    public static WaterPurityReport fromJSONObject(JSONObject jsonObject) {
+        WaterPurityReport returnreport;
+        try {
+            String report_number = jsonObject.getString("report_number");
+            String dateString = jsonObject.getString("date");
+            String reporter = jsonObject.getString("reporter");
+            JSONObject locationJSON = jsonObject.getJSONObject("location");
+            JSONObject data = jsonObject.getJSONObject("data");
+
+            Double virus_ppm = data.getDouble("virus_ppm");
+            Double contaminant_ppm = data.getDouble("contamination_ppm");
+            OverallCondition overallCondition = OverallCondition.valueOf(data.getString("overall_condition"));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            Date reportDate = sdf.parse(dateString);
+            Location location = new Location("");
+            location.setLatitude(locationJSON.getDouble("latitude"));
+            location.setLongitude(locationJSON.getDouble("longitude"));
+
+            returnreport = new WaterPurityReport(reportDate,report_number, reporter, overallCondition,virus_ppm,contaminant_ppm,location);
+
+        } catch (Exception E) {
+            return null;
+        }
+        return returnreport;
 
     }
 

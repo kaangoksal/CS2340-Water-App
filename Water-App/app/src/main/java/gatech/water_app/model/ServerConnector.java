@@ -297,6 +297,51 @@ public class ServerConnector {
 
     }
 
+    public static ArrayList<WaterPurityReport> getPurityReports(User user) throws IOException{
+
+        String base64_encoded = parseBase64BasicAuth(user);
+
+        String bodyString = "";
+
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType mediaType = MediaType.parse("application/octet-stream");
+        RequestBody body = RequestBody.create(mediaType, bodyString);
+        Request request = new Request.Builder()
+                .url("http://umb.kaangoksal.com:5235/get_water_purity_reports")
+                .post(body)
+                .addHeader("Authorization", base64_encoded)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseString = response.body().string();
+        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
+        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+        Log.d("ServerConnector", "Server returned response for get reports = " + responseString );
+        JSONObject received;
+        JSONArray jsonArray = null;
+        ArrayList<WaterPurityReport> returnarray = new ArrayList<WaterPurityReport>();
+        try {
+            received = new JSONObject(responseString);
+            Log.d("ServerConnector", "JsonObj " + received.toString());
+            jsonArray = received.getJSONArray("reports");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject reportJsonChild = jsonArray.getJSONObject(i);
+
+                returnarray.add(WaterPurityReport.fromJSONObject(reportJsonChild));
+                Log.e("SourceView", "Populating the list " + reportJsonChild.toString());
+            }
+
+        } catch (JSONException E){
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
+        }
+
+
+        return returnarray;
+
+    }
+
     public static String parseBase64BasicAuth(User user)  {
         String authentication = user.getEmail() + ":" + user.getPassword();
 
