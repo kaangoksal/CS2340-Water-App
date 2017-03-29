@@ -22,12 +22,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import gatech.water_app.R;
 import gatech.water_app.model.Report;
 import gatech.water_app.model.ServerConnector;
 import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
 import gatech.water_app.model.WaterReportTask;
+import gatech.water_app.model.WaterSourceReport;
 
 /**
  * Created by John on 3/1/2017.
@@ -41,6 +44,10 @@ public class SourceView extends AppCompatActivity {
     String[] values;
     ArrayAdapter<String> listViewAdapter;
 
+    /**
+     * This is initialized when the page starts
+     * @param savedInstanceState supplied by android
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,15 +61,6 @@ public class SourceView extends AppCompatActivity {
         Log.d("SourceView", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
 
 
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.waterlist);
@@ -97,19 +95,22 @@ public class SourceView extends AppCompatActivity {
         new HTTPGetReportTask().execute(loginUser);
     }
 
-    private class HTTPGetReportTask extends AsyncTask<Object, Integer, JSONArray> {
-        protected JSONArray doInBackground(Object[] params) {
+    /**
+     * This class is used for the async HTTP request.
+     */
+    private class HTTPGetReportTask extends AsyncTask<Object, Integer, ArrayList<WaterSourceReport>> {
+        protected ArrayList<WaterSourceReport> doInBackground(Object[] params) {
             try {
                 User castedUser = (User) params[0];
 
-                return ServerConnector.getReports(castedUser);
+                return ServerConnector.getSourceReports(castedUser);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
         }
 
-        protected void onPostExecute(JSONArray result) {
+        protected void onPostExecute(ArrayList<WaterSourceReport> result) {
             if (result != null) {
                 populateList(result);
                 Log.d("SourceView", "It appears that the request was successfull ");
@@ -117,13 +118,17 @@ public class SourceView extends AppCompatActivity {
         }
     }
 
-    public void populateList(JSONArray reportJSONArray) {
-        String[] newList = new String[reportJSONArray.length()];
-        try {
-            for (int i = 0; i < reportJSONArray.length(); i++) {
-                JSONObject reportJsonChild = reportJSONArray.getJSONObject(i);
-                newList[i] = reportJsonChild.toString();
-                Log.e("SourceView", "Populating the list " + reportJsonChild.toString());
+    /**
+     * This populates the list of water reports on the GUI
+     * @param WaterSourceReportList the list of water reports
+     */
+    public void populateList(ArrayList<WaterSourceReport> WaterSourceReportList) {
+        String[] newList = new String[WaterSourceReportList.size()];
+
+            for (int i = 0; i < WaterSourceReportList.size(); i++) {
+//                JSONObject reportJsonChild = reportJSONArray.getJSONObject(i);
+                newList[i] = WaterSourceReportList.get(i).toString();
+                Log.e("SourceView", "Populating the list " + WaterSourceReportList.get(i).toStringTemp());
             }
 //            values = newList;
 
@@ -138,13 +143,12 @@ public class SourceView extends AppCompatActivity {
 
             // Assign adapter to ListView
             listView.setAdapter(listViewAdapter);
-        } catch (JSONException e) {
-            Log.e("SourceView", "Encountered a problem while populating the list");
-        }
-
-
-
     }
+
+    /**
+     * This is used to go to the other screens.
+     * @param view supplied by android
+     */
     public void backFromReportView(View view) {
 
         if (loginUser.getTitle().equals(Title.USER)) {

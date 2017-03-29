@@ -49,10 +49,10 @@ public class ManagerLandingPage extends LandingPage {
         historicalLocation = (EditText) findViewById(R.id.historicalLocation);
         historicalYear = (EditText) findViewById(R.id.historicalYear);
 
-        PPMSpinner = (Spinner) findViewById(R.id.historicalPPM);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, PPMList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        PPMSpinner.setAdapter(adapter);
+//        PPMSpinner = (Spinner) findViewById(R.id.historicalPPM);
+//        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, PPMList);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        PPMSpinner.setAdapter(adapter);
     }
 
     public void startPurityView(View view) {

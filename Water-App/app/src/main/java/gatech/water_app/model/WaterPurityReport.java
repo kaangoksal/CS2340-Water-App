@@ -2,6 +2,7 @@ package gatech.water_app.model;
 
 
 import android.location.Location;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -136,29 +137,37 @@ public class WaterPurityReport extends Report {
 
     }
 
+    /**
+     * This method is used to parse JSON object to WaterPurityReport
+     * @param jsonObject
+     * @return
+     */
     public static WaterPurityReport fromJSONObject(JSONObject jsonObject) {
         WaterPurityReport returnreport;
         try {
             String report_number = jsonObject.getString("report_number");
             String dateString = jsonObject.getString("date");
             String reporter = jsonObject.getString("reporter");
-            JSONObject locationJSON = jsonObject.getJSONObject("location");
-            JSONObject data = jsonObject.getJSONObject("data");
+            String locationString = jsonObject.getString("location");
+            String dataString = jsonObject.getString("data");
 
-            Double virus_ppm = data.getDouble("virus_ppm");
-            Double contaminant_ppm = data.getDouble("contamination_ppm");
-            OverallCondition overallCondition = OverallCondition.valueOf(data.getString("overall_condition"));
+            JSONObject dataJSON = new JSONObject(dataString);
+            Double virus_ppm = dataJSON.getDouble("virus_ppm");
+            Double contaminant_ppm = dataJSON.getDouble("contamination_ppm");
+            OverallCondition overallCondition = OverallCondition.valueOf(dataJSON.getString("overall_condition"));
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             Date reportDate = sdf.parse(dateString);
             Location location = new Location("");
+            JSONObject locationJSON = new JSONObject(locationString);
             location.setLatitude(locationJSON.getDouble("latitude"));
             location.setLongitude(locationJSON.getDouble("longitude"));
 
             returnreport = new WaterPurityReport(reportDate,report_number, reporter, overallCondition,virus_ppm,contaminant_ppm,location);
 
         } catch (Exception E) {
+            Log.e("WaterSourceReport", "Something bad happened " + E.toString() + " " + E.getMessage() + " " + E.getStackTrace().toString());
             return null;
         }
         return returnreport;
@@ -168,7 +177,7 @@ public class WaterPurityReport extends Report {
     //TODO : FINISH THIS
     @Override
     public String toString() {
-        return "WaterSourceReport{" +
+        return "WaterPurityReport{" +
                 "dataTime=" + dataTime +
                 ", reportNumber=" + reportNumber +
                 ", Reporter='" + super.reporter + '\'' +

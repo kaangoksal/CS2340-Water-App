@@ -23,7 +23,13 @@ import okhttp3.Response;
  */
 
 public class ServerConnector {
-
+    /**
+     * Attempts login to the server and returns the full credidentals of the user
+     * @param email of the user
+     * @param password of the user
+     * @return a user with many details as possible
+     * @throws IOException if something goes bad
+     */
     public static User attemptLogin(String email, String password) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
@@ -92,6 +98,15 @@ public class ServerConnector {
 
     }
 
+    /**
+     * Registers user to the server
+     * @param username
+     * @param password
+     * @param address
+     * @param email
+     * @return
+     * @throws IOException
+     */
     public static boolean addUser(String username, String password, String address, String email) throws IOException{
         //users.add(Math.abs(new User(username, password).hashCode()) % (users.size() + 1), new User(username, password, address, email, title));
 
@@ -139,6 +154,14 @@ public class ServerConnector {
         return false;
     }
 
+    /**
+     * edits user on the server
+     * @param username username of the user
+     * @param password password of the user
+     * @param email email of the user
+     * @return whether the operation was successful
+     * @throws IOException if something goes bad
+     */
     public static boolean editUser(String username, String password, String email) throws IOException{
 
         String authentication = email + ":" + password;
@@ -185,6 +208,13 @@ public class ServerConnector {
         return false;
     }
 
+    /**
+     * Adds a report
+     * @param user user who is adding the report
+     * @param reportJson the report as jsojn
+     * @return whether the operation was successful or not
+     * @throws IOException if something goes bad like network
+     */
     public static boolean addReport(User user, JSONObject reportJson) throws IOException{
 
         String base64_encoded = parseBase64BasicAuth(user);
@@ -216,6 +246,12 @@ public class ServerConnector {
         return false;
     }
 
+    /**
+     * gets all the reports regardless of what they are.
+     * @param user user requesting the information
+     * @return a json array of the reports
+     * @throws IOException if something goes bad with the network
+     */
     public static JSONArray getReports(User user) throws IOException{
 
         String base64_encoded = parseBase64BasicAuth(user);
@@ -252,6 +288,12 @@ public class ServerConnector {
 
     }
 
+    /**
+     * Fetches the source reports from the server
+     * @param user user requesting the reports
+     * @return an arraylist of the reports
+     * @throws IOException usually a network error causes this
+     */
     public static ArrayList<WaterSourceReport> getSourceReports(User user) throws IOException{
 
         String base64_encoded = parseBase64BasicAuth(user);
@@ -273,19 +315,19 @@ public class ServerConnector {
         //Yo WTF you can only check the response object once! FUCK JAVA #LAME
         //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
         Log.d("ServerConnector", "Server returned response for get reports = " +responseString );
-        JSONObject received;
-        JSONArray jsonArray = null;
+
+
         ArrayList<WaterSourceReport> returnarray = new ArrayList<WaterSourceReport>();
         try {
-            received = new JSONObject(responseString);
+            JSONObject received = new JSONObject(responseString);
             Log.d("ServerConnector", "JsonObj " + received.toString());
-            jsonArray = received.getJSONArray("reports");
+            JSONArray jsonArray  = received.getJSONArray("reports");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject reportJsonChild = jsonArray.getJSONObject(i);
-
-                returnarray.add(WaterSourceReport.fromJSONObject(reportJsonChild));
-                Log.e("SourceView", "Populating the list " + reportJsonChild.toString());
+                WaterSourceReport newreport = WaterSourceReport.fromJSONObject(reportJsonChild);
+                returnarray.add(newreport);
+                Log.e("ServerConnector", "Populating the water source report " + newreport.toString());
             }
 
         } catch (JSONException E){
@@ -297,6 +339,12 @@ public class ServerConnector {
 
     }
 
+    /**
+     * Fetches the purity reports from the server
+     * @param user user requesting the reports
+     * @return and arraylist of reports
+     * @throws IOException network error.
+     */
     public static ArrayList<WaterPurityReport> getPurityReports(User user) throws IOException{
 
         String base64_encoded = parseBase64BasicAuth(user);
@@ -318,19 +366,20 @@ public class ServerConnector {
         //Yo WTF you can only check the response object once! FUCK JAVA #LAME
         //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
         Log.d("ServerConnector", "Server returned response for get reports = " + responseString );
-        JSONObject received;
-        JSONArray jsonArray = null;
+
+
         ArrayList<WaterPurityReport> returnarray = new ArrayList<WaterPurityReport>();
         try {
-            received = new JSONObject(responseString);
-            Log.d("ServerConnector", "JsonObj " + received.toString());
-            jsonArray = received.getJSONArray("reports");
+            JSONObject received = new JSONObject(responseString);
+            JSONArray jsonArray = received.getJSONArray("reports");
 
+            Log.d("ServerConnector", "RECEIVED  " + received.toString());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject reportJsonChild = jsonArray.getJSONObject(i);
+                Log.e("Server Connector", "Json Object " + reportJsonChild.toString());
 
                 returnarray.add(WaterPurityReport.fromJSONObject(reportJsonChild));
-                Log.e("SourceView", "Populating the list " + reportJsonChild.toString());
+                Log.e("Server Connector", "Populating the list " + WaterPurityReport.fromJSONObject(reportJsonChild).toString());
             }
 
         } catch (JSONException E){
@@ -342,7 +391,7 @@ public class ServerConnector {
 
     }
 
-    public static String parseBase64BasicAuth(User user)  {
+    private static String parseBase64BasicAuth(User user)  {
         String authentication = user.getEmail() + ":" + user.getPassword();
 
         byte[] authentication_bytes;

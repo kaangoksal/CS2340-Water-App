@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -28,19 +29,30 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import gatech.water_app.R;
+import gatech.water_app.model.ServerConnector;
+import gatech.water_app.model.User;
 import gatech.water_app.model.WaterReportTask;
 import gatech.water_app.model.WaterSourceReport;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
     private GoogleMap mMap;
+    User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        Bundle extras = getIntent().getExtras();
+//        username = extras.getString("username");
+//        password = extras.getString("pass");
+
+        loginUser =(User)extras.getSerializable("user");
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -98,7 +110,59 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return true;
             }
         });
+
+        new HTTPGetReportTask().execute(loginUser);
     }
+
+    private class HTTPGetReportTask extends AsyncTask<Object, Integer, ArrayList<WaterSourceReport>> {
+        protected ArrayList<WaterSourceReport> doInBackground(Object[] params) {
+            try {
+                User castedUser = (User) params[0];
+
+                return ServerConnector.getSourceReports(castedUser);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        protected void onPostExecute(ArrayList<WaterSourceReport> result) {
+            if (result != null) {
+                populateMap(result);
+                Log.d("SourceView", "It appears that the request was successfull ");
+            }
+        }
+    }
+
+    public void populateMap(ArrayList<WaterSourceReport> list) {
+
+        // mMap.setOnMyLocationButtonClickListener((GoogleMap.OnMyLocationButtonClickListener) this);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        //Place markers on the map
+
+        for (int i = 0; i < list.size(); i++){
+            mMap.addMarker(new MarkerOptions().position(new LatLng(list.get(i).getLocation().getLatitude(),
+                    list.get(i).getLocation().getLongitude())).title(list.get(i).getLocation().getProvider()));
+        }
+
+        // Add a marker in Sydney and move the camera
+        // LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            public boolean onMarkerClick(Marker marker) {
+                String markerMessage = WaterReportTask.getSourceReportInfo(marker.getPosition());
+                Toast.makeText(getApplicationContext(), markerMessage, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+    }
+
 
     @Override
     public boolean onMyLocationButtonClick() {

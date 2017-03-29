@@ -1,11 +1,13 @@
 package gatech.water_app.controller.Controller;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +18,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import gatech.water_app.R;
+import gatech.water_app.model.ServerConnector;
+import gatech.water_app.model.Title;
+import gatech.water_app.model.User;
 import gatech.water_app.model.WaterReportTask;
+import gatech.water_app.model.WaterPurityReport;
 
 /**
  * Created by John on 3/1/2017.
@@ -27,11 +35,13 @@ import gatech.water_app.model.WaterReportTask;
 
 public class PurityView extends AppCompatActivity {
     ListView listView ;
-    String username;
-    String password;
+    User loginUser;
+    ArrayAdapter<String> adapter;
 
-
-
+    /**
+     * This is initialized when the page is started.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +49,10 @@ public class PurityView extends AppCompatActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        username = extras.getString("username");
-        password = extras.getString("pass");
+//        username = extras.getString("username");
+//        password = extras.getString("pass");
+
+        loginUser =(User)extras.getSerializable("user");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +75,7 @@ public class PurityView extends AppCompatActivity {
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
 
@@ -91,15 +103,82 @@ public class PurityView extends AppCompatActivity {
             }
 
         });
+        new HTTPGetPurityReportTask().execute(loginUser);
+    }
+    /**
+     * This is a class for the async HTTP Request.
+     */
+    private class HTTPGetPurityReportTask extends AsyncTask<Object, Integer, ArrayList<WaterPurityReport>> {
+        protected ArrayList<WaterPurityReport> doInBackground(Object[] params) {
+            try {
+                User castedUser = (User) params[0];
+
+                return ServerConnector.getPurityReports(castedUser);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        protected void onPostExecute(ArrayList<WaterPurityReport> result) {
+            if (result != null) {
+                populateList(result);
+                Log.d("SourceView", "It appears that the request was successfull ");
+            }
+        }
     }
 
+    /**
+     * Populates the list for WaterPurityReports
+     * @param WaterPurityReportList
+     */
+    public void populateList(ArrayList<WaterPurityReport> WaterPurityReportList) {
+        String[] newList = new String[WaterPurityReportList.size()];
+
+        for (int i = 0; i < WaterPurityReportList.size(); i++) {
+//                JSONObject reportJsonChild = reportJSONArray.getJSONObject(i);
+            newList[i] = WaterPurityReportList.get(i).toString();
+            Log.e("SourceView", "Populating the list " + WaterPurityReportList.get(i).toString());
+        }
+//            values = newList;
+
+        // Define a new Adapter
+        // First parameter - Context
+        // Second parameter - Layout for the row
+        // Third parameter - ID of the TextView to which the data is written
+        // Forth - the Array of data
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, newList);
+
+
+        // Assign adapter to ListView
+        listView.setAdapter(adapter);
+    }
+
+    /**
+     * Goes backe to the previos screen
+     * @param view this is supplied by the android sdk
+     */
     public void backFromReportView(View view) {
-        Intent intent = new Intent(this, WorkerLandingPage.class);
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password);
-        bundle1.putString("username", username);
-        intent.putExtras(bundle1);
-        startActivity(intent);
+
+        if (loginUser.getTitle().equals(Title.USER)) {
+//            loginUser = dbuser;
+            Intent intent = new Intent(this, LandingPage.class);
+            Bundle bundle1 = new Bundle();
+            intent.putExtras(bundle1);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        } else if (loginUser.getTitle().equals(Title.WORKER)) {
+//            loginUser = dbuser;
+            Intent intent = new Intent(this, WorkerLandingPage.class);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        } else if (loginUser.getTitle().equals(Title.MANAGER)) {
+//            loginUser = dbuser;
+            Intent intent = new Intent(this, ManagerLandingPage.class);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package gatech.water_app.model;
 import android.location.Location;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -230,22 +231,31 @@ public class WaterSourceReport extends Report {
             String report_number = jsonObject.getString("report_number");
             String dateString = jsonObject.getString("date");
             String reporter = jsonObject.getString("reporter");
-            JSONObject locationJSON = jsonObject.getJSONObject("location");
-            JSONObject data = jsonObject.getJSONObject("data");
+            String locationString = jsonObject.getString("location");
+            String dataString = jsonObject.getString("data");
 
-            WaterType type = WaterType.valueOf(data.getString("water_type"));
-            WaterCondition waterCondition = WaterCondition.valueOf(data.getString("water_condition"));
+            JSONObject dataJSON = new JSONObject(dataString);
+            WaterType type = WaterType.valueOf(dataJSON.getString("water_type"));
+            WaterCondition waterCondition = WaterCondition.valueOf(dataJSON.getString("water_condition"));
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
             Date reportDate = sdf.parse(dateString);
+
             Location location = new Location("");
-            location.setLatitude(locationJSON.getDouble("latitude"));
-            location.setLongitude(locationJSON.getDouble("longitude"));
+
+            try {
+                JSONObject locationJSON = new JSONObject(locationString);
+                location.setLatitude(locationJSON.getDouble("latitude"));
+                location.setLongitude(locationJSON.getDouble("longitude"));
+            } catch (JSONException e) {
+                location.setLongitude(0);
+                location.setLatitude(0);
+            }
 
             returnreport = new WaterSourceReport(reportDate,report_number,reporter,type,waterCondition,location);
 
         } catch (Exception E) {
+            Log.e("WaterSourceReport", "Something bad happened " + E.toString() + " " + E.getMessage() + " " + E.getStackTrace().toString());
             return null;
         }
         return returnreport;
