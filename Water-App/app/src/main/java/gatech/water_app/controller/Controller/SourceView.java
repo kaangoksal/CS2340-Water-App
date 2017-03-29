@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import gatech.water_app.R;
 import gatech.water_app.model.Report;
 import gatech.water_app.model.ServerConnector;
+import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
 import gatech.water_app.model.WaterReportTask;
 
@@ -145,9 +146,25 @@ public class SourceView extends AppCompatActivity {
 
     }
     public void backFromReportView(View view) {
-        Intent intent = new Intent(this, LandingPage.class);
-        intent.putExtra("user", loginUser);
-        startActivity(intent);
+
+        if (loginUser.getTitle().equals(Title.USER)) {
+//            loginUser = dbuser;
+            Intent intent = new Intent(this, LandingPage.class);
+            Bundle bundle1 = new Bundle();
+            intent.putExtras(bundle1);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        } else if (loginUser.getTitle().equals(Title.WORKER)) {
+//            loginUser = dbuser;
+            Intent intent = new Intent(this, WorkerLandingPage.class);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        } else if (loginUser.getTitle().equals(Title.MANAGER)) {
+//            loginUser = dbuser;
+            Intent intent = new Intent(this, ManagerLandingPage.class);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        }
     }
 
 }

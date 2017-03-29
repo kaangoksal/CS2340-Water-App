@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import gatech.water_app.R;
 import gatech.water_app.model.OverallCondition;
@@ -45,9 +46,9 @@ import gatech.water_app.model.WaterType;
 
 public class SubmitPurityReport extends AppCompatActivity {
 
-    private TextView date;
-    private TextView reportNum;
-    private TextView reporter;
+    private TextView dateView;
+    private TextView reportNumView;
+    private TextView reporterTextView;
     private EditText location;
     private Button submit;
     private Button cancelButton;
@@ -56,8 +57,7 @@ public class SubmitPurityReport extends AppCompatActivity {
     private TextView contaminant;
     private Address address = new Address(new Locale("US"));
 
-    String username;
-    String password;
+    User loginUser;
 
     private WaterPurityReport newReport;
 
@@ -76,26 +76,32 @@ public class SubmitPurityReport extends AppCompatActivity {
         });
 
         Bundle extras = getIntent().getExtras();
-        username = extras.getString("username");
-        password = extras.getString("pass");
+        loginUser =(User)extras.getSerializable("user");
 
         address.setLatitude(0.0);
         address.setLongitude(0.0);
 
         submit = (Button) findViewById(R.id.submitreg);
-        date = (TextView) findViewById(R.id.autogen);
-        reportNum = (TextView) findViewById(R.id.autogen2);
-        reporter = (TextView) findViewById(R.id.autogen3);
+        dateView = (TextView) findViewById(R.id.autogen);
+        reportNumView = (TextView) findViewById(R.id.autogen2);
+        reporterTextView = (TextView) findViewById(R.id.autogen3);
         location = (EditText) findViewById(R.id.autogen4);
         condition = (Spinner) findViewById(R.id.spinner3);
-        virus = (TextView) findViewById(R.id.virus);
-        contaminant = (TextView) findViewById(R.id.contaminant);
+        virus = (EditText) findViewById(R.id.virus);
+        contaminant = (EditText) findViewById(R.id.editText4);
         cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, OverallCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(adapter);
+
+        newReport = new WaterPurityReport(loginUser.getEmail());
+
+        newReport.setReportNumber(UUID.randomUUID().toString());
+        dateView.setText(newReport.getDateString().toString());
+        reportNumView.setText(newReport.getReportNumber());
+        reporterTextView.setText(newReport.getReporter());
 
         cancelButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -127,10 +133,10 @@ public class SubmitPurityReport extends AppCompatActivity {
 
     public void submitPurityReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {
-            newReport = new WaterPurityReport((getIntent().getExtras().getString("username")));
-            date.setText(newReport.getDataTime().toString());
-            reportNum.setText(newReport.getReportNumber());
-            reporter.setText(newReport.getReporter());
+//            newReport = new WaterPurityReport((getIntent().getExtras().getString("username")));
+//            date.setText(newReport.getDataTime().toString());
+//            reportNum.setText(newReport.getReportNumber());
+//            reporter.setText(newReport.getReporter());
 
             newReport.setLocation(new Location(address.getFeatureName()));
             newReport.getLocation().setLatitude(address.getLatitude());
@@ -141,10 +147,10 @@ public class SubmitPurityReport extends AppCompatActivity {
 
             JSONObject reportJson = newReport.toJSONObject();
 
-            User currentuser = new User(this.username, this.password, "");
+
 
 //            WaterReportTask.addWaterPurityReport(newReport);
-            new HTTPSubmitReportTask().execute(currentuser,reportJson);
+            new HTTPSubmitReportTask().execute(loginUser, reportJson);
 
 
         } else {
@@ -169,7 +175,7 @@ public class SubmitPurityReport extends AppCompatActivity {
             if (result) {
                 afterSuccess();
             }else {
-                Log.d("[Login]", "Login failed http returned false");
+                Log.d("[Login]", "Task failed http returned false");
             }
         }
     }
@@ -179,8 +185,7 @@ public class SubmitPurityReport extends AppCompatActivity {
 
         Intent intent = new Intent(this, SourceView.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password);
-        bundle1.putString("username", username);
+        intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
     }

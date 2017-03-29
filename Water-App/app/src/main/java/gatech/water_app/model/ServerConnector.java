@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -67,8 +68,20 @@ public class ServerConnector {
             received = new JSONObject(responseString);
             retrieveduser = new User(received.getString("email"), received.getString("password"));
             retrieveduser.setUsername(received.getString("username"));
-            received.getString("account_type");
+
             received.getString("created_at");
+
+            String title =  received.getString("account_type");
+            if (title.equals("User") || title.equals("user")){
+                retrieveduser.setTitle(Title.USER);
+            } else if (title.equals("Worker") || title.equals("worker")) {
+                retrieveduser.setTitle(Title.WORKER);
+            } else if (title.equals("Admin") || title.equals("admin")) {
+                retrieveduser.setTitle(Title.ADMIN);
+            } else if (title.equals("Manager") || title.equals("manager")){
+                retrieveduser.setTitle(Title.MANAGER);
+            }
+
             Log.d("ServerConnector", "JsonObj " + received.toString());
 
         } catch (JSONException E){
@@ -230,6 +243,51 @@ public class ServerConnector {
             received = new JSONObject(responseString);
             Log.d("ServerConnector", "JsonObj " + received.toString());
             returnarray = received.getJSONArray("reports");
+        } catch (JSONException E){
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
+        }
+
+
+        return returnarray;
+
+    }
+
+    public static ArrayList<WaterSourceReport> getSourceReports(User user) throws IOException{
+
+        String base64_encoded = parseBase64BasicAuth(user);
+
+        String bodyString = "";
+
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType mediaType = MediaType.parse("application/octet-stream");
+        RequestBody body = RequestBody.create(mediaType, bodyString);
+        Request request = new Request.Builder()
+                .url("http://umb.kaangoksal.com:5235/get_water_source_reports")
+                .post(body)
+                .addHeader("Authorization", base64_encoded)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseString = response.body().string();
+        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
+        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+        Log.d("ServerConnector", "Server returned response for get reports = " +responseString );
+        JSONObject received;
+        JSONArray jsonArray = null;
+        ArrayList<WaterSourceReport> returnarray = new ArrayList<WaterSourceReport>();
+        try {
+            received = new JSONObject(responseString);
+            Log.d("ServerConnector", "JsonObj " + received.toString());
+            jsonArray = received.getJSONArray("reports");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject reportJsonChild = jsonArray.getJSONObject(i);
+
+                returnarray.add(WaterSourceReport.fromJSONObject(reportJsonChild));
+                Log.e("SourceView", "Populating the list " + reportJsonChild.toString());
+            }
+
         } catch (JSONException E){
             Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
         }

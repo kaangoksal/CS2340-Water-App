@@ -114,13 +114,19 @@ public class WaterPurityReport extends Report {
             data.put("overall_condition", this.overallCondition.toString());
             String dataString = data.toString();
 
+            JSONObject locationJson = new JSONObject();
+            locationJson.put("latitude", this.getLocation().getLatitude());
+            locationJson.put("longitude", this.getLocation().getLongitude());
+            String locationJSONstring = locationJson.toString();
+
 
             JSONObject returnJson = new JSONObject();
-            returnJson.put("date", this.dataTime);
+            returnJson.put("date", this.getDateString());
             returnJson.put("report_number", this.reportNumber);
             returnJson.put("reporter", this.reporter);
-            returnJson.put("location", this.getLocation().toString());
+            returnJson.put("location", locationJSONstring);
             returnJson.put("data", dataString);
+            returnJson.put("type", "WaterPurityReport");
             return returnJson;
         } catch (JSONException E) {
             return null;

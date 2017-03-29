@@ -14,6 +14,7 @@ import android.widget.Toast;
 import gatech.water_app.R;
 
 
+import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
 import gatech.water_app.model.UserLoginTask;
 
@@ -77,12 +78,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void afterLogin(User dbuser) {
-        loginUser = dbuser;
-        Intent intent = new Intent(this, LandingPage.class);
-        Bundle bundle1 = new Bundle();
-        intent.putExtras(bundle1);
-        intent.putExtra("user", loginUser);
-        startActivity(intent);
+        if (dbuser.getTitle().equals(Title.USER)) {
+            loginUser = dbuser;
+            Intent intent = new Intent(this, LandingPage.class);
+            Bundle bundle1 = new Bundle();
+            intent.putExtras(bundle1);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        } else if (dbuser.getTitle().equals(Title.WORKER)) {
+            loginUser = dbuser;
+            Intent intent = new Intent(this, WorkerLandingPage.class);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        } else if (dbuser.getTitle().equals(Title.MANAGER)) {
+            loginUser = dbuser;
+            Intent intent = new Intent(this, ManagerLandingPage.class);
+            intent.putExtra("user", loginUser);
+            startActivity(intent);
+        }
     }
 
 

@@ -14,8 +14,8 @@ import gatech.water_app.R;
 import gatech.water_app.model.User;
 
 public class LandingPage extends AppCompatActivity {
-    String email;
-    String password;
+//    String email;
+//    String password;
     User loginUser;
 
 
@@ -23,8 +23,8 @@ public class LandingPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
-        email = extras.getString("username");
-        password = extras.getString("password");
+//        email = extras.getString("username");
+//        password = extras.getString("password");
         loginUser =(User)extras.getSerializable("user");
         Log.d("LandingPage", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
 
@@ -33,7 +33,7 @@ public class LandingPage extends AppCompatActivity {
         setSupportActionBar(toolbar);
         TextView text1 = (TextView) findViewById(R.id.textView3);
 
-        text1.setText("Hello " + email);
+        text1.setText("Hello " + loginUser.getEmail());
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

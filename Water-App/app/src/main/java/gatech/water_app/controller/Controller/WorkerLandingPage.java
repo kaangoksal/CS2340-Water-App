@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import gatech.water_app.R;
+import gatech.water_app.model.User;
 
 public class WorkerLandingPage extends LandingPage {
 
@@ -22,12 +23,11 @@ public class WorkerLandingPage extends LandingPage {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
-        email = extras.getString("email");
-        password = extras.getString("password");
+        loginUser =(User)extras.getSerializable("user");
         setContentView(R.layout.activity_worker_landing);
         TextView text1 = (TextView) findViewById(R.id.textView3);
 
-        text1.setText("Hello " + email);
+        text1.setText("Hello " + loginUser.getEmail());
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -44,7 +44,7 @@ public class WorkerLandingPage extends LandingPage {
     public void addPurityReport(View view) {
         Intent intent = new Intent(this, SubmitPurityReport.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("email", email);
+        intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
     }
@@ -52,8 +52,7 @@ public class WorkerLandingPage extends LandingPage {
     public void startPurityView(View view) {
         Intent intent = new Intent(this, PurityView.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("password", password);
-        bundle1.putString("email", email);
+        intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
     }

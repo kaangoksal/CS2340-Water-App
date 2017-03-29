@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import gatech.water_app.R;
+import gatech.water_app.model.User;
 
 public class ManagerLandingPage extends LandingPage {
 
@@ -25,10 +26,13 @@ public class ManagerLandingPage extends LandingPage {
     private Spinner PPMSpinner;
     private EditText historicalLocation;
     private EditText historicalYear;
-
+    User loginUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        loginUser =(User)extras.getSerializable("user");
+
         setContentView(R.layout.activity_manager_landing_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,8 +58,9 @@ public class ManagerLandingPage extends LandingPage {
     public void startPurityView(View view) {
         Intent intent = new Intent(this, PurityView.class);
         Bundle bundle1 = new Bundle();
-        bundle1.putString("pass", password);
-        bundle1.putString("email", email);
+//        bundle1.putString("pass", password);
+//        bundle1.putString("email", email);
+        intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
     }
@@ -116,6 +121,7 @@ public class ManagerLandingPage extends LandingPage {
     public void startHistoricalReport(View view, Bundle bundle) {
         Intent intent = new Intent(this, HistoricalReport.class);
         intent.putExtras(bundle);
+        intent.putExtra("user", loginUser);
         startActivity(intent);
     }
 

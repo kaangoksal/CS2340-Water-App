@@ -56,6 +56,14 @@
             android:label="@string/title_activity_water_report"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".controller.Controller.WorkerLandingPage"
+            android:label="Worker Page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controller.Controller.SubmitPurityReport"
+            android:label="Submit Purity Report"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".controller.Controller.SourceView"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--

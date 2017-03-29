@@ -174,17 +174,81 @@ public class WaterSourceReport extends Report {
             data.put("water_condition", this.condition.toString());
             String dataString = data.toString();
 
+            JSONObject locationJson = new JSONObject();
+            locationJson.put("latitude", this.getLocation().getLatitude());
+            locationJson.put("longitude", this.getLocation().getLongitude());
+            String locationJSONstring = locationJson.toString();
+
             JSONObject returnJson = new JSONObject();
             returnJson.put("date", this.getDateString());
             returnJson.put("report_number", this.reportNumber);
             returnJson.put("reporter", this.reporter);
-            returnJson.put("location", this.getLocation().toString());
+            returnJson.put("location", locationJSONstring);
             returnJson.put("data", dataString);
+            returnJson.put("type", "WaterSourceReport");
 
             return returnJson;
         } catch (JSONException E){
             return null;
         }
+
+    }
+
+
+//    JSONObject received;
+//    User retrieveduser = null;
+//        try {
+//
+//        received = new JSONObject(responseString);
+//        retrieveduser = new User(received.getString("email"), received.getString("password"));
+//        retrieveduser.setUsername(received.getString("username"));
+//
+//        received.getString("created_at");
+//
+//        String title =  received.getString("account_type");
+//        if (title.equals("User") || title.equals("user")){
+//            retrieveduser.setTitle(Title.USER);
+//        } else if (title.equals("Worker") || title.equals("worker")) {
+//            retrieveduser.setTitle(Title.WORKER);
+//        } else if (title.equals("Admin") || title.equals("admin")) {
+//            retrieveduser.setTitle(Title.ADMIN);
+//        } else if (title.equals("Manager") || title.equals("manager")){
+//            retrieveduser.setTitle(Title.MANAGER);
+//        }
+//
+//        Log.d("ServerConnector", "JsonObj " + received.toString());
+//
+//    } catch (JSONException E){
+//        Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
+//    }
+//
+//        return retrieveduser;
+//
+    public static WaterSourceReport fromJSONObject(JSONObject jsonObject) {
+        WaterSourceReport returnreport;
+        try {
+            String report_number = jsonObject.getString("report_number");
+            String dateString = jsonObject.getString("date");
+            String reporter = jsonObject.getString("reporter");
+            JSONObject locationJSON = jsonObject.getJSONObject("location");
+            JSONObject data = jsonObject.getJSONObject("data");
+
+            WaterType type = WaterType.valueOf(data.getString("water_type"));
+            WaterCondition waterCondition = WaterCondition.valueOf(data.getString("water_condition"));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            Date reportDate = sdf.parse(dateString);
+            Location location = new Location("");
+            location.setLatitude(locationJSON.getDouble("latitude"));
+            location.setLongitude(locationJSON.getDouble("longitude"));
+
+            returnreport = new WaterSourceReport(reportDate,report_number,reporter,type,waterCondition,location);
+
+        } catch (Exception E) {
+            return null;
+        }
+        return returnreport;
 
     }
 
