@@ -3,6 +3,8 @@ package gatech.water_app.controller.Controller;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,16 +18,22 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import gatech.water_app.R;
 import gatech.water_app.model.User;
 
 public class ManagerLandingPage extends LandingPage {
 
-    private Button historicalButton;
-    private String[] PPMList = {"Virus", "Contaminant"};
+    private List<String> PPMList;
     private Spinner PPMSpinner;
     private EditText historicalLocation;
     private EditText historicalYear;
+    private Address address = new Address(new Locale("US"));
     User loginUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +53,8 @@ public class ManagerLandingPage extends LandingPage {
                         .setAction("Action", null).show();
             }
         });
-
-        historicalLocation = (EditText) findViewById(R.id.historicalLocation);
-        historicalYear = (EditText) findViewById(R.id.historicalYear);
-
-//        PPMSpinner = (Spinner) findViewById(R.id.historicalPPM);
-//        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, PPMList);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        PPMSpinner.setAdapter(adapter);
+        address.setLatitude(0.0);
+        address.setLongitude(0.0);
     }
 
     public void startPurityView(View view) {
@@ -76,9 +78,15 @@ public class ManagerLandingPage extends LandingPage {
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
 
-        final EditText location = (EditText) promptsView
-                .findViewById(R.id.historicalLocation);
-
+        historicalLocation = (EditText) promptsView.findViewById(R.id.historicalLocation);
+        historicalYear = (EditText) promptsView.findViewById(R.id.historicalYear);
+        PPMSpinner = (Spinner) promptsView.findViewById(R.id.historicalPPM);
+        PPMList = new ArrayList<>();
+        PPMList.add("Virus");
+        PPMList.add("Contaminant");
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, PPMList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        PPMSpinner.setAdapter(adapter);
 
         // set dialog message
         alertDialogBuilder
@@ -93,11 +101,17 @@ public class ManagerLandingPage extends LandingPage {
                                         && !historicalYear.getText().toString().equals("")
                                         && historicalLocation.getText().toString() != null
                                         && !historicalLocation.getText().toString().equals("")) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("year", Integer.parseInt(historicalYear.getText().toString()));
-                                    bundle.putString("PMM", PPMSpinner.getSelectedItem().toString());
-                                    bundle.putString("location", historicalLocation.getText().toString());
-                                    startHistoricalReport(view, bundle);
+                                    if (Integer.parseInt(historicalYear.getText().toString()) > 0) {
+
+                                        Bundle bundle = new Bundle();
+                                        bundle.putInt("year", Integer.parseInt(historicalYear.getText().toString()));
+                                        bundle.putString("PPM", PPMSpinner.getSelectedItem().toString());
+                                        bundle.putString("address", historicalLocation.getText().toString());
+                                        startHistoricalReport(view, bundle);
+
+                                    } else {
+                                        Toast.makeText(ManagerLandingPage.this, "Invalid year", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     Toast.makeText(ManagerLandingPage.this, "Incomplete Fields", Toast.LENGTH_SHORT).show();
                                 }
@@ -118,7 +132,7 @@ public class ManagerLandingPage extends LandingPage {
         alertDialog.show();
     }
 
-    public void startHistoricalReport(View view, Bundle bundle) {
+    private void startHistoricalReport(View view, Bundle bundle) {
         Intent intent = new Intent(this, HistoricalReport.class);
         intent.putExtras(bundle);
         intent.putExtra("user", loginUser);

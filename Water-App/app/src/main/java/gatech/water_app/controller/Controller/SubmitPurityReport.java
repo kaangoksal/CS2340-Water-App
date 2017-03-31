@@ -183,7 +183,7 @@ public class SubmitPurityReport extends AppCompatActivity {
 
     private void afterSuccess(){
 
-        Intent intent = new Intent(this, SourceView.class);
+        Intent intent = new Intent(this, PurityView.class);
         Bundle bundle1 = new Bundle();
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);

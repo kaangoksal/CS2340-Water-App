@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import gatech.water_app.R;
 import gatech.water_app.model.ServerConnector;
@@ -66,21 +67,7 @@ public class PurityView extends AppCompatActivity {
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.puritylist);
 
-
-        String[] values = WaterReportTask.getPurityListString();
-
-        // Define a new Adapter
-        // First parameter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
-
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-
-        // Assign adapter to ListView
-        listView.setAdapter(adapter);
+        new HTTPGetPurityReportTask().execute(loginUser);
 
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,7 +90,6 @@ public class PurityView extends AppCompatActivity {
             }
 
         });
-        new HTTPGetPurityReportTask().execute(loginUser);
     }
     /**
      * This is a class for the async HTTP Request.
@@ -123,7 +109,7 @@ public class PurityView extends AppCompatActivity {
         protected void onPostExecute(ArrayList<WaterPurityReport> result) {
             if (result != null) {
                 populateList(result);
-                Log.d("SourceView", "It appears that the request was successfull ");
+                Log.d("PurityView", "It appears that the request was successfull ");
             }
         }
     }
@@ -138,7 +124,7 @@ public class PurityView extends AppCompatActivity {
         for (int i = 0; i < WaterPurityReportList.size(); i++) {
 //                JSONObject reportJsonChild = reportJSONArray.getJSONObject(i);
             newList[i] = WaterPurityReportList.get(i).toString();
-            Log.e("SourceView", "Populating the list " + WaterPurityReportList.get(i).toString());
+            Log.e("PurityView", "Populating the list " + WaterPurityReportList.get(i).toString());
         }
 //            values = newList;
 

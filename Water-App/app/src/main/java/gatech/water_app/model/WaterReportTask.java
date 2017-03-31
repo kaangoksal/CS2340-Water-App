@@ -83,17 +83,6 @@ public class WaterReportTask {
         purityList.add(sourceReport);
     }
 
-    //temp
-    /**
-     * returns the static purityList
-     */
-    public static String[] getPurityListString() {
-        String[] temp = new String[purityList.size()];
-        for (int i = 0; i < purityList.size(); i++){
-            temp[i] = purityList.get(i).toString();
-        }
-        return temp;
-    }
 
     /**
      * Search for water source report
@@ -113,8 +102,12 @@ public class WaterReportTask {
     /**
      * List of the water sources reports
      */
-    public static List<WaterPurityReport> waterPurityReportList() {
-        return purityList;
+    public static List<WaterPurityReport> waterPurityReportList(User user) {
+        try {
+            return ServerConnector.getPurityReports(user);
+        } catch (IOException E) {
+            throw new RuntimeException("Failed to get purity report form database");
+        }
     }
 
 }

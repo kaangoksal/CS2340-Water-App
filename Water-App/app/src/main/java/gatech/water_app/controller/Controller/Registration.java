@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,8 +29,7 @@ public class Registration extends AppCompatActivity {
     EditText address;
     Button registerButton;
     Button cancelButton;
-    Spinner newSpin;
-    String[] arraySpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +52,7 @@ public class Registration extends AppCompatActivity {
         address = (EditText) findViewById(R.id.addressIn);
         registerButton = (Button) findViewById(R.id.submitreg);
         cancelButton = (Button) findViewById(R.id.cancel);
-        newSpin = (Spinner) findViewById(R.id.spinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Title.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        newSpin.setAdapter(adapter);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

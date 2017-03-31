@@ -41,7 +41,6 @@ import gatech.water_app.model.WaterSourceReport;
 public class SourceView extends AppCompatActivity {
     ListView listView ;
     User loginUser;
-    String[] values;
     ArrayAdapter<String> listViewAdapter;
 
     /**
@@ -64,11 +63,6 @@ public class SourceView extends AppCompatActivity {
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.waterlist);
-
-
-        values = WaterReportTask.getSourceListString();
-
-
 
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -130,7 +124,6 @@ public class SourceView extends AppCompatActivity {
                 newList[i] = WaterSourceReportList.get(i).toString();
                 Log.e("SourceView", "Populating the list " + WaterSourceReportList.get(i).toStringTemp());
             }
-//            values = newList;
 
             // Define a new Adapter
             // First parameter - Context
