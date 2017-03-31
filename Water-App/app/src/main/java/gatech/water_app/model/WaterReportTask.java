@@ -57,9 +57,9 @@ public class WaterReportTask {
      * @param position
      * @return
      */
-    public static String getSourceReportInfo(LatLng position) {
+    public static String getSourceReportInfo(LatLng position, ArrayList<WaterSourceReport> list) {
         String returnData = "";
-        for (WaterSourceReport element: sourceList) {
+        for (WaterSourceReport element: list) {
             if (element.getLocation().getLatitude() == position.latitude && element.getLocation().getLongitude() == position.longitude) {
                 returnData += element.toString() + "\n\n";
             }
@@ -70,8 +70,12 @@ public class WaterReportTask {
     /**
      * List of the water sources reports
      */
-    public static List<WaterSourceReport> waterSourceReportList() {
-        return sourceList;
+    public static List<WaterSourceReport> waterSourceReportList(User user) {
+        try {
+            return ServerConnector.getSourceReports(user);
+        } catch (IOException E) {
+            throw new RuntimeException("Failed to get purity report form database");
+        }
     }
 
     /**

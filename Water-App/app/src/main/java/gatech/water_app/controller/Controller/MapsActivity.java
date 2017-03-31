@@ -89,28 +89,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        // mMap.setOnMyLocationButtonClickListener((GoogleMap.OnMyLocationButtonClickListener) this);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
-        //Place markers on the map
-        List<WaterSourceReport> list = WaterReportTask.waterSourceReportList();
-        for (int i = 0; i < list.size(); i++){
-            mMap.addMarker(new MarkerOptions().position(new LatLng(list.get(i).getLocation().getLatitude(),
-                    list.get(i).getLocation().getLongitude())).title(list.get(i).getLocation().getProvider()));
-        }
-
-        // Add a marker in Sydney and move the camera
-       // LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-
-            public boolean onMarkerClick(Marker marker) {
-                String markerMessage = WaterReportTask.getSourceReportInfo(marker.getPosition());
-                Toast.makeText(getApplicationContext(), markerMessage, Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-
         new HTTPGetReportTask().execute(loginUser);
     }
 
@@ -136,6 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void populateMap(ArrayList<WaterSourceReport> list) {
 
+        final ArrayList<WaterSourceReport> sourceList = list;
         // mMap.setOnMyLocationButtonClickListener((GoogleMap.OnMyLocationButtonClickListener) this);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
@@ -146,16 +125,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     list.get(i).getLocation().getLongitude())).title(list.get(i).getLocation().getProvider()));
         }
 
-        // Add a marker in Sydney and move the camera
-        // LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
             public boolean onMarkerClick(Marker marker) {
-                String markerMessage = WaterReportTask.getSourceReportInfo(marker.getPosition());
+                String markerMessage = WaterReportTask.getSourceReportInfo(marker.getPosition(), sourceList);
                 Toast.makeText(getApplicationContext(), markerMessage, Toast.LENGTH_SHORT).show();
                 return true;
             }
