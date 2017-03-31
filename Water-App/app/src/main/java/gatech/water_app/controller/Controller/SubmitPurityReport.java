@@ -113,6 +113,10 @@ public class SubmitPurityReport extends AppCompatActivity {
         );
     }
 
+    /**
+     * Searchs for the location base on the input string for the edittext field and sets location to the predicted address
+     * @param view
+     */
     public void searchLocation(View view) {
         if (location.getText().toString() != null && !location.getText().toString().equals("")) {
             String locationName = location.getText().toString();
@@ -131,6 +135,10 @@ public class SubmitPurityReport extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adds the new report the data base
+     * @param view
+     */
     public void submitPurityReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {
 //            newReport = new WaterPurityReport((getIntent().getExtras().getString("username")));
@@ -180,7 +188,9 @@ public class SubmitPurityReport extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * returns to the landing page
+     */
     private void afterSuccess(){
 
         Intent intent = new Intent(this, PurityView.class);

@@ -116,6 +116,10 @@ public class SubmitSourceReport extends AppCompatActivity {
         );
     }
 
+    /**
+     * Searchs for the location base on the input string for the edittext field and sets location to the predicted address
+     * @param view
+     */
     public void searchLocation(View view) {
         if (location.getText().toString() != null && !location.getText().toString().equals("")) {
             String locationName = location.getText().toString();
@@ -134,6 +138,10 @@ public class SubmitSourceReport extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adds the new report the data base
+     * @param view
+     */
     public void submitSourceReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {
 
@@ -184,6 +192,9 @@ public class SubmitSourceReport extends AppCompatActivity {
         }
     }
 
+    /**
+     * returns to the landing page
+     */
     private void afterHTTPSuccess(){
         Intent intent = new Intent(this, SourceView.class);
         Bundle bundle1 = new Bundle();

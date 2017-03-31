@@ -73,6 +73,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Does not login
+     * @param v
+     */
     public void cancelButtonAction(View v) {
         finish();
     }

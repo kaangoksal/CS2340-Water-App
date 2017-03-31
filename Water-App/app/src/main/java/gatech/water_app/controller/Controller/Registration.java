@@ -101,6 +101,9 @@ public class Registration extends AppCompatActivity {
         }
     }
 
+    /**
+     * Goes to the login page
+     */
     public void afterEdit() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

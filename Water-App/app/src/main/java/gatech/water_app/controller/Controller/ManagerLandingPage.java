@@ -57,6 +57,10 @@ public class ManagerLandingPage extends LandingPage {
         address.setLongitude(0.0);
     }
 
+    /**
+     * Goes to the purity view page
+     * @param view
+     */
     public void startPurityView(View view) {
         Intent intent = new Intent(this, PurityView.class);
         Bundle bundle1 = new Bundle();
@@ -67,6 +71,10 @@ public class ManagerLandingPage extends LandingPage {
         startActivity(intent);
     }
 
+    /**
+     * Creates a dialog box that requires the user to input setup information before going to the historical report page
+     * @param view
+     */
     public void setupHistoricalReport(final View view) {
         // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(this);

@@ -40,7 +40,10 @@ public class WorkerLandingPage extends LandingPage {
         });
     }
 
-
+    /**
+     * Goes to the submit purity report page
+     * @param view
+     */
     public void addPurityReport(View view) {
         Intent intent = new Intent(this, SubmitPurityReport.class);
         Bundle bundle1 = new Bundle();
@@ -49,6 +52,10 @@ public class WorkerLandingPage extends LandingPage {
         startActivity(intent);
     }
 
+    /**
+     * Goes to the purity view page
+     * @param view
+     */
     public void startPurityView(View view) {
         Intent intent = new Intent(this, PurityView.class);
         Bundle bundle1 = new Bundle();

@@ -46,7 +46,10 @@ public class LandingPage extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Goes to the page where users can create new source reports
+     * @param view
+     */
     public void addSourceReport(View view) {
         Intent intent = new Intent(this, SubmitSourceReport.class);
         Bundle bundle1 = new Bundle();
@@ -56,12 +59,16 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    /** Logs the user out and returns them to the homepage
     public void loginout(View view) {
         Intent intent = new Intent(this, welcomePage.class);
         startActivity(intent);
     }
 
+    /**
+     * Goes to the edit user profile page
+     * @param view
+     */
     public void startEditPage(View view) {
         Intent intent = new Intent(this, EditPage.class);
         Bundle bundle1 = new Bundle();
@@ -72,6 +79,10 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Goes the list of source reports page
+     * @param view
+     */
     public void startSourceView(View view) {
         Intent intent = new Intent(this, SourceView.class);
         Bundle bundle1 = new Bundle();
@@ -81,6 +92,10 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Goes to google maps page
+     * @param view
+     */
     public void startWaterMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         Bundle bundle1 = new Bundle();

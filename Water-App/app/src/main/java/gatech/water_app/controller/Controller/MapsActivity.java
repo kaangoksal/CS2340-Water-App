@@ -125,8 +125,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     list.get(i).getLocation().getLongitude())).title(list.get(i).getLocation().getProvider()));
         }
 
-
-
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
             public boolean onMarkerClick(Marker marker) {
@@ -135,9 +133,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return true;
             }
         });
-
     }
-
 
     @Override
     public boolean onMyLocationButtonClick() {
