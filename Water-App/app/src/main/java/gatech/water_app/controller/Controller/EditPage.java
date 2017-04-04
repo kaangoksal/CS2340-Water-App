@@ -115,6 +115,9 @@ public class EditPage extends AppCompatActivity {
         }
     }
 
+    /**
+     * after Editing, go back to the page you came from.
+     */
     public void afterEdit() {
 //        UserLoginTask.editUser(newUser);
         Intent intent = new Intent(this, LandingPage.class);
