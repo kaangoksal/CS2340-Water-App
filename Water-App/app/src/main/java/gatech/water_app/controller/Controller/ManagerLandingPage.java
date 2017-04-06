@@ -27,7 +27,7 @@ import java.util.Locale;
 import gatech.water_app.R;
 import gatech.water_app.model.User;
 
-public class ManagerLandingPage extends LandingPage {
+public class ManagerLandingPage extends WorkerLandingPage {
 
     private List<String> PPMList;
     private Spinner PPMSpinner;
@@ -55,20 +55,6 @@ public class ManagerLandingPage extends LandingPage {
         });
         address.setLatitude(0.0);
         address.setLongitude(0.0);
-    }
-
-    /**
-     * Goes to the purity view page
-     * @param view
-     */
-    public void startPurityView(View view) {
-        Intent intent = new Intent(this, PurityView.class);
-        Bundle bundle1 = new Bundle();
-//        bundle1.putString("pass", password);
-//        bundle1.putString("email", email);
-        intent.putExtra("user", loginUser);
-        intent.putExtras(bundle1);
-        startActivity(intent);
     }
 
     /**

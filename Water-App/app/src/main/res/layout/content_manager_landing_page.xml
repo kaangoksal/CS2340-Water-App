@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logout"
-        android:onClick="loginout"
+        android:onClick="logout"
         android:layout_marginBottom="73dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -80,6 +80,16 @@
         android:layout_marginBottom="56dp"
         android:layout_alignBottom="@+id/historicalReportButton"
         android:layout_alignEnd="@+id/view_report_button" />
+
+    <Button
+        android:id="@+id/addPurity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/addReport"
+        android:layout_alignStart="@+id/addReport"
+        android:layout_below="@+id/addReport"
+        android:onClick="addPurityReport"
+        android:text="Add purity" />
 
     <Button
         android:id="@+id/historicalReportButton"
