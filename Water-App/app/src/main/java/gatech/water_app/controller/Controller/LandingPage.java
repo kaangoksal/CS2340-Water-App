@@ -105,4 +105,9 @@ public class LandingPage extends AppCompatActivity {
         intent.putExtras(bundle1);
         startActivity(intent);
     }
+
+    public void logout(View view) {
+        Intent intent = new Intent(this, welcomePage.class);
+        startActivity(intent);
+    }
 }
