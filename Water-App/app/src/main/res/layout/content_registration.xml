@@ -34,6 +34,7 @@
             android:layout_alignBaseline="@+id/cancel"
             android:layout_alignBottom="@+id/cancel"
             android:layout_toStartOf="@+id/cancel"
+            android:background="@color/ap_transparent"
             android:layout_marginEnd="60dp" />
 
         <Button
@@ -46,6 +47,7 @@
             tools:layout_editor_absoluteY="423dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:background="@color/ap_transparent"
             android:layout_marginBottom="97dp" />
 
         <EditText
@@ -58,10 +60,10 @@
             android:hint="Username"
             android:inputType="textPersonName"
             android:selectAllOnFocus="false"
-            android:singleLine="false"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="149dp"
             android:layout_above="@+id/passwordIn"
+            android:textCursorDrawable="@null"
             android:layout_alignStart="@+id/passwordIn" />
 
         <EditText
@@ -76,6 +78,7 @@
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="217dp"
             android:layout_above="@+id/emailIn"
+            android:textCursorDrawable="@null"
             android:layout_alignStart="@+id/emailIn" />
 
         <EditText
@@ -89,6 +92,7 @@
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="87dp"
             tools:layout_editor_absoluteY="282dp"
+            android:textCursorDrawable="@null"
             android:layout_above="@+id/addressIn"
             android:layout_alignStart="@+id/addressIn" />
 
@@ -105,6 +109,7 @@
             tools:layout_editor_absoluteX="87dp"
             tools:layout_editor_absoluteY="346dp"
             android:layout_marginEnd="23dp"
+            android:textCursorDrawable="@null"
             android:layout_above="@+id/submitreg"
             android:layout_alignParentEnd="true" />
 

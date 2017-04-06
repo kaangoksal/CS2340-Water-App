@@ -25,7 +25,8 @@
             android:layout_marginBottom="11dp"
             android:background="@android:drawable/presence_invisible"
             android:onClick="startLoginPage"
-            android:text="Login" />
+            android:text="Login"
+            android:textColorLink="@color/ap_transparent" />
 
         <Button
             android:id="@+id/Register"
@@ -38,7 +39,8 @@
             android:layout_marginBottom="178dp"
             android:background="@android:drawable/presence_invisible"
             android:onClick="startRegistrationPage"
-            android:text="Registration" />
+            android:text="Registration"
+            android:textColorLink="@color/ap_transparent" />
 
         <ImageView
             android:id="@+id/imageView2"

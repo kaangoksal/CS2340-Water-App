@@ -32,12 +32,17 @@
             android:layout_marginTop="151dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColorLink="@color/ap_transparent"
+            android:textCursorDrawable="@null" />
 
         <EditText
             android:id="@+id/passwordInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/usernameInput"
+            android:layout_alignStart="@+id/usernameInput"
+            android:layout_alignTop="@+id/usernameInput"
             android:layout_marginTop="66dp"
             android:hint="@string/prompt_password"
             android:imeActionId="@+id/login"
@@ -45,9 +50,8 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:layout_alignTop="@+id/usernameInput"
-            android:layout_alignStart="@+id/usernameInput"
-            android:layout_alignEnd="@+id/usernameInput" />
+            android:textColorLink="@color/ap_transparent"
+            android:textCursorDrawable="@null" />
 
         <Button
             android:id="@+id/sign_in_button"
