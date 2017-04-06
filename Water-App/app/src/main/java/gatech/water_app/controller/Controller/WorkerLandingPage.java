@@ -27,17 +27,9 @@ public class WorkerLandingPage extends LandingPage {
         setContentView(R.layout.activity_worker_landing);
         TextView text1 = (TextView) findViewById(R.id.textView3);
 
-        text1.setText("Hello " + loginUser.getEmail());
+        text1.setText(loginUser.getEmail());
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     /**
