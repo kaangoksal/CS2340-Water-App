@@ -40,17 +40,7 @@ public class WaterReportTask {
         }
     }
 
-    //temp
-    /**
-     * returns the static sourceList
-     */
-    public static String[] getSourceListString() {
-        String[] temp = new String[sourceList.size()];
-        for (int i = 0; i < sourceList.size(); i++){
-            temp[i] = sourceList.get(i).toStringTemp();
-        }
-        return temp;
-    }
+
 
     /**
      * Search for water source report
