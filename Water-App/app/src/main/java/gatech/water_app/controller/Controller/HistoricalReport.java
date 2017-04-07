@@ -49,7 +49,7 @@ public class HistoricalReport extends AppCompatActivity {
     private Address address;
     private int year;
     private String ppm;
-    private List<Number> range = new ArrayList();
+    private final List<Number> range = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +206,7 @@ public class HistoricalReport extends AppCompatActivity {
      * Populates the graph with WaterPurityReports
      * @param WaterPurityReportList
      */
-    public void populateGraph(ArrayList<WaterPurityReport> WaterPurityReportList) {
+    private void populateGraph(ArrayList<WaterPurityReport> WaterPurityReportList) {
 
         //Putting year from data is deprecated
         Calendar cal = Calendar.getInstance();

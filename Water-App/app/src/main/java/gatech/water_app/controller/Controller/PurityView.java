@@ -28,9 +28,8 @@ import gatech.water_app.model.WaterPurityReport;
  */
 
 public class PurityView extends AppCompatActivity {
-    ListView listView ;
-    User loginUser;
-    ArrayAdapter<String> adapter;
+    private ListView listView ;
+    private User loginUser;
 
     /**
      * This is initialized when the page is started.
@@ -110,7 +109,7 @@ public class PurityView extends AppCompatActivity {
      * Populates the list for WaterPurityReports
      * @param WaterPurityReportList
      */
-    public void populateList(ArrayList<WaterPurityReport> WaterPurityReportList) {
+    private void populateList(ArrayList<WaterPurityReport> WaterPurityReportList) {
         String[] newList = new String[WaterPurityReportList.size()];
 
         for (int i = 0; i < WaterPurityReportList.size(); i++) {
@@ -125,7 +124,7 @@ public class PurityView extends AppCompatActivity {
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
-        adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, newList);
 
 

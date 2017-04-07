@@ -16,12 +16,10 @@ import gatech.water_app.R;
 
 public class Registration extends AppCompatActivity {
 
-    EditText username;
-    EditText password;
-    EditText email;
-    EditText address;
-    Button registerButton;
-    Button cancelButton;
+    private EditText username;
+    private EditText password;
+    private EditText email;
+    private EditText address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +31,8 @@ public class Registration extends AppCompatActivity {
         password = (EditText) findViewById(R.id.passwordIn);
         email = (EditText) findViewById(R.id.emailIn);
         address = (EditText) findViewById(R.id.addressIn);
-        registerButton = (Button) findViewById(R.id.submitreg);
-        cancelButton = (Button) findViewById(R.id.cancel);
+        Button registerButton = (Button) findViewById(R.id.submitreg);
+        Button cancelButton = (Button) findViewById(R.id.cancel);
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +85,7 @@ public class Registration extends AppCompatActivity {
     /**
      * Goes to the login page
      */
-    public void afterEdit() {
+    private void afterEdit() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

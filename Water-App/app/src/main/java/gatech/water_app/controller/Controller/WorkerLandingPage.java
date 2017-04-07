@@ -1,10 +1,5 @@
 package gatech.water_app.controller.Controller;
 
-/**
- * The landing page if you login as a worker
- * Created by John on 3/10/2017.
- */
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

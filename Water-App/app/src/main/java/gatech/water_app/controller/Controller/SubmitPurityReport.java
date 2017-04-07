@@ -44,7 +44,7 @@ public class SubmitPurityReport extends AppCompatActivity {
     private TextView contaminant;
     private Address address = new Address(new Locale("US"));
 
-    User loginUser;
+    private User loginUser;
 
     private WaterPurityReport newReport;
 
@@ -68,7 +68,6 @@ public class SubmitPurityReport extends AppCompatActivity {
         address.setLatitude(0.0);
         address.setLongitude(0.0);
 
-        Button submit = (Button) findViewById(R.id.submitreg);
         TextView dateView = (TextView) findViewById(R.id.autogen);
         TextView reportNumView = (TextView) findViewById(R.id.autogen2);
         TextView reporterTextView = (TextView) findViewById(R.id.autogen3);
@@ -86,7 +85,7 @@ public class SubmitPurityReport extends AppCompatActivity {
         newReport = new WaterPurityReport(loginUser.getEmail());
 
         newReport.setReportNumber(UUID.randomUUID().toString());
-        dateView.setText(newReport.getDateString().toString());
+        dateView.setText(newReport.getDateString());
         reportNumView.setText(newReport.getReportNumber());
         reporterTextView.setText(newReport.getReporter());
 

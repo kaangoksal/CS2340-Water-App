@@ -44,7 +44,7 @@ public class SubmitSourceReport extends AppCompatActivity {
 
 
 
-    User loginUser;
+    private User loginUser;
 
     private WaterSourceReport newReport;
 
@@ -72,7 +72,6 @@ public class SubmitSourceReport extends AppCompatActivity {
         address.setLatitude(0.0);
         address.setLongitude(0.0);
 
-        Button submitButton = (Button) findViewById(R.id.submitreg);
         TextView dateView = (TextView) findViewById(R.id.autogen);
         TextView reportNumView = (TextView) findViewById(R.id.autogen2);
         TextView reporterView = (TextView) findViewById(R.id.autogen3);
@@ -93,7 +92,7 @@ public class SubmitSourceReport extends AppCompatActivity {
         newReport = new WaterSourceReport(loginUser.getEmail());
 
         newReport.setReportNumber(UUID.randomUUID().toString());
-        dateView.setText(newReport.getDateString().toString());
+        dateView.setText(newReport.getDateString());
         reportNumView.setText(newReport.getReportNumber());
         reporterView.setText(newReport.getReporter());
 

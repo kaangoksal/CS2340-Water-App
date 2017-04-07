@@ -27,7 +27,7 @@ import gatech.water_app.model.WaterSourceReport;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
     private GoogleMap mMap;
-    User loginUser;
+    private User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void populateMap(ArrayList<WaterSourceReport> list) {
+    private void populateMap(ArrayList<WaterSourceReport> list) {
 
         final ArrayList<WaterSourceReport> sourceList = list;
         // mMap.setOnMyLocationButtonClickListener((GoogleMap.OnMyLocationButtonClickListener) this);

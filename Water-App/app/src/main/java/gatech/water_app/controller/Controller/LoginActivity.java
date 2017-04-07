@@ -22,12 +22,9 @@ import gatech.water_app.model.UserLoginTask;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email;
-    EditText password;
-    Button signInButton;
-    Button cancelButton;
-    int counterAttempt;
-    User loginUser;
+    private EditText email;
+    private EditText password;
+    private User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +34,9 @@ public class LoginActivity extends AppCompatActivity {
 
         email = (EditText) findViewById(R.id.usernameInput);
         password = (EditText) findViewById(R.id.passwordInput);
-        signInButton = (Button) findViewById(R.id.sign_in_button);
-        cancelButton = (Button) findViewById(R.id.login_cancel);
-        counterAttempt = 5;
+        Button signInButton = (Button) findViewById(R.id.sign_in_button);
+        Button cancelButton = (Button) findViewById(R.id.login_cancel);
+        int counterAttempt = 5;
 
         signInButton.setOnClickListener(new OnClickListener() {
             @Override

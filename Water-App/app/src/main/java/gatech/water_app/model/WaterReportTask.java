@@ -19,7 +19,7 @@ public class WaterReportTask {
     private static List<WaterSourceReport> sourceList = new ArrayList<>();
 
     //temp
-    private static List<WaterPurityReport> purityList = new ArrayList<>();
+    private static final List<WaterPurityReport> purityList = new ArrayList<>();
 
 //    /**
 //     * Adds Water Source Report to database

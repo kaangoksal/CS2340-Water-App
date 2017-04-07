@@ -12,13 +12,13 @@ import java.util.Date;
 
 public class Report {
 
-    protected String reportNumber;
-    protected String reporter;
-    protected Date dataTime;
+    String reportNumber;
+    String reporter;
+    Date dataTime;
     private Location location;
 
 
-    public Report(Date dataTime, String reportNumber, String reporter, Location location) {
+    Report(Date dataTime, String reportNumber, String reporter, Location location) {
         this.dataTime = new Date();
         this.reporter = reporter;
         this.reportNumber = reportNumber;
@@ -78,7 +78,7 @@ public class Report {
      * @param reporter sets the reporter
      */
     public void setReporter(String reporter) {
-        reporter = reporter;
+        this.reporter = reporter;
     }
 
     /**

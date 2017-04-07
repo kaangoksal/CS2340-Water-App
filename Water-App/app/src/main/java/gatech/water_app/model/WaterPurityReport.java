@@ -45,7 +45,7 @@ public class WaterPurityReport extends Report {
      * @param virusPPM
      * @param contaminantPPM
      */
-    public WaterPurityReport(Date dataTime, String reportNumber, String Reporter, OverallCondition overallCondition, double virusPPM, double contaminantPPM, Location location) {
+    private WaterPurityReport(Date dataTime, String reportNumber, String Reporter, OverallCondition overallCondition, double virusPPM, double contaminantPPM, Location location) {
        super(dataTime, reportNumber, Reporter, location);
         this.overallCondition = overallCondition;
         this.virusPPM = virusPPM;

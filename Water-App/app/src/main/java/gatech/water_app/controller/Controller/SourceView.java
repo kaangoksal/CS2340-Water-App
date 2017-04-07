@@ -27,9 +27,8 @@ import gatech.water_app.model.WaterSourceReport;
  */
 
 public class SourceView extends AppCompatActivity {
-    ListView listView ;
-    User loginUser;
-    ArrayAdapter<String> listViewAdapter;
+    private ListView listView ;
+    private User loginUser;
 
     /**
      * This is initialized when the page starts
@@ -103,7 +102,7 @@ public class SourceView extends AppCompatActivity {
      * This populates the list of water reports on the GUI
      * @param WaterSourceReportList the list of water reports
      */
-    public void populateList(ArrayList<WaterSourceReport> WaterSourceReportList) {
+    private void populateList(ArrayList<WaterSourceReport> WaterSourceReportList) {
         String[] newList = new String[WaterSourceReportList.size()];
 
             for (int i = 0; i < WaterSourceReportList.size(); i++) {
@@ -117,8 +116,8 @@ public class SourceView extends AppCompatActivity {
             // Second parameter - Layout for the row
             // Third parameter - ID of the TextView to which the data is written
             // Forth - the Array of data
-            listViewAdapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, newList);
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, newList);
 
 
             // Assign adapter to ListView

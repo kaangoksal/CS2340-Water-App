@@ -41,7 +41,7 @@ public class WaterSourceReport extends Report {
      * @param reportNumber
      * @param dataTime
      */
-    public WaterSourceReport(
+    private WaterSourceReport(
             Date dataTime, String reportNumber, String reporter, WaterType type, WaterCondition condition, Location location) {
 
         super(dataTime,reportNumber,reporter, location);
@@ -69,14 +69,7 @@ public class WaterSourceReport extends Report {
     }
 
 
-    /**
-     * Getter
-     * @return
-     */
-    public Date getDataTime() {
 
-        return super.getDataTime();
-    }
 
     /**
      * Setter
@@ -138,26 +131,8 @@ public class WaterSourceReport extends Report {
         return condition;
     }
 
-    /**
-     * Setter
-     * @param condition
-     */
 
-    /**
-     * Setter for location
-     * @param location sets the location
-     */
-    public void setLocation(Location location) {
-        super.setLocation(location);
-    }
 
-    /**
-     * Setter for location
-     * @return gets the location
-     */
-    public Location getLocation() {
-        return super.getLocation();
-    }
 
     /**
      * Setter condition

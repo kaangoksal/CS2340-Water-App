@@ -33,7 +33,7 @@ public class User implements Serializable {
      * @param email the user's email
      * @param title the user's title
      */
-    public User(String username, String password, String address, String email, Title title) {
+    User(String username, String password, String address, String email, Title title) {
         this.username = username;
         this.password = password;
         this.address = address;
@@ -49,7 +49,7 @@ public class User implements Serializable {
      * @param email the user's email
      * @param title the user's title
      */
-    public User(String username, String password, String email, Title title) {
+    User(String username, String password, String email, Title title) {
         this(username, password, null, email, title);
     }
 
@@ -70,15 +70,15 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) {
+    void setPassword(String password) {
         this.password = password;
     }
 
-    public String getAddress() {
+    String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    void setAddress(String address) {
         this.address = address;
     }
 
@@ -86,7 +86,7 @@ public class User implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = email;
     }
 

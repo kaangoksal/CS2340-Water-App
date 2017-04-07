@@ -27,8 +27,8 @@ public class ManagerLandingPage extends WorkerLandingPage {
     private Spinner PPMSpinner;
     private EditText historicalLocation;
     private EditText historicalYear;
-    private Address address = new Address(new Locale("US"));
-    User loginUser;
+    private final Address address = new Address(new Locale("US"));
+    private User loginUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
