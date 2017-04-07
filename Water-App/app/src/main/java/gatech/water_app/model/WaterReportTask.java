@@ -1,7 +1,5 @@
 package gatech.water_app.model;
 
-import android.location.Location;
-
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONObject;

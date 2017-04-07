@@ -78,14 +78,23 @@ public class ServerConnector {
             received.getString("created_at");
 
             String title =  received.getString("account_type");
-            if (title.equals("User") || title.equals("user")){
-                retrieveduser.setTitle(Title.USER);
-            } else if (title.equals("Worker") || title.equals("worker")) {
-                retrieveduser.setTitle(Title.WORKER);
-            } else if (title.equals("Admin") || title.equals("admin")) {
-                retrieveduser.setTitle(Title.ADMIN);
-            } else if (title.equals("Manager") || title.equals("manager")){
-                retrieveduser.setTitle(Title.MANAGER);
+            switch (title) {
+                case "User":
+                case "user":
+                    retrieveduser.setTitle(Title.USER);
+                    break;
+                case "Worker":
+                case "worker":
+                    retrieveduser.setTitle(Title.WORKER);
+                    break;
+                case "Admin":
+                case "admin":
+                    retrieveduser.setTitle(Title.ADMIN);
+                    break;
+                case "Manager":
+                case "manager":
+                    retrieveduser.setTitle(Title.MANAGER);
+                    break;
             }
 
             Log.d("ServerConnector", "JsonObj " + received.toString());
@@ -317,7 +326,7 @@ public class ServerConnector {
         Log.d("ServerConnector", "Server returned response for get reports = " +responseString );
 
 
-        ArrayList<WaterSourceReport> returnarray = new ArrayList<WaterSourceReport>();
+        ArrayList<WaterSourceReport> returnarray = new ArrayList<>();
         try {
             JSONObject received = new JSONObject(responseString);
             Log.d("ServerConnector", "JsonObj " + received.toString());
@@ -368,7 +377,7 @@ public class ServerConnector {
         Log.d("ServerConnector", "Server returned response for get reports = " + responseString );
 
 
-        ArrayList<WaterPurityReport> returnarray = new ArrayList<WaterPurityReport>();
+        ArrayList<WaterPurityReport> returnarray = new ArrayList<>();
         try {
             JSONObject received = new JSONObject(responseString);
             JSONArray jsonArray = received.getJSONArray("reports");

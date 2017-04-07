@@ -4,22 +4,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +24,6 @@ import gatech.water_app.model.User;
 
 public class ManagerLandingPage extends WorkerLandingPage {
 
-    private List<String> PPMList;
     private Spinner PPMSpinner;
     private EditText historicalLocation;
     private EditText historicalYear;
@@ -75,7 +69,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
         historicalLocation = (EditText) promptsView.findViewById(R.id.historicalLocation);
         historicalYear = (EditText) promptsView.findViewById(R.id.historicalYear);
         PPMSpinner = (Spinner) promptsView.findViewById(R.id.historicalPPM);
-        PPMList = new ArrayList<>();
+        List<String> PPMList = new ArrayList<>();
         PPMList.add("Virus");
         PPMList.add("Contaminant");
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, PPMList);

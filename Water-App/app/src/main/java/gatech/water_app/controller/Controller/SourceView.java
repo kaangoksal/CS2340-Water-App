@@ -3,33 +3,21 @@ package gatech.water_app.controller.Controller;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import gatech.water_app.R;
-import gatech.water_app.model.Report;
 import gatech.water_app.model.ServerConnector;
 import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
-import gatech.water_app.model.WaterReportTask;
 import gatech.water_app.model.WaterSourceReport;
 
 /**
@@ -72,14 +60,13 @@ public class SourceView extends AppCompatActivity {
                                     int position, long id) {
 
                 // ListView Clicked item index
-                int itemPosition     = position;
 
                 // ListView Clicked item value
                 String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                        "Position :"+ position +"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
 
             }
@@ -130,7 +117,7 @@ public class SourceView extends AppCompatActivity {
             // Second parameter - Layout for the row
             // Third parameter - ID of the TextView to which the data is written
             // Forth - the Array of data
-            listViewAdapter = new ArrayAdapter<String>(this,
+            listViewAdapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1, newList);
 
 

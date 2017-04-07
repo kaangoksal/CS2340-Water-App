@@ -6,7 +6,6 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,17 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.androidplot.util.PixelUtils;
 import com.androidplot.xy.BoundaryMode;
-import com.androidplot.xy.CatmullRomInterpolator;
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.StepMode;
 import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.XYSeries;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -49,7 +45,6 @@ import gatech.water_app.model.WaterPurityReport;
 public class HistoricalReport extends AppCompatActivity {
 
     private XYPlot plot1;
-    private SimpleXYSeries series;
     private User loginUser;
     private Address address;
     private int year;
@@ -99,7 +94,7 @@ public class HistoricalReport extends AppCompatActivity {
     private void onGraphReady() {
 
         // create our series from our array of nums:
-        series = new SimpleXYSeries(Arrays.asList(range.toArray(new Number[range.size()])),
+        SimpleXYSeries series = new SimpleXYSeries(Arrays.asList(range.toArray(new Number[range.size()])),
                 SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, ppm);
 
         LineAndPointFormatter formatter =

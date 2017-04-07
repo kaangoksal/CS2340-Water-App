@@ -7,6 +7,7 @@ import java.util.Date;
 
 /**
  * Created by Kaan Goksal on 3/2/17.
+ * Defines the parameters of a report and what can be done with it.
  */
 
 public class Report {
