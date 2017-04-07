@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 afterLogin(database_User);
             }else {
                 Log.d("[Login]", "Login failed http returned false");
+                Toast.makeText(getApplicationContext(), "Login Failed. Please try again!" ,Toast.LENGTH_SHORT).show();
             }
         }
     }
