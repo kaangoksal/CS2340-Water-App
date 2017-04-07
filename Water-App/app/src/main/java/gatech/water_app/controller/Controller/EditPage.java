@@ -30,6 +30,7 @@ public class EditPage extends AppCompatActivity {
     User curUser;
     User newUser;
 
+    User loginUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +38,9 @@ public class EditPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         Bundle extras = getIntent().getExtras();
+        loginUser = (User)extras.getSerializable("user");
+
         String username1 = extras.getString("username");
         String password1 = extras.getString("pass");
 
@@ -50,9 +51,9 @@ public class EditPage extends AppCompatActivity {
         TextView curEmail = (TextView) findViewById(R.id.textView6);
 
 
-        curUsername.setText("Current Username: " + curUser.getUsername());
-        curPass.setText("Current Password: " + curUser.getPassword());
-        curEmail.setText("Current Email: " + curUser.getEmail());
+        curUsername.setText("Current Username: " + loginUser.getUsername());
+        curPass.setText("Current Password: " + loginUser.getPassword());
+        curEmail.setText("Current Email: " + loginUser.getEmail());
 
         username = (EditText) findViewById(R.id.userNameInput);
         password = (EditText) findViewById(R.id.passwordInput);
