@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,13 +28,8 @@ import java.util.UUID;
 import gatech.water_app.R;
 import gatech.water_app.model.OverallCondition;
 import gatech.water_app.model.User;
-import gatech.water_app.model.Title;
-import gatech.water_app.model.UserLoginTask;
-import gatech.water_app.model.WaterCondition;
 import gatech.water_app.model.WaterPurityReport;
 import gatech.water_app.model.WaterReportTask;
-import gatech.water_app.model.WaterSourceReport;
-import gatech.water_app.model.WaterType;
 
 /**
  * Controller class for submitting a purity report for workers
@@ -46,18 +38,13 @@ import gatech.water_app.model.WaterType;
 
 public class SubmitPurityReport extends AppCompatActivity {
 
-    private TextView dateView;
-    private TextView reportNumView;
-    private TextView reporterTextView;
     private EditText location;
-    private Button submit;
-    private Button cancelButton;
     private Spinner condition;
     private TextView virus;
     private TextView contaminant;
     private Address address = new Address(new Locale("US"));
 
-    User loginUser;
+    private User loginUser;
 
     private WaterPurityReport newReport;
 
@@ -81,25 +68,24 @@ public class SubmitPurityReport extends AppCompatActivity {
         address.setLatitude(0.0);
         address.setLongitude(0.0);
 
-        submit = (Button) findViewById(R.id.submitreg);
-        dateView = (TextView) findViewById(R.id.autogen);
-        reportNumView = (TextView) findViewById(R.id.autogen2);
-        reporterTextView = (TextView) findViewById(R.id.autogen3);
+        TextView dateView = (TextView) findViewById(R.id.autogen);
+        TextView reportNumView = (TextView) findViewById(R.id.autogen2);
+        TextView reporterTextView = (TextView) findViewById(R.id.autogen3);
         location = (EditText) findViewById(R.id.autogen4);
         condition = (Spinner) findViewById(R.id.spinner3);
         virus = (EditText) findViewById(R.id.virus);
         contaminant = (EditText) findViewById(R.id.editText4);
-        cancelButton = (Button) findViewById(R.id.water_report_cancel);
+        Button cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, OverallCondition.values());
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,OverallCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(adapter);
 
         newReport = new WaterPurityReport(loginUser.getEmail());
 
         newReport.setReportNumber(UUID.randomUUID().toString());
-        dateView.setText(newReport.getDateString().toString());
+        dateView.setText(newReport.getDateString());
         reportNumView.setText(newReport.getReportNumber());
         reporterTextView.setText(newReport.getReporter());
 
@@ -114,8 +100,8 @@ public class SubmitPurityReport extends AppCompatActivity {
     }
 
     /**
-     * Searchs for the location base on the input string for the edittext field and sets location to the predicted address
-     * @param view
+     * Searches for the location base on the input string for the edit text field and sets location to the predicted address
+     * @param view the view you are attempting to reach
      */
     public void searchLocation(View view) {
         if (location.getText().toString() != null && !location.getText().toString().equals("")) {
@@ -137,7 +123,7 @@ public class SubmitPurityReport extends AppCompatActivity {
 
     /**
      * Adds the new report the data base
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void submitPurityReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {

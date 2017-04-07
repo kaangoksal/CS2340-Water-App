@@ -10,8 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,9 +27,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import gatech.water_app.R;
-import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
-import gatech.water_app.model.UserLoginTask;
 import gatech.water_app.model.WaterCondition;
 import gatech.water_app.model.WaterReportTask;
 import gatech.water_app.model.WaterSourceReport;
@@ -41,19 +37,14 @@ import gatech.water_app.model.WaterType;
  */
 public class SubmitSourceReport extends AppCompatActivity {
 
-    private TextView dateView;
-    private TextView reportNumView;
-    private TextView reporterView;
     private EditText location;
-    private Button submitButton;
-    private Button cancelButton;
     private Spinner typeWaterSpinner;
     private Spinner conditionSpinner;
     private Address address = new Address(new Locale("US"));
 
 
 
-    User loginUser;
+    private User loginUser;
 
     private WaterSourceReport newReport;
 
@@ -81,15 +72,13 @@ public class SubmitSourceReport extends AppCompatActivity {
         address.setLatitude(0.0);
         address.setLongitude(0.0);
 
-        submitButton = (Button) findViewById(R.id.submitreg);
-        dateView = (TextView) findViewById(R.id.autogen);
-        reportNumView = (TextView) findViewById(R.id.autogen2);
-        reporterView = (TextView) findViewById(R.id.autogen3);
+        TextView dateView = (TextView) findViewById(R.id.autogen);
+        TextView reportNumView = (TextView) findViewById(R.id.autogen2);
+        TextView reporterView = (TextView) findViewById(R.id.autogen3);
         location = (EditText) findViewById(R.id.autogen4);
         typeWaterSpinner = (Spinner) findViewById(R.id.spinner3);
         conditionSpinner = (Spinner) findViewById(R.id.spinner2);
-        cancelButton = (Button) findViewById(R.id.water_report_cancel);
-
+        Button cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -102,7 +91,7 @@ public class SubmitSourceReport extends AppCompatActivity {
         newReport = new WaterSourceReport(loginUser.getEmail());
 
         newReport.setReportNumber(UUID.randomUUID().toString());
-        dateView.setText(newReport.getDateString().toString());
+        dateView.setText(newReport.getDateString());
         reportNumView.setText(newReport.getReportNumber());
         reporterView.setText(newReport.getReporter());
 
@@ -117,8 +106,8 @@ public class SubmitSourceReport extends AppCompatActivity {
     }
 
     /**
-     * Searchs for the location base on the input string for the edittext field and sets location to the predicted address
-     * @param view
+     * Searches for the location base on the input string for the edit text field and sets location to the predicted address
+     * @param view the view you are attempting to reach
      */
     public void searchLocation(View view) {
         if (location.getText().toString() != null && !location.getText().toString().equals("")) {
@@ -140,7 +129,7 @@ public class SubmitSourceReport extends AppCompatActivity {
 
     /**
      * Adds the new report the data base
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void submitSourceReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {

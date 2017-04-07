@@ -2,10 +2,7 @@ package gatech.water_app.controller.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -37,7 +34,7 @@ public class LandingPage extends AppCompatActivity {
 
     /**
      * Goes to the page where users can create new source reports
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void addSourceReport(View view) {
         Intent intent = new Intent(this, SubmitSourceReport.class);
@@ -49,15 +46,10 @@ public class LandingPage extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    /** Logs the user out and returns them to the homepage
-    public void loginout(View view) {
-        Intent intent = new Intent(this, welcomePage.class);
-        startActivity(intent);
-    }
 
     /**
      * Goes to the edit user profile page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startEditPage(View view) {
         Intent intent = new Intent(this, EditPage.class);
@@ -72,7 +64,7 @@ public class LandingPage extends AppCompatActivity {
 
     /**
      * Goes the list of source reports page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startSourceView(View view) {
         Intent intent = new Intent(this, SourceView.class);
@@ -86,7 +78,7 @@ public class LandingPage extends AppCompatActivity {
 
     /**
      * Goes to google maps page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startWaterMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);

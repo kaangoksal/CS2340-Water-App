@@ -6,42 +6,34 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import gatech.water_app.R;
 import gatech.water_app.model.ServerConnector;
 import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
-import gatech.water_app.model.WaterReportTask;
 import gatech.water_app.model.WaterPurityReport;
 
 /**
  * Created by John on 3/1/2017.
  * Activity that contains all purity reports *needs working report database first*
- * only water purity sorce repot
+ * only water purity source report
  */
 
 public class PurityView extends AppCompatActivity {
-    ListView listView ;
-    User loginUser;
-    ArrayAdapter<String> adapter;
+    private ListView listView ;
+    private User loginUser;
 
     /**
      * This is initialized when the page is started.
-     * @param savedInstanceState
+     * @param savedInstanceState the saved instance to be created.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +69,13 @@ public class PurityView extends AppCompatActivity {
                                     int position, long id) {
 
                 // ListView Clicked item index
-                int itemPosition     = position;
 
                 // ListView Clicked item value
                 String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                        "Position :"+ position +"  ListItem : " +itemValue , Toast.LENGTH_LONG)
                         .show();
 
             }
@@ -109,16 +100,16 @@ public class PurityView extends AppCompatActivity {
         protected void onPostExecute(ArrayList<WaterPurityReport> result) {
             if (result != null) {
                 populateList(result);
-                Log.d("PurityView", "It appears that the request was successfull ");
+                Log.d("PurityView", "It appears that the request was successful ");
             }
         }
     }
 
     /**
      * Populates the list for WaterPurityReports
-     * @param WaterPurityReportList
+     * @param WaterPurityReportList the list of water purity reports to be populated
      */
-    public void populateList(ArrayList<WaterPurityReport> WaterPurityReportList) {
+    private void populateList(ArrayList<WaterPurityReport> WaterPurityReportList) {
         String[] newList = new String[WaterPurityReportList.size()];
 
         for (int i = 0; i < WaterPurityReportList.size(); i++) {
@@ -133,7 +124,7 @@ public class PurityView extends AppCompatActivity {
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
-        adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, newList);
 
 
@@ -142,25 +133,25 @@ public class PurityView extends AppCompatActivity {
     }
 
     /**
-     * Goes backe to the previos screen
+     * Goes back to the previous screen
      * @param view this is supplied by the android sdk
      */
     public void backFromReportView(View view) {
 
         if (loginUser.getTitle().equals(Title.USER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.WORKER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.MANAGER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);

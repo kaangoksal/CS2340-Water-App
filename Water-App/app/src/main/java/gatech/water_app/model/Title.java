@@ -17,10 +17,10 @@ public enum Title {
     /**
      * Constructor for the title
      *
-     * @param pcode   letter code / abbreviation for the course
+     * @param p_code   letter code / abbreviation for the course
      */
-    Title (String pcode) {
-        code = pcode;
+    Title (String p_code) {
+        code = p_code;
     }
 
     private String code;
@@ -33,9 +33,9 @@ public enum Title {
 
     /**
      *  Sets the title name
-     *  @param pcode letter code
+     *  @param p_code letter code
      */
-    public void setName(String pcode){ code = pcode;}
+    public void setName(String p_code){ code = p_code;}
 
     /**
      *

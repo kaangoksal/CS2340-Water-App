@@ -7,17 +7,18 @@ import java.util.Date;
 
 /**
  * Created by Kaan Goksal on 3/2/17.
+ * Defines the parameters of a report and what can be done with it.
  */
 
 public class Report {
 
-    protected String reportNumber;
-    protected String reporter;
-    protected Date dataTime;
+    String reportNumber;
+    String reporter;
+    Date dataTime;
     private Location location;
 
 
-    public Report(Date dataTime, String reportNumber, String reporter, Location location) {
+    Report(Date dataTime, String reportNumber, String reporter, Location location) {
         this.dataTime = new Date();
         this.reporter = reporter;
         this.reportNumber = reportNumber;
@@ -27,7 +28,7 @@ public class Report {
 
     /**
      * Getter
-     * @return
+     * @return the date published
      */
     public Date getDataTime() {
         return dataTime;
@@ -50,7 +51,7 @@ public class Report {
 
     /**
      * Getter
-     * @return returns the reportnumber
+     * @return returns the report number
      */
     public String getReportNumber() {
         return reportNumber;
@@ -77,7 +78,7 @@ public class Report {
      * @param reporter sets the reporter
      */
     public void setReporter(String reporter) {
-        reporter = reporter;
+        this.reporter = reporter;
     }
 
     /**

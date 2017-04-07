@@ -3,32 +3,23 @@ package gatech.water_app.controller.Controller;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.SimpleAdapter;
 
-import gatech.water_app.model.Title;
 import gatech.water_app.model.UserLoginTask;
 
 import gatech.water_app.R;
 
 public class Registration extends AppCompatActivity {
 
-    EditText username;
-    EditText password;
-    EditText email;
-    EditText address;
-    Button registerButton;
-    Button cancelButton;
+    private EditText username;
+    private EditText password;
+    private EditText email;
+    private EditText address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +31,8 @@ public class Registration extends AppCompatActivity {
         password = (EditText) findViewById(R.id.passwordIn);
         email = (EditText) findViewById(R.id.emailIn);
         address = (EditText) findViewById(R.id.addressIn);
-        registerButton = (Button) findViewById(R.id.submitreg);
-        cancelButton = (Button) findViewById(R.id.cancel);
+        Button registerButton = (Button) findViewById(R.id.submitreg);
+        Button cancelButton = (Button) findViewById(R.id.cancel);
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +76,7 @@ public class Registration extends AppCompatActivity {
             if (result) {
                 afterEdit();
             }else {
-                Log.d("[Login]", "Registeration Failed");
+                Log.d("[Login]", "Registration Failed");
                 Toast.makeText(getApplicationContext(), "Registration Failed" ,Toast.LENGTH_SHORT).show();
             }
         }
@@ -94,7 +85,7 @@ public class Registration extends AppCompatActivity {
     /**
      * Goes to the login page
      */
-    public void afterEdit() {
+    private void afterEdit() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         this.overridePendingTransition(R.anim.slide_in_left,

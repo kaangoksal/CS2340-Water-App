@@ -23,12 +23,9 @@ import gatech.water_app.model.UserLoginTask;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email;
-    EditText password;
-    Button signInButton;
-    Button cancelButton;
-    int counterAttempt;
-    User loginUser;
+    private EditText email;
+    private EditText password;
+    private User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +35,9 @@ public class LoginActivity extends AppCompatActivity {
 
         email = (EditText) findViewById(R.id.usernameInput);
         password = (EditText) findViewById(R.id.passwordInput);
-        signInButton = (Button) findViewById(R.id.sign_in_button);
-        cancelButton = (Button) findViewById(R.id.login_cancel);
-        counterAttempt = 5;
+        Button signInButton = (Button) findViewById(R.id.sign_in_button);
+
+
 
         signInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -51,9 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //HI GUYZ, since we are sending an http request, it needs to be async
+    //HI Guys, since we are sending an http request, it needs to be async
     //you cant execute http requests in the main thread, because it would freeze the app
-    //so we need a task which executes by itself and when it is done it does something (afterlogin)
+    //so we need a task which executes by itself and when it is done it does something (after login)
     private class HTTPLoginTask extends AsyncTask<Object, Integer, User> {
         protected User doInBackground(Object[] params) {
             try {
@@ -64,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
-        protected void onPostExecute(User dbuser) {
-            if (dbuser != null) {
-                afterLogin(dbuser);
+        protected void onPostExecute(User database_User) {
+            if (database_User != null) {
+                afterLogin(database_User);
             }else {
                 Log.d("[Login]", "Login failed http returned false");
             }
@@ -75,15 +72,15 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Does not login
-     * @param v
+     * @param v the view you are attempting to reach
      */
     public void cancelButtonAction(View v) {
         finish();
     }
 
-    private void afterLogin(User dbuser) {
-        if (dbuser.getTitle().equals(Title.USER)) {
-            loginUser = dbuser;
+    private void afterLogin(User database_User) {
+        if (database_User.getTitle().equals(Title.USER)) {
+            loginUser = database_User;
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
@@ -91,15 +88,15 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             this.overridePendingTransition(R.anim.slide_in_left,
                     R.anim.slide_out_left);
-        } else if (dbuser.getTitle().equals(Title.WORKER)) {
-            loginUser = dbuser;
+        } else if (database_User.getTitle().equals(Title.WORKER)) {
+            loginUser = database_User;
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
             this.overridePendingTransition(R.anim.slide_in_left,
                     R.anim.slide_out_left);
-        } else if (dbuser.getTitle().equals(Title.MANAGER)) {
-            loginUser = dbuser;
+        } else if (database_User.getTitle().equals(Title.MANAGER)) {
+            loginUser = database_User;
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);

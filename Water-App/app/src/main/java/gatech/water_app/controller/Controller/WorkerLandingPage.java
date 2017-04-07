@@ -1,16 +1,7 @@
 package gatech.water_app.controller.Controller;
 
-/**
- * The landing page if you login as a worker
- * Created by John on 3/10/2017.
- */
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,7 +25,7 @@ public class WorkerLandingPage extends LandingPage {
 
     /**
      * Goes to the submit purity report page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void addPurityReport(View view) {
         Intent intent = new Intent(this, SubmitPurityReport.class);
@@ -46,7 +37,7 @@ public class WorkerLandingPage extends LandingPage {
 
     /**
      * Goes to the purity view page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startPurityView(View view) {
         Intent intent = new Intent(this, PurityView.class);

@@ -6,7 +6,6 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,17 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.androidplot.util.PixelUtils;
 import com.androidplot.xy.BoundaryMode;
-import com.androidplot.xy.CatmullRomInterpolator;
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.StepMode;
 import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.XYSeries;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -49,12 +45,11 @@ import gatech.water_app.model.WaterPurityReport;
 public class HistoricalReport extends AppCompatActivity {
 
     private XYPlot plot1;
-    private SimpleXYSeries series;
     private User loginUser;
     private Address address;
     private int year;
     private String ppm;
-    private List<Number> range = new ArrayList();
+    private final List<Number> range = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +93,8 @@ public class HistoricalReport extends AppCompatActivity {
 
     private void onGraphReady() {
 
-        // create our series from our array of nums:
-        series = new SimpleXYSeries(Arrays.asList(range.toArray(new Number[range.size()])),
+        // create our series from our array of numbers:
+        SimpleXYSeries series = new SimpleXYSeries(Arrays.asList(range.toArray(new Number[range.size()])),
                 SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, ppm);
 
         LineAndPointFormatter formatter =
@@ -202,22 +197,22 @@ public class HistoricalReport extends AppCompatActivity {
             if (result != null) {
                 populateGraph(result);
                 onGraphReady();
-                Log.d("PurityView", "It appears that the request was successfull ");
+                Log.d("PurityView", "It appears that the request was successful ");
             }
         }
     }
 
     /**
      * Populates the graph with WaterPurityReports
-     * @param WaterPurityReportList
+     * @param WaterPurityReportList list of water purity reports
      */
-    public void populateGraph(ArrayList<WaterPurityReport> WaterPurityReportList) {
+    private void populateGraph(ArrayList<WaterPurityReport> WaterPurityReportList) {
 
         //Putting year from data is deprecated
         Calendar cal = Calendar.getInstance();
 
-        int currentyear;
-        int currentmonth;
+        int current_year;
+        int current_month;
         double currentValue;
         int perMonth;
         WaterPurityReport current;
@@ -233,13 +228,13 @@ public class HistoricalReport extends AppCompatActivity {
                 //Checks for correct location, year, and PPM type
                 current = WaterPurityReportList.get(i);
                 cal.setTime(current.getDataTime());
-                currentyear = cal.get(Calendar.YEAR);
-                currentmonth = cal.get(Calendar.MONTH);
+                current_year = cal.get(Calendar.YEAR);
+                current_month = cal.get(Calendar.MONTH);
 
                 if (current.getLocation().getLatitude() == address.getLatitude()
                         && current.getLocation().getLongitude()  == address.getLongitude()
-                        && currentyear == year
-                        && currentmonth == m) {
+                        && current_year == year
+                        && current_month == m) {
 
                     if (ppm.equals("Virus")) {
                         currentValue += current.getVirusPPM();
@@ -259,24 +254,24 @@ public class HistoricalReport extends AppCompatActivity {
 
     /**
      * Returns to the Manager Landing Page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void backFromGraphPage(View view) {
 
         if (loginUser.getTitle().equals(Title.USER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.WORKER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.MANAGER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);

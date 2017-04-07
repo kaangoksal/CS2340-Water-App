@@ -21,16 +21,12 @@ import gatech.water_app.model.UserLoginTask;
 import gatech.water_app.R;
 
 public class EditPage extends AppCompatActivity {
-    EditText username;
-    EditText password;
-    EditText email;
-    Button editButton;
-    Button cancelButton;
+    private EditText username;
+    private EditText password;
+    private EditText email;
 
-    User curUser;
-    User newUser;
+    private User newUser;
 
-    User loginUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +35,11 @@ public class EditPage extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Bundle extras = getIntent().getExtras();
-        loginUser = (User)extras.getSerializable("user");
+        User loginUser = (User) extras.getSerializable("user");
 
         String username1 = extras.getString("username");
         String password1 = extras.getString("pass");
 
-        curUser = new User(username1, password1, "");
 
         TextView curUsername = (TextView) findViewById(R.id.textView4);
         TextView curPass = (TextView) findViewById(R.id.textView5);
@@ -58,8 +53,8 @@ public class EditPage extends AppCompatActivity {
         username = (EditText) findViewById(R.id.userNameInput);
         password = (EditText) findViewById(R.id.passwordInput);
         email = (EditText) findViewById(R.id.emailInput);
-        editButton = (Button) findViewById(R.id.doneEditing);
-        cancelButton = (Button) findViewById(R.id.cancelButton);
+        Button editButton = (Button) findViewById(R.id.doneEditing);
+        Button cancelButton = (Button) findViewById(R.id.cancelButton);
 
         editButton.setOnClickListener(new View.OnClickListener() {
                                           @Override
@@ -119,7 +114,7 @@ public class EditPage extends AppCompatActivity {
     /**
      * after Editing, go back to the page you came from.
      */
-    public void afterEdit() {
+    private void afterEdit() {
 //        UserLoginTask.editUser(newUser);
         Intent intent = new Intent(this, LandingPage.class);
         Bundle bundle1 = new Bundle();

@@ -2,6 +2,7 @@ package gatech.water_app.model;
 
 /**
  * Created by Alex Thien An Le on 2/28/2017.
+ * Defines overall condition of water.
  */
 
 public enum OverallCondition {
@@ -14,7 +15,7 @@ public enum OverallCondition {
 
     /**
      * Constructor
-     * @param nameCondition
+     * @param nameCondition the name of the condition of water
      */
     OverallCondition(String nameCondition) {
         this.nameCondition = nameCondition;
@@ -22,7 +23,7 @@ public enum OverallCondition {
 
     /**
      * Getter
-     * @return
+     * @return the name of the water condition
      */
     public String getNameCondition() {
         return nameCondition;
@@ -30,7 +31,7 @@ public enum OverallCondition {
 
     /**
      * Setter
-     * @param nameCondition
+     * @param nameCondition the name of the condition of water
      */
     public void setNameCondition(String nameCondition) {
         this.nameCondition = nameCondition;
