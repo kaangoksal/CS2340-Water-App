@@ -50,7 +50,7 @@ public class EditPage extends AppCompatActivity {
         TextView curEmail = (TextView) findViewById(R.id.textView6);
 
 
-        curUsername.setText("Current Email: " + curUser.getUsername());
+        curUsername.setText("Current Username: " + curUser.getUsername());
         curPass.setText("Current Password: " + curUser.getPassword());
         curEmail.setText("Current Email: " + curUser.getEmail());
 
