@@ -109,12 +109,12 @@ public class ServerConnector {
 
     /**
      * Registers user to the server
-     * @param username
-     * @param password
-     * @param address
-     * @param email
-     * @return
-     * @throws IOException
+     * @param username the users username
+     * @param password the users password
+     * @param address the users home address
+     * @param email the users email address
+     * @return whether the user could be added or not
+     * @throws IOException if the user could not be added or failure to reach server.
      */
     public static boolean addUser(String username, String password, String address, String email) throws IOException{
         //users.add(Math.abs(new User(username, password).hashCode()) % (users.size() + 1), new User(username, password, address, email, title));

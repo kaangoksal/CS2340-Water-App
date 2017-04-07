@@ -28,7 +28,7 @@ public class Report {
 
     /**
      * Getter
-     * @return
+     * @return the date published
      */
     public Date getDataTime() {
         return dataTime;

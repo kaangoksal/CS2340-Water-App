@@ -49,7 +49,7 @@ public class HistoricalReport extends AppCompatActivity {
     private Address address;
     private int year;
     private String ppm;
-    private final List<Number> range = new ArrayList<Number>();
+    private final List<Number> range = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,7 +204,7 @@ public class HistoricalReport extends AppCompatActivity {
 
     /**
      * Populates the graph with WaterPurityReports
-     * @param WaterPurityReportList
+     * @param WaterPurityReportList list of water purity reports
      */
     private void populateGraph(ArrayList<WaterPurityReport> WaterPurityReportList) {
 
@@ -254,7 +254,7 @@ public class HistoricalReport extends AppCompatActivity {
 
     /**
      * Returns to the Manager Landing Page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void backFromGraphPage(View view) {
 

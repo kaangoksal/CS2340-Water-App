@@ -53,7 +53,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
 
     /**
      * Creates a dialog box that requires the user to input setup information before going to the historical report page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void setupHistoricalReport(final View view) {
         // get prompts.xml view
@@ -72,7 +72,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
         List<String> PPMList = new ArrayList<>();
         PPMList.add("Virus");
         PPMList.add("Contaminant");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, PPMList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, PPMList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         PPMSpinner.setAdapter(adapter);
 

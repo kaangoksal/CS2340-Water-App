@@ -22,7 +22,7 @@ public enum WaterType {
 
     /**
      * Getter
-     * @return
+     * @return type of worker
      */
     public String getNameType() {
         return nameType;
@@ -30,7 +30,7 @@ public enum WaterType {
 
     /**
      * Setter
-     * @param nameType
+     * @param nameType type of worker
      */
     public void setNameType(String nameType) {
         this.nameType = nameType;

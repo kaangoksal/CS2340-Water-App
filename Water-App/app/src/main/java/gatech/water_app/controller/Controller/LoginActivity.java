@@ -35,8 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.usernameInput);
         password = (EditText) findViewById(R.id.passwordInput);
         Button signInButton = (Button) findViewById(R.id.sign_in_button);
-        Button cancelButton = (Button) findViewById(R.id.login_cancel);
-        int counterAttempt = 5;
+
+        
 
         signInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Does not login
-     * @param v
+     * @param v the view you are attempting to reach
      */
     public void cancelButtonAction(View v) {
         finish();

@@ -42,8 +42,8 @@ public class WaterReportTask {
 
     /**
      * Search for water source report
-     * @param position
-     * @return
+     * @param position the latitude longitude position of the water source
+     * @return a string representation of the position
      */
     public static String getSourceReportInfo(LatLng position, ArrayList<WaterSourceReport> list) {
         String returnData = "";
@@ -68,7 +68,7 @@ public class WaterReportTask {
 
     /**
      * Adds Water Source Report to database
-     * @param sourceReport
+     * @param sourceReport the source report to be added to the list.
      */
     public static void addWaterPurityReport(WaterPurityReport sourceReport) {
         //temp debugging code
@@ -78,8 +78,8 @@ public class WaterReportTask {
 
     /**
      * Search for water source report
-     * @param position
-     * @return
+     * @param position the latitude longitude position of the water report
+     * @return the string representation of the data in the water report
      */
     public static String getPurityReportInfo(LatLng position) {
         String returnData = "";

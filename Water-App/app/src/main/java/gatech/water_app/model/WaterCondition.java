@@ -17,7 +17,7 @@ public enum WaterCondition {
 
     /**
      * Constructor
-     * @param nameCondition
+     * @param nameCondition name of the condition of water
      */
     WaterCondition(String nameCondition) {
         this.nameCondition = nameCondition;
@@ -25,7 +25,7 @@ public enum WaterCondition {
 
     /**
      * Getter
-     * @return
+     * @return the name of the water condition
      */
     public String getNameCondition() {
         return nameCondition;
@@ -33,7 +33,7 @@ public enum WaterCondition {
 
     /**
      * Setter
-     * @param nameCondition
+     * @param nameCondition name of the condition of water
      */
     public void setNameCondition(String nameCondition) {
         this.nameCondition = nameCondition;

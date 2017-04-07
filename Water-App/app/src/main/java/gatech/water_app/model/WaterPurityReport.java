@@ -38,12 +38,12 @@ public class WaterPurityReport extends Report {
 
     /**
      * Constructor
-     * @param dataTime
-     * @param reportNumber
-     * @param Reporter
-     * @param overallCondition
-     * @param virusPPM
-     * @param contaminantPPM
+     * @param dataTime date published
+     * @param reportNumber the number of the report, auto generated
+     * @param Reporter who reported this
+     * @param overallCondition the overall condition of the water
+     * @param virusPPM the ppm of viral substances in the water
+     * @param contaminantPPM the ppm of contaminants in the water
      */
     private WaterPurityReport(Date dataTime, String reportNumber, String Reporter, OverallCondition overallCondition, double virusPPM, double contaminantPPM, Location location) {
        super(dataTime, reportNumber, Reporter, location);
@@ -54,7 +54,7 @@ public class WaterPurityReport extends Report {
 
     /**
      * Constructor
-     * @param reporter
+     * @param reporter who reported this
      */
     public WaterPurityReport(String reporter) {
         this(new Date(), "", reporter, null, 0, 0, null);
@@ -62,7 +62,7 @@ public class WaterPurityReport extends Report {
 
     /**
      * Getter
-     * @return
+     * @return the ppm of contaminant in this water source
      */
     public double getContaminantPPM() {
         return contaminantPPM;
@@ -70,7 +70,7 @@ public class WaterPurityReport extends Report {
 
     /**
      * Setter
-     * @param contaminantPPM
+     * @param contaminantPPM the amount of contaminant in the water
      */
     public void setContaminantPPM(double contaminantPPM) {
         this.contaminantPPM = contaminantPPM;
@@ -78,7 +78,7 @@ public class WaterPurityReport extends Report {
 
     /**
      * Getter
-     * @return
+     * @return the ppm of viral substances in the water
      */
     public double getVirusPPM() {
         return virusPPM;
@@ -86,7 +86,7 @@ public class WaterPurityReport extends Report {
 
     /**
      * Setter
-     * @param virusPPM
+     * @param virusPPM the ppm of viral substances in the water
      */
     public void setVirusPPM(double virusPPM) {
         this.virusPPM = virusPPM;
@@ -94,7 +94,7 @@ public class WaterPurityReport extends Report {
 
     /**
      * Getter
-     * @return
+     * @return the condition of the water
      */
     public OverallCondition getOverallCondition() {
         return overallCondition;
@@ -102,7 +102,7 @@ public class WaterPurityReport extends Report {
 
     /**
      * Setter
-     * @param overallCondition
+     * @param overallCondition the condition of the water
      */
     public void setOverallCondition(OverallCondition overallCondition) {
         this.overallCondition = overallCondition;
@@ -139,8 +139,8 @@ public class WaterPurityReport extends Report {
 
     /**
      * This method is used to parse JSON object to WaterPurityReport
-     * @param jsonObject
-     * @return
+     * @param jsonObject the JSON object to be parsed into a Water purity report
+     * @return the created water purity report from the json object
      */
     public static WaterPurityReport fromJSONObject(JSONObject jsonObject) {
         WaterPurityReport return_report;

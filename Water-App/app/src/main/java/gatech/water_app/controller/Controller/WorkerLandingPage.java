@@ -25,7 +25,7 @@ public class WorkerLandingPage extends LandingPage {
 
     /**
      * Goes to the submit purity report page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void addPurityReport(View view) {
         Intent intent = new Intent(this, SubmitPurityReport.class);
@@ -37,7 +37,7 @@ public class WorkerLandingPage extends LandingPage {
 
     /**
      * Goes to the purity view page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startPurityView(View view) {
         Intent intent = new Intent(this, PurityView.class);

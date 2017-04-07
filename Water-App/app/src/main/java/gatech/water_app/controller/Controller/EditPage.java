@@ -40,7 +40,6 @@ public class EditPage extends AppCompatActivity {
         String username1 = extras.getString("username");
         String password1 = extras.getString("pass");
 
-        User curUser = new User(username1, password1, "");
 
         TextView curUsername = (TextView) findViewById(R.id.textView4);
         TextView curPass = (TextView) findViewById(R.id.textView5);

@@ -80,7 +80,6 @@ public class SubmitSourceReport extends AppCompatActivity {
         conditionSpinner = (Spinner) findViewById(R.id.spinner2);
         Button cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
-
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeWaterSpinner.setAdapter(adapter);
@@ -108,7 +107,7 @@ public class SubmitSourceReport extends AppCompatActivity {
 
     /**
      * Searches for the location base on the input string for the edit text field and sets location to the predicted address
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void searchLocation(View view) {
         if (location.getText().toString() != null && !location.getText().toString().equals("")) {
@@ -130,7 +129,7 @@ public class SubmitSourceReport extends AppCompatActivity {
 
     /**
      * Adds the new report the data base
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void submitSourceReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {

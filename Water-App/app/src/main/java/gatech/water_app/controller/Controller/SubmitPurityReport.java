@@ -101,7 +101,7 @@ public class SubmitPurityReport extends AppCompatActivity {
 
     /**
      * Searches for the location base on the input string for the edit text field and sets location to the predicted address
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void searchLocation(View view) {
         if (location.getText().toString() != null && !location.getText().toString().equals("")) {
@@ -123,7 +123,7 @@ public class SubmitPurityReport extends AppCompatActivity {
 
     /**
      * Adds the new report the data base
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void submitPurityReport(View view) {
         if (address.getLatitude() != 0 && address.getLongitude() != 0) {

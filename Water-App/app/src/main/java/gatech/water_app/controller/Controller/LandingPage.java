@@ -34,7 +34,7 @@ public class LandingPage extends AppCompatActivity {
 
     /**
      * Goes to the page where users can create new source reports
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void addSourceReport(View view) {
         Intent intent = new Intent(this, SubmitSourceReport.class);
@@ -48,7 +48,7 @@ public class LandingPage extends AppCompatActivity {
 
     /**
      * Goes to the edit user profile page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startEditPage(View view) {
         Intent intent = new Intent(this, EditPage.class);
@@ -62,7 +62,7 @@ public class LandingPage extends AppCompatActivity {
 
     /**
      * Goes the list of source reports page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startSourceView(View view) {
         Intent intent = new Intent(this, SourceView.class);
@@ -75,7 +75,7 @@ public class LandingPage extends AppCompatActivity {
 
     /**
      * Goes to google maps page
-     * @param view
+     * @param view the view you are attempting to reach
      */
     public void startWaterMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);

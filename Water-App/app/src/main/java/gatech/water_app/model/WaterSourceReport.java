@@ -35,11 +35,11 @@ public class WaterSourceReport extends Report {
 
     /**
      * Constructor
-     * @param condition
-     * @param type
-     * @param reporter
-     * @param reportNumber
-     * @param dataTime
+     * @param condition condition of the water
+     * @param type type of water condition
+     * @param reporter who reported this
+     * @param reportNumber auto generated report number
+     * @param dataTime date it was posted
      */
     private WaterSourceReport(
             Date dataTime, String reportNumber, String reporter, WaterType type, WaterCondition condition, Location location) {
@@ -51,7 +51,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Constructor
-     * @param reporter
+     * @param reporter who reported this
      */
     public WaterSourceReport(String reporter) {
 //
@@ -73,7 +73,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Setter
-     * @param dataTime
+     * @param dataTime date it was reported
      */
 
     public void setDataTime(Date dataTime) {
@@ -82,7 +82,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Getter
-     * @return
+     * @return report number
      */
     public String getReportNumber() {
         return reportNumber;
@@ -90,7 +90,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Setter
-     * @param reportNumber
+     * @param reportNumber report number of the report
      */
     public void setReportNumber(String reportNumber) {
 
@@ -99,7 +99,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Setter
-     * @param reporter
+     * @param reporter who reported this
      */
     public void setReporter(String reporter) {
 
@@ -108,7 +108,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Getter
-     * @return
+     * @return the type of water
      */
     public WaterType getType() {
 
@@ -117,7 +117,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Setter
-     * @param type
+     * @param type the type of water
      */
     public void setType(WaterType type) {
         this.type = type;
@@ -125,7 +125,7 @@ public class WaterSourceReport extends Report {
 
     /**
      * Getter
-     * @return
+     * @return the condition of the water
      */
     public WaterCondition getCondition() {
         return condition;
@@ -136,7 +136,8 @@ public class WaterSourceReport extends Report {
 
     /**
      * Setter condition
-     * @return gets the location
+     *
+     * @param condition condition of the water
      */
     public void setCondition(WaterCondition condition) {
         this.condition = condition;

@@ -33,7 +33,7 @@ public class PurityView extends AppCompatActivity {
 
     /**
      * This is initialized when the page is started.
-     * @param savedInstanceState
+     * @param savedInstanceState the saved instance to be created.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,7 @@ public class PurityView extends AppCompatActivity {
 
     /**
      * Populates the list for WaterPurityReports
-     * @param WaterPurityReportList
+     * @param WaterPurityReportList the list of water purity reports to be populated
      */
     private void populateList(ArrayList<WaterPurityReport> WaterPurityReportList) {
         String[] newList = new String[WaterPurityReportList.size()];
