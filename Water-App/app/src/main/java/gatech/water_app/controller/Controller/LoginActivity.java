@@ -89,16 +89,22 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_left);
         } else if (dbuser.getTitle().equals(Title.WORKER)) {
             loginUser = dbuser;
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_left);
         } else if (dbuser.getTitle().equals(Title.MANAGER)) {
             loginUser = dbuser;
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_left);
         }
     }
 

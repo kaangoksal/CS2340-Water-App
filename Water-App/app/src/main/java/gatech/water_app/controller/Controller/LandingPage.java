@@ -46,6 +46,7 @@ public class LandingPage extends AppCompatActivity {
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     /** Logs the user out and returns them to the homepage
@@ -66,6 +67,7 @@ public class LandingPage extends AppCompatActivity {
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     /**
@@ -79,6 +81,7 @@ public class LandingPage extends AppCompatActivity {
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     /**
@@ -93,10 +96,13 @@ public class LandingPage extends AppCompatActivity {
         intent.putExtra("user", loginUser);
         intent.putExtras(bundle1);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void logout(View view) {
         Intent intent = new Intent(this, welcomePage.class);
         startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_left);
     }
 }

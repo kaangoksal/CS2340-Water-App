@@ -97,6 +97,8 @@ public class Registration extends AppCompatActivity {
     public void afterEdit() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_left);
     }
 
 }
