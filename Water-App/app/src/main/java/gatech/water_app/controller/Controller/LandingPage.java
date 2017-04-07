@@ -45,11 +45,6 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /** Logs the user out and returns them to the homepage
-    public void loginout(View view) {
-        Intent intent = new Intent(this, welcomePage.class);
-        startActivity(intent);
-    }
 
     /**
      * Goes to the edit user profile page

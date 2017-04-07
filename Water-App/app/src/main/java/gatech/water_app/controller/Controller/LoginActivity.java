@@ -47,9 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //HI GUYZ, since we are sending an http request, it needs to be async
+    //HI Guys, since we are sending an http request, it needs to be async
     //you cant execute http requests in the main thread, because it would freeze the app
-    //so we need a task which executes by itself and when it is done it does something (afterlogin)
+    //so we need a task which executes by itself and when it is done it does something (after login)
     private class HTTPLoginTask extends AsyncTask<Object, Integer, User> {
         protected User doInBackground(Object[] params) {
             try {
@@ -60,9 +60,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
-        protected void onPostExecute(User dbuser) {
-            if (dbuser != null) {
-                afterLogin(dbuser);
+        protected void onPostExecute(User database_User) {
+            if (database_User != null) {
+                afterLogin(database_User);
             }else {
                 Log.d("[Login]", "Login failed http returned false");
             }
@@ -77,21 +77,21 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void afterLogin(User dbuser) {
-        if (dbuser.getTitle().equals(Title.USER)) {
-            loginUser = dbuser;
+    private void afterLogin(User database_User) {
+        if (database_User.getTitle().equals(Title.USER)) {
+            loginUser = database_User;
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (dbuser.getTitle().equals(Title.WORKER)) {
-            loginUser = dbuser;
+        } else if (database_User.getTitle().equals(Title.WORKER)) {
+            loginUser = database_User;
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (dbuser.getTitle().equals(Title.MANAGER)) {
-            loginUser = dbuser;
+        } else if (database_User.getTitle().equals(Title.MANAGER)) {
+            loginUser = database_User;
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);

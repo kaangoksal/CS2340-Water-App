@@ -3,6 +3,96 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0">
       <entry_point TYPE="method" FQNAME="gatech.water_app.model.Admin Admin(java.lang.String username, java.lang.String password, java.lang.String address, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Admin Admin(java.lang.String username, java.lang.String password, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Admin Admin(java.lang.String username, java.lang.String password)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.EditPage" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.LoginActivity" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Manager Manager(java.lang.String username, java.lang.String password)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Manager Manager(java.lang.String username, java.lang.String password, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Manager Manager(java.lang.String username, java.lang.String password, java.lang.String address, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.Manager" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.OverallCondition void setNameCondition(java.lang.String nameCondition)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.OverallCondition java.lang.String getNameCondition()" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.OverallCondition OverallCondition(java.lang.String nameCondition)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.OverallCondition" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Report void setReporter(java.lang.String reporter)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Report void setDataTime(java.util.Date dataTime)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Report Report(java.util.Date dataTime, java.lang.String reportNumber, java.lang.String reporter, android.location.Location location)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.Report" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.ServerConnector org.json.JSONArray getReports(gatech.water_app.model.User user)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.model.ServerConnector" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Title void setName(java.lang.String pcode)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Title java.lang.String getCode()" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Title Title(java.lang.String pcode)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.Title" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User void setEmail(java.lang.String email)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User void setAddress(java.lang.String address)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User java.lang.String getAddress()" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User void setPassword(java.lang.String password)" />
+      <entry_point TYPE="field" FQNAME="gatech.water_app.model.User titles" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User User(java.lang.String Username, java.lang.String password, java.lang.String email)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User User(java.lang.String username, java.lang.String password, java.lang.String address, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User User(java.lang.String username, java.lang.String password, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.User User(java.lang.String email, java.lang.String password)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.User" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterCondition void setNameCondition(java.lang.String nameCondition)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterCondition java.lang.String getNameCondition()" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterCondition WaterCondition(java.lang.String nameCondition)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.WaterCondition" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterPurityReport gatech.water_app.model.OverallCondition getOverallCondition()" />
+      <entry_point TYPE="field" FQNAME="gatech.water_app.model.WaterPurityReport next_Id" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterPurityReport WaterPurityReport(java.util.Date dataTime, java.lang.String reportNumber, java.lang.String Reporter, gatech.water_app.model.OverallCondition overallCondition, double virusPPM, double contaminantPPM, android.location.Location location)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterPurityReport WaterPurityReport(java.lang.String reporter)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.WaterPurityReport" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterReportTask java.util.List&lt;gatech.water_app.model.WaterPurityReport&gt; waterPurityReportList(gatech.water_app.model.User user)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterReportTask java.lang.String getPurityReportInfo(com.google.android.gms.maps.model.LatLng position)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterReportTask void addWaterPurityReport(gatech.water_app.model.WaterPurityReport sourceReport)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterReportTask java.util.List&lt;gatech.water_app.model.WaterSourceReport&gt; waterSourceReportList(gatech.water_app.model.User user)" />
+      <entry_point TYPE="field" FQNAME="gatech.water_app.model.WaterReportTask sourceList" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.model.WaterReportTask" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.Admin" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.HistoricalReport void backFromGraphPage(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.HistoricalReport" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.LandingPage void logout(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.LandingPage void startWaterMap(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.LandingPage void startSourceView(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.LandingPage void startEditPage(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.LandingPage void addSourceReport(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.LandingPage" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.LoginActivity void cancelButtonAction(android.view.View v)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.ManagerLandingPage void setupHistoricalReport(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.ManagerLandingPage" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.MapsActivity" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.PurityView void backFromReportView(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.PurityView" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.Registration" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.SourceView void backFromReportView(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.SourceView" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.SubmitPurityReport void submitPurityReport(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.SubmitPurityReport void searchLocation(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.SubmitPurityReport" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.SubmitSourceReport void submitSourceReport(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.SubmitSourceReport void searchLocation(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.SubmitSourceReport" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterSourceReport gatech.water_app.model.WaterCondition getCondition()" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterSourceReport gatech.water_app.model.WaterType getType()" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterSourceReport WaterSourceReport(java.util.Date dataTime, java.lang.String reportNumber, java.lang.String reporter, gatech.water_app.model.WaterType type, gatech.water_app.model.WaterCondition condition, android.location.Location location)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterSourceReport WaterSourceReport(java.lang.String reporter)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.WaterSourceReport" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterType void setNameType(java.lang.String nameType)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterType java.lang.String getNameType()" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.WaterType WaterType(java.lang.String name)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.WaterType" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Worker Worker(java.lang.String username, java.lang.String password, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Worker Worker(java.lang.String username, java.lang.String password, java.lang.String address, java.lang.String email, gatech.water_app.model.Title title)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.model.Worker Worker(java.lang.String email, java.lang.String password)" />
+      <entry_point TYPE="class" FQNAME="gatech.water_app.model.Worker" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.WorkerLandingPage void startPurityView(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.WorkerLandingPage void addPurityReport(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.WorkerLandingPage" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.welcomePage void startRegistrationPage(android.view.View view)" />
+      <entry_point TYPE="method" FQNAME="gatech.water_app.controller.Controller.welcomePage void startLoginPage(android.view.View view)" />
+      <entry_point TYPE="implicit.constructor" FQNAME="gatech.water_app.controller.Controller.welcomePage" />
     </entry_points>
   </component>
   <component name="NullableNotNullManager">

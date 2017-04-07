@@ -2,7 +2,7 @@ package gatech.water_app.model;
 
 /**
  * Created by Alex Thien An Le on 2/28/2017.
- * Definies overall condition of water.
+ * Defines overall condition of water.
  */
 
 public enum OverallCondition {

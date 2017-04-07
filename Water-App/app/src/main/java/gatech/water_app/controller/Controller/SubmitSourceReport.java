@@ -107,7 +107,7 @@ public class SubmitSourceReport extends AppCompatActivity {
     }
 
     /**
-     * Searchs for the location base on the input string for the edittext field and sets location to the predicted address
+     * Searches for the location base on the input string for the edit text field and sets location to the predicted address
      * @param view
      */
     public void searchLocation(View view) {

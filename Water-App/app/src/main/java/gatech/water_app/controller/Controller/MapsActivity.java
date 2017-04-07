@@ -93,7 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         protected void onPostExecute(ArrayList<WaterSourceReport> result) {
             if (result != null) {
                 populateMap(result);
-                Log.d("SourceView", "It appears that the request was successfull ");
+                Log.d("SourceView", "It appears that the request was successful ");
             }
         }
     }

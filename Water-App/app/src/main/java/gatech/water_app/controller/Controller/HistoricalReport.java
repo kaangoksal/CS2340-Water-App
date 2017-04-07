@@ -49,7 +49,7 @@ public class HistoricalReport extends AppCompatActivity {
     private Address address;
     private int year;
     private String ppm;
-    private final List<Number> range = new ArrayList();
+    private final List<Number> range = new ArrayList<Number>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class HistoricalReport extends AppCompatActivity {
 
     private void onGraphReady() {
 
-        // create our series from our array of nums:
+        // create our series from our array of numbers:
         SimpleXYSeries series = new SimpleXYSeries(Arrays.asList(range.toArray(new Number[range.size()])),
                 SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, ppm);
 
@@ -197,7 +197,7 @@ public class HistoricalReport extends AppCompatActivity {
             if (result != null) {
                 populateGraph(result);
                 onGraphReady();
-                Log.d("PurityView", "It appears that the request was successfull ");
+                Log.d("PurityView", "It appears that the request was successful ");
             }
         }
     }
@@ -211,8 +211,8 @@ public class HistoricalReport extends AppCompatActivity {
         //Putting year from data is deprecated
         Calendar cal = Calendar.getInstance();
 
-        int currentyear;
-        int currentmonth;
+        int current_year;
+        int current_month;
         double currentValue;
         int perMonth;
         WaterPurityReport current;
@@ -228,13 +228,13 @@ public class HistoricalReport extends AppCompatActivity {
                 //Checks for correct location, year, and PPM type
                 current = WaterPurityReportList.get(i);
                 cal.setTime(current.getDataTime());
-                currentyear = cal.get(Calendar.YEAR);
-                currentmonth = cal.get(Calendar.MONTH);
+                current_year = cal.get(Calendar.YEAR);
+                current_month = cal.get(Calendar.MONTH);
 
                 if (current.getLocation().getLatitude() == address.getLatitude()
                         && current.getLocation().getLongitude()  == address.getLongitude()
-                        && currentyear == year
-                        && currentmonth == m) {
+                        && current_year == year
+                        && current_month == m) {
 
                     if (ppm.equals("Virus")) {
                         currentValue += current.getVirusPPM();
@@ -259,19 +259,19 @@ public class HistoricalReport extends AppCompatActivity {
     public void backFromGraphPage(View view) {
 
         if (loginUser.getTitle().equals(Title.USER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.WORKER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.MANAGER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);

@@ -51,7 +51,7 @@ public class Report {
 
     /**
      * Getter
-     * @return returns the reportnumber
+     * @return returns the report number
      */
     public String getReportNumber() {
         return reportNumber;

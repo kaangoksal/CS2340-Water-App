@@ -24,7 +24,7 @@ import gatech.water_app.model.WaterPurityReport;
 /**
  * Created by John on 3/1/2017.
  * Activity that contains all purity reports *needs working report database first*
- * only water purity sorce repot
+ * only water purity source report
  */
 
 public class PurityView extends AppCompatActivity {
@@ -100,7 +100,7 @@ public class PurityView extends AppCompatActivity {
         protected void onPostExecute(ArrayList<WaterPurityReport> result) {
             if (result != null) {
                 populateList(result);
-                Log.d("PurityView", "It appears that the request was successfull ");
+                Log.d("PurityView", "It appears that the request was successful ");
             }
         }
     }
@@ -133,25 +133,25 @@ public class PurityView extends AppCompatActivity {
     }
 
     /**
-     * Goes backe to the previos screen
+     * Goes back to the previous screen
      * @param view this is supplied by the android sdk
      */
     public void backFromReportView(View view) {
 
         if (loginUser.getTitle().equals(Title.USER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.WORKER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.MANAGER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);

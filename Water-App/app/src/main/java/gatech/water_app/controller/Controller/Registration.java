@@ -76,7 +76,7 @@ public class Registration extends AppCompatActivity {
             if (result) {
                 afterEdit();
             }else {
-                Log.d("[Login]", "Registeration Failed");
+                Log.d("[Login]", "Registration Failed");
                 Toast.makeText(getApplicationContext(), "Registration Failed" ,Toast.LENGTH_SHORT).show();
             }
         }

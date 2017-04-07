@@ -78,7 +78,7 @@ public class SubmitPurityReport extends AppCompatActivity {
         Button cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, OverallCondition.values());
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,OverallCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(adapter);
 
@@ -100,7 +100,7 @@ public class SubmitPurityReport extends AppCompatActivity {
     }
 
     /**
-     * Searchs for the location base on the input string for the edittext field and sets location to the predicted address
+     * Searches for the location base on the input string for the edit text field and sets location to the predicted address
      * @param view
      */
     public void searchLocation(View view) {

@@ -24,7 +24,7 @@ import okhttp3.Response;
 
 public class ServerConnector {
     /**
-     * Attempts login to the server and returns the full credidentals of the user
+     * Attempts login to the server and returns the full credentials of the user
      * @param email of the user
      * @param password of the user
      * @return a user with many details as possible
@@ -66,14 +66,14 @@ public class ServerConnector {
         //Yo WTF you can only check the response object once! FUCK JAVA #LAME
         //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
 
-        Log.d("ServerConnector", "Server returned response for attemp login = " +responseString );
+        Log.d("ServerConnector", "Server returned response for attempt login = " +responseString );
         JSONObject received;
-        User retrieveduser = null;
+        User retrieved_user = null;
         try {
 
             received = new JSONObject(responseString);
-            retrieveduser = new User(received.getString("email"), received.getString("password"));
-            retrieveduser.setUsername(received.getString("username"));
+            retrieved_user = new User(received.getString("email"), received.getString("password"));
+            retrieved_user.setUsername(received.getString("username"));
 
             received.getString("created_at");
 
@@ -81,19 +81,19 @@ public class ServerConnector {
             switch (title) {
                 case "User":
                 case "user":
-                    retrieveduser.setTitle(Title.USER);
+                    retrieved_user.setTitle(Title.USER);
                     break;
                 case "Worker":
                 case "worker":
-                    retrieveduser.setTitle(Title.WORKER);
+                    retrieved_user.setTitle(Title.WORKER);
                     break;
                 case "Admin":
                 case "admin":
-                    retrieveduser.setTitle(Title.ADMIN);
+                    retrieved_user.setTitle(Title.ADMIN);
                     break;
                 case "Manager":
                 case "manager":
-                    retrieveduser.setTitle(Title.MANAGER);
+                    retrieved_user.setTitle(Title.MANAGER);
                     break;
             }
 
@@ -103,7 +103,7 @@ public class ServerConnector {
             Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
-        return retrieveduser;
+        return retrieved_user;
 
     }
 
@@ -220,7 +220,7 @@ public class ServerConnector {
     /**
      * Adds a report
      * @param user user who is adding the report
-     * @param reportJson the report as jsojn
+     * @param reportJson the report as json
      * @return whether the operation was successful or not
      * @throws IOException if something goes bad like network
      */
@@ -283,24 +283,24 @@ public class ServerConnector {
         //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
         Log.d("ServerConnector", "Server returned response for get reports = " +responseString );
         JSONObject received;
-        JSONArray returnarray = null;
+        JSONArray return_array = null;
         try {
             received = new JSONObject(responseString);
             Log.d("ServerConnector", "JsonObj " + received.toString());
-            returnarray = received.getJSONArray("reports");
+            return_array = received.getJSONArray("reports");
         } catch (JSONException E){
             Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
 
-        return returnarray;
+        return return_array;
 
     }
 
     /**
      * Fetches the source reports from the server
      * @param user user requesting the reports
-     * @return an arraylist of the reports
+     * @return an array list of the reports
      * @throws IOException usually a network error causes this
      */
     public static ArrayList<WaterSourceReport> getSourceReports(User user) throws IOException{
@@ -326,7 +326,7 @@ public class ServerConnector {
         Log.d("ServerConnector", "Server returned response for get reports = " +responseString );
 
 
-        ArrayList<WaterSourceReport> returnarray = new ArrayList<>();
+        ArrayList<WaterSourceReport> return_array = new ArrayList<>();
         try {
             JSONObject received = new JSONObject(responseString);
             Log.d("ServerConnector", "JsonObj " + received.toString());
@@ -334,9 +334,9 @@ public class ServerConnector {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject reportJsonChild = jsonArray.getJSONObject(i);
-                WaterSourceReport newreport = WaterSourceReport.fromJSONObject(reportJsonChild);
-                returnarray.add(newreport);
-                Log.e("ServerConnector", "Populating the water source report " + newreport.toString());
+                WaterSourceReport new_report = WaterSourceReport.fromJSONObject(reportJsonChild);
+                return_array.add(new_report);
+                Log.e("ServerConnector", "Populating the water source report " + new_report.toString());
             }
 
         } catch (JSONException E){
@@ -344,14 +344,14 @@ public class ServerConnector {
         }
 
 
-        return returnarray;
+        return return_array;
 
     }
 
     /**
      * Fetches the purity reports from the server
      * @param user user requesting the reports
-     * @return and arraylist of reports
+     * @return and array list of reports
      * @throws IOException network error.
      */
     public static ArrayList<WaterPurityReport> getPurityReports(User user) throws IOException{
@@ -377,7 +377,7 @@ public class ServerConnector {
         Log.d("ServerConnector", "Server returned response for get reports = " + responseString );
 
 
-        ArrayList<WaterPurityReport> returnarray = new ArrayList<>();
+        ArrayList<WaterPurityReport> return_array = new ArrayList<>();
         try {
             JSONObject received = new JSONObject(responseString);
             JSONArray jsonArray = received.getJSONArray("reports");
@@ -387,7 +387,7 @@ public class ServerConnector {
                 JSONObject reportJsonChild = jsonArray.getJSONObject(i);
                 Log.e("Server Connector", "Json Object " + reportJsonChild.toString());
 
-                returnarray.add(WaterPurityReport.fromJSONObject(reportJsonChild));
+                return_array.add(WaterPurityReport.fromJSONObject(reportJsonChild));
                 Log.e("Server Connector", "Populating the list " + WaterPurityReport.fromJSONObject(reportJsonChild).toString());
             }
 
@@ -396,7 +396,7 @@ public class ServerConnector {
         }
 
 
-        return returnarray;
+        return return_array;
 
     }
 

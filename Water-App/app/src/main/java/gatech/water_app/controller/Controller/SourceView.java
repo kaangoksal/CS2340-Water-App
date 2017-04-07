@@ -93,7 +93,7 @@ public class SourceView extends AppCompatActivity {
         protected void onPostExecute(ArrayList<WaterSourceReport> result) {
             if (result != null) {
                 populateList(result);
-                Log.d("SourceView", "It appears that the request was successfull ");
+                Log.d("SourceView", "It appears that the request was successful ");
             }
         }
     }
@@ -131,19 +131,19 @@ public class SourceView extends AppCompatActivity {
     public void backFromReportView(View view) {
 
         if (loginUser.getTitle().equals(Title.USER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.WORKER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
         } else if (loginUser.getTitle().equals(Title.MANAGER)) {
-//            loginUser = dbuser;
+
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);

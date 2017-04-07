@@ -63,7 +63,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Setup");
 
-        // set prompts.xml to alertdialog builder
+        // set prompts.xml to alert dialog builder
         alertDialogBuilder.setView(promptsView);
 
         historicalLocation = (EditText) promptsView.findViewById(R.id.historicalLocation);
@@ -72,7 +72,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
         List<String> PPMList = new ArrayList<>();
         PPMList.add("Virus");
         PPMList.add("Contaminant");
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, PPMList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, PPMList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         PPMSpinner.setAdapter(adapter);
 
@@ -95,7 +95,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
                                         bundle.putInt("year", Integer.parseInt(historicalYear.getText().toString()));
                                         bundle.putString("PPM", PPMSpinner.getSelectedItem().toString());
                                         bundle.putString("address", historicalLocation.getText().toString());
-                                        startHistoricalReport(view, bundle);
+                                        startHistoricalReport(bundle);
 
                                     } else {
                                         Toast.makeText(ManagerLandingPage.this, "Invalid year", Toast.LENGTH_SHORT).show();
@@ -120,7 +120,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
         alertDialog.show();
     }
 
-    private void startHistoricalReport(View view, Bundle bundle) {
+    private void startHistoricalReport(Bundle bundle) {
         Intent intent = new Intent(this, HistoricalReport.class);
         intent.putExtras(bundle);
         intent.putExtra("user", loginUser);
