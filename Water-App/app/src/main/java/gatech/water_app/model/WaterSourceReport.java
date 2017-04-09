@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -203,7 +204,7 @@ public class WaterSourceReport extends Report {
             return_report = new WaterSourceReport(reportDate,report_number,reporter,type,waterCondition,location);
 
         } catch (Exception E) {
-            Log.e("WaterSourceReport", "Something bad happened " + E.toString() + " " + E.getMessage() + " " + E.getStackTrace().toString());
+            Log.e("WaterSourceReport", "Something bad happened " + E.toString() + " " + E.getMessage() + " " + Arrays.toString(E.getStackTrace()));
             return null;
         }
         return return_report;

@@ -42,6 +42,7 @@ public class EditPage extends AppCompatActivity {
         TextView curUsername = (TextView) findViewById(R.id.textView4);
         TextView curPass = (TextView) findViewById(R.id.textView5);
         TextView curEmail = (TextView) findViewById(R.id.textView6);
+        assert loginUser != null;
         String curUserString = "Current Username: " + loginUser.getUsername();
         String curPassString = "Current Password: " + loginUser.getPassword();
         String curEmailString = "Current Email: " + loginUser.getEmail();
@@ -60,14 +61,8 @@ public class EditPage extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
-                                              if (username.getText().toString() == null
-                                                      || password.getText().toString() == null
-                                                      || email.getText().toString() == null) {
-                                                  Toast.makeText(getApplicationContext(), "One of your fields was null!" ,Toast.LENGTH_SHORT).show();
-                                              } else {
-                                                  new HTTPEditTask().execute(username.getText().toString(),password.getText().toString(), email.getText().toString());
-                                                  newUser = new User(username.getText().toString(),password.getText().toString(), email.getText().toString());
-                                              }
+                                              new HTTPEditTask().execute(username.getText().toString(),password.getText().toString(), email.getText().toString());
+                                              newUser = new User(username.getText().toString(),password.getText().toString(), email.getText().toString());
                                           }
                                       });
 

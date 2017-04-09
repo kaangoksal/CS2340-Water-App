@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 /**
  * Created by Alex Thien An Le on 2/28/2017.
@@ -167,7 +168,7 @@ public class WaterPurityReport extends Report {
             return_report = new WaterPurityReport(reportDate,report_number, reporter, overallCondition,virus_ppm,contaminant_ppm,location);
 
         } catch (Exception E) {
-            Log.e("WaterSourceReport", "Something bad happened " + E.toString() + " " + E.getMessage() + " " + E.getStackTrace().toString());
+            Log.e("WaterSourceReport", "Something bad happened " + E.toString() + " " + E.getMessage() + " " + Arrays.toString(E.getStackTrace()));
             return null;
         }
         return return_report;

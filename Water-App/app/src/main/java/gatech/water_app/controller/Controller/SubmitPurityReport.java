@@ -104,7 +104,7 @@ public class SubmitPurityReport extends AppCompatActivity {
      * @param view the view you are attempting to reach
      */
     public void searchLocation(View view) {
-        if (location.getText().toString() != null && !location.getText().toString().equals("")) {
+        if (!location.getText().toString().equals("")) {
             String locationName = location.getText().toString();
             List<Address> addressList = null;
             Geocoder geocoder = new Geocoder(this);
@@ -114,6 +114,7 @@ public class SubmitPurityReport extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            assert addressList != null;
             address = addressList.get(0);
             location.setText(address.getFeatureName());
         } else {
