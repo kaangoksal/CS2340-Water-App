@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import gatech.water_app.R;
 
@@ -36,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.passwordInput);
         Button signInButton = (Button) findViewById(R.id.sign_in_button);
 
-        
+
 
         signInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 afterLogin(database_User);
             }else {
                 Log.d("[Login]", "Login failed http returned false");
+                Toast.makeText(getApplicationContext(), "Login Failed. Please try again!" ,Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -85,16 +87,22 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_left);
         } else if (database_User.getTitle().equals(Title.WORKER)) {
             loginUser = database_User;
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_left);
         } else if (database_User.getTitle().equals(Title.MANAGER)) {
             loginUser = database_User;
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_left);
         }
     }
 
