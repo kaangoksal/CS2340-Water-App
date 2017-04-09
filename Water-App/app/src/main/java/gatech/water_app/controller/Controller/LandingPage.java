@@ -23,6 +23,7 @@ public class LandingPage extends AppCompatActivity {
 //        email = extras.getString("username");
 //        password = extras.getString("password");
         loginUser =(User)extras.getSerializable("user");
+        assert loginUser != null;
         Log.d("LandingPage", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
 
         setContentView(R.layout.activity_logout);

@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -87,6 +88,7 @@ public class HistoricalReport extends AppCompatActivity {
         } catch (IOException e) {
                 e.printStackTrace();
         }
+        assert addressList != null;
         return addressList.get(0);
 
     }
@@ -159,7 +161,7 @@ public class HistoricalReport extends AppCompatActivity {
                     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM");
 
                     @Override
-                    public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+                    public StringBuffer format(Object obj, @NonNull StringBuffer toAppendTo, @NonNull FieldPosition pos) {
 
                         // this rounding is necessary to avoid precision loss when converting from
                         // double back to int:
@@ -168,7 +170,7 @@ public class HistoricalReport extends AppCompatActivity {
                     }
 
                     @Override
-                    public Object parseObject(String source, ParsePosition pos) {
+                    public Object parseObject(String source, @NonNull ParsePosition pos) {
                         return null;
 
                     }

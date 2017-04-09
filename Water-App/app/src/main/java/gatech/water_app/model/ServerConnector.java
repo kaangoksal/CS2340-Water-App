@@ -336,6 +336,7 @@ public class ServerConnector {
                 JSONObject reportJsonChild = jsonArray.getJSONObject(i);
                 WaterSourceReport new_report = WaterSourceReport.fromJSONObject(reportJsonChild);
                 return_array.add(new_report);
+                assert new_report != null;
                 Log.e("ServerConnector", "Populating the water source report " + new_report.toString());
             }
 

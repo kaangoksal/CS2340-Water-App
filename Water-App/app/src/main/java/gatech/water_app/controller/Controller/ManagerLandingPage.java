@@ -84,11 +84,7 @@ public class ManagerLandingPage extends WorkerLandingPage {
                             public void onClick(DialogInterface dialog,int id) {
                                 // get user input and set it to result
                                 // edit text
-                                if (PPMSpinner.getSelectedItem().toString() != null
-                                        && historicalYear.getText().toString() != null
-                                        && !historicalYear.getText().toString().equals("")
-                                        && historicalLocation.getText().toString() != null
-                                        && !historicalLocation.getText().toString().equals("")) {
+                                if (PPMSpinner.getSelectedItem().toString() != null && historicalYear.getText().toString() != null && !historicalYear.getText().toString().equals("") && !historicalLocation.getText().toString().equals("")) {
                                     if (Integer.parseInt(historicalYear.getText().toString()) > 0) {
 
                                         Bundle bundle = new Bundle();

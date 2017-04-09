@@ -44,6 +44,7 @@ public class SourceView extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         loginUser =(User)extras.getSerializable("user");
 
+        assert loginUser != null;
         Log.d("SourceView", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
 
 

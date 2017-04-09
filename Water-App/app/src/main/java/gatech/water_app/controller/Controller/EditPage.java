@@ -37,18 +37,19 @@ public class EditPage extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         User loginUser = (User) extras.getSerializable("user");
 
-        String username1 = extras.getString("username");
-        String password1 = extras.getString("pass");
 
 
         TextView curUsername = (TextView) findViewById(R.id.textView4);
         TextView curPass = (TextView) findViewById(R.id.textView5);
         TextView curEmail = (TextView) findViewById(R.id.textView6);
+        String curUserString = "Current Username: " + loginUser.getUsername();
+        String curPassString = "Current Password: " + loginUser.getPassword();
+        String curEmailString = "Current Email: " + loginUser.getEmail();
 
 
-        curUsername.setText("Current Username: " + loginUser.getUsername());
-        curPass.setText("Current Password: " + loginUser.getPassword());
-        curEmail.setText("Current Email: " + loginUser.getEmail());
+        curUsername.setText(curUserString);
+        curPass.setText(curPassString);
+        curEmail.setText(curEmailString);
 
         username = (EditText) findViewById(R.id.userNameInput);
         password = (EditText) findViewById(R.id.passwordInput);
