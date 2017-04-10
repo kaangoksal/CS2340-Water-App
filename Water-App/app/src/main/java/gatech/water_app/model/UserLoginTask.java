@@ -13,9 +13,10 @@ public class UserLoginTask {
 
     public static User attemptLogin(User halfUser){
         try {
-
             return ServerConnector.attemptLogin(halfUser.getEmail(), halfUser.getPassword());
         } catch (IOException e) {
+            return null;
+        } catch (NullPointerException e) {
             return null;
         }
     }

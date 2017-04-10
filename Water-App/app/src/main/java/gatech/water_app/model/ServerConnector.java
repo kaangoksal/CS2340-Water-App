@@ -36,6 +36,7 @@ public class ServerConnector {
 
         String authentication = email + ":" + password;
         byte[] authentication_bytes = authentication.getBytes("UTF-8");
+
         String base64_encoded = Base64.encodeToString(authentication_bytes, Base64.DEFAULT);
         base64_encoded = "Basic " + base64_encoded;
         base64_encoded = base64_encoded.replace("\n", "");
