@@ -18,7 +18,7 @@ public class Report {
     private Location location;
 
 
-    Report(Date dataTime, String reportNumber, String reporter, Location location) {
+    public Report(Date dataTime, String reportNumber, String reporter, Location location) {
         this.dataTime = new Date();
         this.reporter = reporter;
         this.reportNumber = reportNumber;
