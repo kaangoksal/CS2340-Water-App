@@ -1,4 +1,4 @@
-package gatech.water_app.Junit;
+package gatech.water_app.model;
 
 import android.location.Address;
 import android.location.Location;
@@ -154,32 +154,6 @@ public class WaterAppJunits {
         assertEquals(27, returnedFromWaterSourceReport.getLocation().getLongitude());
 
     }
-
-//    @Mock JSONObject data;
-//    @Mock Location locate;
-//    @InjectMocks WaterPurityReport waterPurityReport = new WaterPurityReport("bob");
-//    @Test
-//    public void generateJSONObjectFromWaterPurityReport() throws JSONException {
-//        Date date = new Date();
-////        Address address = new Address(new Locale("US"));
-//        waterPurityReport.setContaminantPPM(100);
-//        waterPurityReport.setVirusPPM(100);
-//        waterPurityReport.setOverallCondition(OverallCondition.Safe);
-//        waterPurityReport.setDataTime(date);
-//        waterPurityReport.setLocation(locate);
-//        waterPurityReport.getLocation().setLatitude(5);
-//        waterPurityReport.getLocation().setLongitude(5);
-//        waterPurityReport.setReporter("Bob");
-//        waterPurityReport.setReportNumber("101");
-////        WaterPurityReport nullReport = new WaterPurityReport(null);
-////        waterPurityReport.setContaminantPPM(0);
-////        waterPurityReport.setVirusPPM(0);
-////        waterPurityReport.setOverallCondition(null);
-//
-////        when(data.put(anyString(),anyString())).thenReturn(null);
-//        JSONObject x = waterPurityReport.toJSONObject();
-//        assertEquals(null, waterPurityReport.toJSONObject());
-//    }
 
 
 
