@@ -1,5 +1,6 @@
 package gatech.water_app.Junit;
 
+import android.location.Address;
 import android.location.Location;
 import android.util.Base64;
 import android.util.Log;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Locale;
 
 import gatech.water_app.model.OverallCondition;
 import gatech.water_app.model.Report;
@@ -21,6 +23,7 @@ import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
 import gatech.water_app.model.UserLoginTask;
 import gatech.water_app.model.WaterPurityReport;
+import gatech.water_app.model.WaterReportTask;
 import gatech.water_app.model.WaterSourceReport;
 import gatech.water_app.model.WaterType;
 
@@ -39,7 +42,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ServerConnector.class, Log.class, WaterType.class, JSONObject.class})
+@PrepareForTest({ServerConnector.class, Log.class, WaterType.class, JSONObject.class, WaterSourceReport.class})
 public class WaterAppJunits {
     //Sam Gilson's Test
     @Test
@@ -152,25 +155,34 @@ public class WaterAppJunits {
 
     }
 
-    @Mock JSONObject data;
-    @InjectMocks WaterPurityReport waterPurityReport = new WaterPurityReport("bob");
-    @Test
-    public void generateJSONObjectFromWaterPurityReport() throws JSONException {
-        waterPurityReport.setContaminantPPM(100);
-        waterPurityReport.setVirusPPM(100);
-        waterPurityReport.setOverallCondition(OverallCondition.Safe);
+//    @Mock JSONObject data;
+//    @Mock Location locate;
+//    @InjectMocks WaterPurityReport waterPurityReport = new WaterPurityReport("bob");
+//    @Test
+//    public void generateJSONObjectFromWaterPurityReport() throws JSONException {
+//        Date date = new Date();
+////        Address address = new Address(new Locale("US"));
+//        waterPurityReport.setContaminantPPM(100);
+//        waterPurityReport.setVirusPPM(100);
+//        waterPurityReport.setOverallCondition(OverallCondition.Safe);
+//        waterPurityReport.setDataTime(date);
+//        waterPurityReport.setLocation(locate);
+//        waterPurityReport.getLocation().setLatitude(5);
+//        waterPurityReport.getLocation().setLongitude(5);
+//        waterPurityReport.setReporter("Bob");
+//        waterPurityReport.setReportNumber("101");
+////        WaterPurityReport nullReport = new WaterPurityReport(null);
+////        waterPurityReport.setContaminantPPM(0);
+////        waterPurityReport.setVirusPPM(0);
+////        waterPurityReport.setOverallCondition(null);
+//
+////        when(data.put(anyString(),anyString())).thenReturn(null);
+//        JSONObject x = waterPurityReport.toJSONObject();
+//        assertEquals(null, waterPurityReport.toJSONObject());
+//    }
 
-        WaterPurityReport nullReport = new WaterPurityReport(null);
-        waterPurityReport.setContaminantPPM(0);
-        waterPurityReport.setVirusPPM(0);
-        waterPurityReport.setOverallCondition(null);
-
-        when(data.put(anyString(),anyString())).thenReturn(null);
-
-        assertEquals(null, waterPurityReport.toJSONObject());
 
 
-    }
 
 
 

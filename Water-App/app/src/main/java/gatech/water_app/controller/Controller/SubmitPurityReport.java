@@ -141,9 +141,6 @@ public class SubmitPurityReport extends AppCompatActivity {
             newReport.setContaminantPPM(Double.parseDouble(contaminant.getText().toString()));
 
             JSONObject reportJson = newReport.toJSONObject();
-
-
-
 //            WaterReportTask.addWaterPurityReport(newReport);
             new HTTPSubmitReportTask().execute(loginUser, reportJson);
 
