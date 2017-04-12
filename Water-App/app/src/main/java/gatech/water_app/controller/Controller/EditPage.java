@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,9 @@ import gatech.water_app.model.UserLoginTask;
 
 import gatech.water_app.R;
 
+/**
+ * Creates the page that does the editing of the profile.
+ */
 public class EditPage extends AppCompatActivity {
     private EditText username;
     private EditText password;
@@ -33,7 +37,8 @@ public class EditPage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle extras = getIntent().getExtras();
+        Intent extraIntent = getIntent();
+        Bundle extras = extraIntent.getExtras();
         User loginUser = (User) extras.getSerializable("user");
 
 
@@ -60,8 +65,15 @@ public class EditPage extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
-                                              new HTTPEditTask().execute(username.getText().toString(),password.getText().toString(), email.getText().toString());
-                                              newUser = new User(username.getText().toString(),password.getText().toString(), email.getText().toString());
+                                              Editable userNameText = username.getText();
+                                              Editable userEmailText = email.getText();
+                                              Editable passwordText = password.getText();
+                                              new HTTPEditTask().execute(userNameText
+                                                      .toString(),passwordText
+                                                      .toString(), userEmailText.toString());
+                                              newUser = new User(userNameText
+                                                      .toString(),passwordText.toString(),
+                                                      userEmailText.toString());
                                           }
                                       });
 
@@ -81,13 +93,16 @@ public class EditPage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar made = Snackbar.make(view,
+                        "Replace with your own action", Snackbar.LENGTH_LONG);
+                Snackbar action = made.setAction("Action", null);
+                action.show();
             }
         });
     }
 
     private class HTTPEditTask extends AsyncTask<String, Integer, Boolean> {
+        @Override
         protected Boolean doInBackground(String[] params) {
             try {
                 return UserLoginTask.attemptEditUser(params[0], params[1], params[2]);
@@ -97,6 +112,7 @@ public class EditPage extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
                 afterEdit();

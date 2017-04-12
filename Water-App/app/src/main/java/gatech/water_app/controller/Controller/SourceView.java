@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import gatech.water_app.R;
 import gatech.water_app.model.ServerConnector;
@@ -41,11 +43,13 @@ public class SourceView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle extras = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
         loginUser =(User)extras.getSerializable("user");
 
         assert loginUser != null;
-        Log.d("SourceView", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
+        Log.d("SourceView", "User received Email = " + loginUser.getEmail() + " "
+                + loginUser.getPassword() );
 
 
 
@@ -65,9 +69,9 @@ public class SourceView extends AppCompatActivity {
                 String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+ position +"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Position :"+ position +"  ListItem : " +itemValue , Toast.LENGTH_LONG);
+                toast.show();
 
             }
 
@@ -79,7 +83,9 @@ public class SourceView extends AppCompatActivity {
     /**
      * This class is used for the async HTTP request.
      */
-    private class HTTPGetReportTask extends AsyncTask<Object, Integer, ArrayList<WaterSourceReport>> {
+    private class HTTPGetReportTask extends
+            AsyncTask<Object, Integer, ArrayList<WaterSourceReport>> {
+        @Override
         protected ArrayList<WaterSourceReport> doInBackground(Object[] params) {
             try {
                 User castedUser = (User) params[0];
@@ -91,6 +97,7 @@ public class SourceView extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(ArrayList<WaterSourceReport> result) {
             if (result != null) {
                 populateList(result);
@@ -103,13 +110,15 @@ public class SourceView extends AppCompatActivity {
      * This populates the list of water reports on the GUI
      * @param WaterSourceReportList the list of water reports
      */
-    private void populateList(ArrayList<WaterSourceReport> WaterSourceReportList) {
+    private void populateList(List<WaterSourceReport> WaterSourceReportList) {
         String[] newList = new String[WaterSourceReportList.size()];
 
             for (int i = 0; i < WaterSourceReportList.size(); i++) {
 //                JSONObject reportJsonChild = reportJSONArray.getJSONObject(i);
-                newList[i] = WaterSourceReportList.get(i).toString();
-                Log.e("SourceView", "Populating the list " + WaterSourceReportList.get(i).toStringTemp());
+                WaterSourceReport report = WaterSourceReportList.get(i);
+                newList[i] = report.toString();
+                Log.e("SourceView", "Populating the list " + report
+                        .toStringTemp());
             }
 
             // Define a new Adapter
@@ -117,7 +126,7 @@ public class SourceView extends AppCompatActivity {
             // Second parameter - Layout for the row
             // Third parameter - ID of the TextView to which the data is written
             // Forth - the Array of data
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(this,
+        ListAdapter listViewAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, newList);
 
 
@@ -130,20 +139,21 @@ public class SourceView extends AppCompatActivity {
      * @param view supplied by android
      */
     public void backFromReportView(View view) {
+        Title userTitle = loginUser.getTitle();
 
-        if (loginUser.getTitle().equals(Title.USER)) {
+        if (userTitle.equals(Title.USER)) {
 
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (loginUser.getTitle().equals(Title.WORKER)) {
+        } else if (userTitle.equals(Title.WORKER)) {
 
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (loginUser.getTitle().equals(Title.MANAGER)) {
+        } else if (userTitle.equals(Title.MANAGER)) {
 
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);

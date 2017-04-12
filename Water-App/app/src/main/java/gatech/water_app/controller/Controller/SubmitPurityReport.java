@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -57,12 +58,15 @@ public class SubmitPurityReport extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar made = Snackbar.make(view,
+                        "Replace with your own action", Snackbar.LENGTH_LONG);
+                Snackbar action = made.setAction("Action", null);
+                action.show();
             }
         });
 
-        Bundle extras = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
         loginUser =(User)extras.getSerializable("user");
 
         address.setLatitude(0.0);
@@ -78,13 +82,15 @@ public class SubmitPurityReport extends AppCompatActivity {
         Button cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
 
-        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,OverallCondition.values());
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,
+                OverallCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(adapter);
 
         newReport = new WaterPurityReport(loginUser.getEmail());
 
-        newReport.setReportNumber(UUID.randomUUID().toString());
+        UUID random = UUID.randomUUID();
+        newReport.setReportNumber(random.toString());
         dateView.setText(newReport.getDateString());
         reportNumView.setText(newReport.getReportNumber());
         reporterTextView.setText(newReport.getReporter());
@@ -100,12 +106,14 @@ public class SubmitPurityReport extends AppCompatActivity {
     }
 
     /**
-     * Searches for the location base on the input string for the edit text field and sets location to the predicted address
+     * Searches for the location base on the input string for the edit
+     * text field and sets location to the predicted address
      * @param view the view you are attempting to reach
      */
     public void searchLocation(View view) {
-        if (!location.getText().toString().equals("")) {
-            String locationName = location.getText().toString();
+        Editable locationText = location.getText();
+        if (!"".equals(locationText.toString())) {
+            String locationName = locationText.toString();
             List<Address> addressList = null;
             Geocoder geocoder = new Geocoder(this);
             try {
@@ -118,7 +126,9 @@ public class SubmitPurityReport extends AppCompatActivity {
             address = addressList.get(0);
             location.setText(address.getFeatureName());
         } else {
-            Toast.makeText(getApplicationContext(), "Input Location", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Input Location", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -127,18 +137,21 @@ public class SubmitPurityReport extends AppCompatActivity {
      * @param view the view you are attempting to reach
      */
     public void submitPurityReport(View view) {
-        if (address.getLatitude() != 0 && address.getLongitude() != 0) {
+        if ((address.getLatitude() != 0) && (address.getLongitude() != 0)) {
 //            newReport = new WaterPurityReport((getIntent().getExtras().getString("username")));
 //            date.setText(newReport.getDataTime().toString());
 //            reportNum.setText(newReport.getReportNumber());
 //            reporter.setText(newReport.getReporter());
 
+            Location loc = newReport.getLocation();
+            CharSequence virusText = virus.getText();
+            CharSequence contaminantText = contaminant.getText();
             newReport.setLocation(new Location(address.getFeatureName()));
-            newReport.getLocation().setLatitude(address.getLatitude());
-            newReport.getLocation().setLongitude(address.getLongitude());
+            loc.setLatitude(address.getLatitude());
+            loc.setLongitude(address.getLongitude());
             newReport.setOverallCondition((OverallCondition) condition.getSelectedItem());
-            newReport.setVirusPPM(Double.parseDouble(virus.getText().toString()));
-            newReport.setContaminantPPM(Double.parseDouble(contaminant.getText().toString()));
+            newReport.setVirusPPM(Double.parseDouble(virusText.toString()));
+            newReport.setContaminantPPM(Double.parseDouble(contaminantText.toString()));
 
             JSONObject reportJson = newReport.toJSONObject();
 //            WaterReportTask.addWaterPurityReport(newReport);
@@ -146,11 +159,13 @@ public class SubmitPurityReport extends AppCompatActivity {
 
 
         } else {
-            Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
     private class HTTPSubmitReportTask extends AsyncTask<Object, Integer, Boolean> {
+        @Override
         protected Boolean doInBackground(Object[] params) {
             try {
                 User castedUser = (User) params[0];
@@ -163,6 +178,7 @@ public class SubmitPurityReport extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
                 afterSuccess();

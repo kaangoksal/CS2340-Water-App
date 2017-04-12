@@ -6,6 +6,7 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.StepMode;
 import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
+import com.androidplot.xy.XYSeries;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -43,6 +45,9 @@ import gatech.water_app.model.Title;
 import gatech.water_app.model.User;
 import gatech.water_app.model.WaterPurityReport;
 
+/**
+ * creates the graphs for historical report
+ */
 public class HistoricalReport extends AppCompatActivity {
 
     private XYPlot plot1;
@@ -63,12 +68,15 @@ public class HistoricalReport extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar made = Snackbar.make(view,
+                        "Replace with your own action", Snackbar.LENGTH_LONG);
+                Snackbar action = made.setAction("Action", null);
+                action.show();
             }
         });
 
-        Bundle extras = getIntent().getExtras();
+        Intent extrasIntent = getIntent();
+        Bundle extras = extrasIntent.getExtras();
         loginUser =(User)extras.getSerializable("user");
         address = searchLocation(extras.getString("address"));
         year = extras.getInt("year");
@@ -96,13 +104,15 @@ public class HistoricalReport extends AppCompatActivity {
     private void onGraphReady() {
 
         // create our series from our array of numbers:
-        SimpleXYSeries series = new SimpleXYSeries(Arrays.asList(range.toArray(new Number[range.size()])),
+        XYSeries series = new SimpleXYSeries(Arrays.asList(range.toArray(new Number[range.size()])),
                 SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, ppm);
 
         LineAndPointFormatter formatter =
                 new LineAndPointFormatter(Color.rgb(0, 0, 0), Color.RED, Color.RED, null);
-        formatter.getVertexPaint().setStrokeWidth(PixelUtils.dpToPix(10));
-        formatter.getLinePaint().setStrokeWidth(PixelUtils.dpToPix(5));
+        Paint vertex = formatter.getVertexPaint();
+        vertex.setStrokeWidth(PixelUtils.dpToPix(10));
+        Paint linePaint = formatter.getLinePaint();
+        linePaint.setStrokeWidth(PixelUtils.dpToPix(5));
 
         // setup our line fill paint to be a slightly transparent gradient:
         Paint lineFill = new Paint();
@@ -112,34 +122,52 @@ public class HistoricalReport extends AppCompatActivity {
 
         plot1.addSeries(series, formatter);
 
+        GregorianCalendar jan = new GregorianCalendar(year, Calendar.JANUARY, 1);
+        GregorianCalendar feb = new GregorianCalendar(year, Calendar.FEBRUARY, 1);
+        GregorianCalendar march = new GregorianCalendar(year, Calendar.MARCH, 1);
+        GregorianCalendar apr = new GregorianCalendar(year, Calendar.APRIL, 1);
+        GregorianCalendar may = new GregorianCalendar(year, Calendar.MAY, 1);
+        GregorianCalendar june = new GregorianCalendar(year, Calendar.JUNE, 1);
+        GregorianCalendar july = new GregorianCalendar(year, Calendar.JULY, 1);
+        GregorianCalendar august = new GregorianCalendar(year, Calendar.AUGUST, 1);
+        GregorianCalendar september = new GregorianCalendar(year, Calendar.SEPTEMBER, 1);
+        GregorianCalendar october = new GregorianCalendar(year, Calendar.OCTOBER, 1);
+        GregorianCalendar november = new GregorianCalendar(year, Calendar.NOVEMBER, 1);
+        GregorianCalendar december = new GregorianCalendar(year, Calendar.DECEMBER, 1);
+
+
         final Date[] months = {
-                new GregorianCalendar(year, Calendar.JANUARY, 1).getTime(),
-                new GregorianCalendar(year, Calendar.FEBRUARY, 1).getTime(),
-                new GregorianCalendar(year, Calendar.MARCH, 1).getTime(),
-                new GregorianCalendar(year, Calendar.APRIL, 1).getTime(),
-                new GregorianCalendar(year, Calendar.MAY, 1).getTime(),
-                new GregorianCalendar(year, Calendar.JUNE, 1).getTime(),
-                new GregorianCalendar(year, Calendar.JULY, 1).getTime(),
-                new GregorianCalendar(year, Calendar.AUGUST, 1).getTime(),
-                new GregorianCalendar(year, Calendar.SEPTEMBER, 1).getTime(),
-                new GregorianCalendar(year, Calendar.OCTOBER, 1).getTime(),
-                new GregorianCalendar(year, Calendar.NOVEMBER, 1).getTime(),
-                new GregorianCalendar(year, Calendar.DECEMBER, 1).getTime()
+                jan.getTime(),
+                feb.getTime(),
+                march.getTime(),
+                apr.getTime(),
+                may.getTime(),
+                june.getTime(),
+                july.getTime(),
+                august.getTime(),
+                september.getTime(),
+                october.getTime(),
+                november.getTime(),
+                december.getTime()
         };
 
         plot1.setRangeBoundaries(0, 200, BoundaryMode.AUTO);
 
-        plot1.getGraph().getGridBackgroundPaint().setColor(Color.WHITE);
-        plot1.getGraph().getDomainGridLinePaint().setColor(Color.BLACK);
-        plot1.getGraph().getDomainGridLinePaint().
-                setPathEffect(new DashPathEffect(new float[]{1, 1}, 1));
-        plot1.getGraph().getRangeGridLinePaint().setColor(Color.BLACK);
-        plot1.getGraph().getRangeGridLinePaint().
-                setPathEffect(new DashPathEffect(new float[]{1, 1}, 1));
-        plot1.getGraph().getDomainOriginLinePaint().setColor(Color.BLACK);
-        plot1.getGraph().getRangeOriginLinePaint().setColor(Color.BLACK);
+        XYGraphWidget graph = plot1.getGraph();
+        Paint grid = graph.getGridBackgroundPaint();
+        Paint domain = graph.getDomainGridLinePaint();
+        Paint range = graph.getRangeGridLinePaint();
+        Paint domainOrigin = graph.getDomainOriginLinePaint();
+        Paint rangeOrigin = graph.getRangeOriginLinePaint();
+        grid.setColor(Color.WHITE);
+        domain.setColor(Color.BLACK);
+        domain.setPathEffect(new DashPathEffect(new float[]{1, 1}, 1));
+        range.setColor(Color.BLACK);
+        range.setPathEffect(new DashPathEffect(new float[]{1, 1}, 1));
+        domainOrigin.setColor(Color.BLACK);
+        rangeOrigin.setColor(Color.BLACK);
 
-        plot1.getGraph().setPaddingRight(2);
+        graph.setPaddingRight(2);
 
         // draw a domain tick for each year:
         plot1.setDomainStep(StepMode.SUBDIVIDE, months.length);
@@ -149,19 +177,22 @@ public class HistoricalReport extends AppCompatActivity {
         plot1.setRangeLabel("PPM");
 
         // get rid of decimal points in our range labels:
-        plot1.getGraph().getLineLabelStyle(XYGraphWidget.Edge.LEFT).
-                setFormat(new DecimalFormat("0.0"));
+        XYGraphWidget.LineLabelStyle edgeLeft = graph.getLineLabelStyle(XYGraphWidget.Edge.LEFT);
+        XYGraphWidget.LineLabelStyle edgeBottom = graph
+                .getLineLabelStyle(XYGraphWidget.Edge.BOTTOM);
+        edgeLeft.setFormat(new DecimalFormat("0.0"));
 
-        plot1.getGraph().getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).
-                setFormat(new Format() {
+        edgeBottom.setFormat(new Format() {
 
                     // create a simple date format that draws on the year portion of our timestamp.
-                    // see http://download.oracle.com/javase/1.4.2/docs/api/java/text/SimpleDateFormat.html
+                    // see http://download.oracle.com/javase
+                    // /1.4.2/docs/api/java/text/SimpleDateFormat.html
                     // for a full description of SimpleDateFormat.
                     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM");
 
                     @Override
-                    public StringBuffer format(Object obj, @NonNull StringBuffer toAppendTo, @NonNull FieldPosition pos) {
+                    public StringBuffer format(Object obj, @NonNull StringBuffer toAppendTo,
+                                               @NonNull FieldPosition pos) {
 
                         // this rounding is necessary to avoid precision loss when converting from
                         // double back to int:
@@ -183,7 +214,9 @@ public class HistoricalReport extends AppCompatActivity {
     /**
      * This is a class for the async HTTP Request.
      */
-    private class HTTPGetPurityReportTask extends AsyncTask<Object, Integer, ArrayList<WaterPurityReport>> {
+    private class HTTPGetPurityReportTask extends AsyncTask<Object, Integer,
+            ArrayList<WaterPurityReport>> {
+        @Override
         protected ArrayList<WaterPurityReport> doInBackground(Object[] params) {
             try {
                 User castedUser = (User) params[0];
@@ -195,6 +228,7 @@ public class HistoricalReport extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(ArrayList<WaterPurityReport> result) {
             if (result != null) {
                 populateGraph(result);
@@ -208,7 +242,7 @@ public class HistoricalReport extends AppCompatActivity {
      * Populates the graph with WaterPurityReports
      * @param WaterPurityReportList list of water purity reports
      */
-    private void populateGraph(ArrayList<WaterPurityReport> WaterPurityReportList) {
+    private void populateGraph(List<WaterPurityReport> WaterPurityReportList) {
 
         //Putting year from data is deprecated
         Calendar cal = Calendar.getInstance();
@@ -232,15 +266,16 @@ public class HistoricalReport extends AppCompatActivity {
                 cal.setTime(current.getDataTime());
                 current_year = cal.get(Calendar.YEAR);
                 current_month = cal.get(Calendar.MONTH);
+                Location cur = current.getLocation();
 
-                if (current.getLocation().getLatitude() == address.getLatitude()
-                        && current.getLocation().getLongitude()  == address.getLongitude()
-                        && current_year == year
-                        && current_month == m) {
+                if ((cur.getLatitude() == address.getLatitude())
+                        && (cur.getLongitude() == address.getLongitude())
+                        && (current_year == year)
+                        && (current_month == m)) {
 
-                    if (ppm.equals("Virus")) {
+                    if ("Virus".equals(ppm)) {
                         currentValue += current.getVirusPPM();
-                    } else if (ppm.equals("Contaminant")) {
+                    } else if ("Contaminant".equals(ppm)) {
                         currentValue += current.getContaminantPPM();
                     }
                     perMonth++;
@@ -260,19 +295,20 @@ public class HistoricalReport extends AppCompatActivity {
      */
     public void backFromGraphPage(View view) {
 
-        if (loginUser.getTitle().equals(Title.USER)) {
+        Title userTitle = loginUser.getTitle();
+        if (userTitle.equals(Title.USER)) {
 
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (loginUser.getTitle().equals(Title.WORKER)) {
+        } else if (userTitle.equals(Title.WORKER)) {
 
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (loginUser.getTitle().equals(Title.MANAGER)) {
+        } else if (userTitle.equals(Title.MANAGER)) {
 
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);

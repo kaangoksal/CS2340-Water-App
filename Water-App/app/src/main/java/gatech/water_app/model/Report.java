@@ -18,6 +18,13 @@ public class Report {
     private Location location;
 
 
+    /**
+     * constructor for a report
+     * @param dataTime date
+     * @param reportNumber report number
+     * @param reporter who reported it
+     * @param location where this is
+     */
     public Report(Date dataTime, String reportNumber, String reporter, Location location) {
         this.dataTime = new Date();
         this.reporter = reporter;
@@ -37,7 +44,7 @@ public class Report {
      * Getter SQL compliant
      * @return string of the date which is compatible with SQL
      */
-    public String getDateString() {
+    public CharSequence getDateString() {
         SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return iso8601Format.format(this.dataTime);
     }
@@ -69,7 +76,7 @@ public class Report {
      * Getter
      * @return returns the reporter
      */
-    public String getReporter() {
+    public CharSequence getReporter() {
         return reporter;
     }
 

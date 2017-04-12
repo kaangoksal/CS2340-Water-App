@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import gatech.water_app.R;
 import gatech.water_app.model.ServerConnector;
@@ -41,7 +43,8 @@ public class PurityView extends AppCompatActivity {
         setContentView(R.layout.activity_all_purity_reports);
 
 
-        Bundle extras = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
 //        username = extras.getString("username");
 //        password = extras.getString("pass");
 
@@ -51,8 +54,10 @@ public class PurityView extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar made = Snackbar.make(view,
+                        "Replace with your own action", Snackbar.LENGTH_LONG);
+                Snackbar action = made.setAction("Action", null);
+                action.show();
             }
         });
 
@@ -74,9 +79,9 @@ public class PurityView extends AppCompatActivity {
                 String  itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+ position +"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Position :"+ position +"  ListItem : " +itemValue , Toast.LENGTH_LONG);
+                toast.show();
 
             }
 
@@ -85,7 +90,9 @@ public class PurityView extends AppCompatActivity {
     /**
      * This is a class for the async HTTP Request.
      */
-    private class HTTPGetPurityReportTask extends AsyncTask<Object, Integer, ArrayList<WaterPurityReport>> {
+    private class HTTPGetPurityReportTask extends AsyncTask<Object, Integer,
+            ArrayList<WaterPurityReport>> {
+        @Override
         protected ArrayList<WaterPurityReport> doInBackground(Object[] params) {
             try {
                 User castedUser = (User) params[0];
@@ -97,6 +104,7 @@ public class PurityView extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(ArrayList<WaterPurityReport> result) {
             if (result != null) {
                 populateList(result);
@@ -109,13 +117,14 @@ public class PurityView extends AppCompatActivity {
      * Populates the list for WaterPurityReports
      * @param WaterPurityReportList the list of water purity reports to be populated
      */
-    private void populateList(ArrayList<WaterPurityReport> WaterPurityReportList) {
+    private void populateList(List<WaterPurityReport> WaterPurityReportList) {
         String[] newList = new String[WaterPurityReportList.size()];
 
         for (int i = 0; i < WaterPurityReportList.size(); i++) {
 //                JSONObject reportJsonChild = reportJSONArray.getJSONObject(i);
-            newList[i] = WaterPurityReportList.get(i).toString();
-            Log.e("PurityView", "Populating the list " + WaterPurityReportList.get(i).toString());
+            WaterPurityReport report = WaterPurityReportList.get(i);
+            newList[i] = report.toString();
+            Log.e("PurityView", "Populating the list " + report.toString());
         }
 //            values = newList;
 
@@ -124,7 +133,7 @@ public class PurityView extends AppCompatActivity {
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ListAdapter adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, newList);
 
 
@@ -137,20 +146,21 @@ public class PurityView extends AppCompatActivity {
      * @param view this is supplied by the android sdk
      */
     public void backFromReportView(View view) {
+        Title userTitle = loginUser.getTitle();
 
-        if (loginUser.getTitle().equals(Title.USER)) {
+        if (userTitle.equals(Title.USER)) {
 
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
             intent.putExtras(bundle1);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (loginUser.getTitle().equals(Title.WORKER)) {
+        } else if (userTitle.equals(Title.WORKER)) {
 
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
-        } else if (loginUser.getTitle().equals(Title.MANAGER)) {
+        } else if (userTitle.equals(Title.MANAGER)) {
 
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);

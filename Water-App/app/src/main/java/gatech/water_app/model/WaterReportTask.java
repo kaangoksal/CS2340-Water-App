@@ -5,7 +5,6 @@ import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +15,9 @@ import java.util.List;
 public class WaterReportTask {
 
     //temp
-    private static List<WaterSourceReport> sourceList = new ArrayList<>();
 
     //temp
-    private static final List<WaterPurityReport> purityList = new ArrayList<>();
+
 
 //    /**
 //     * Adds Water Source Report to database
@@ -30,6 +28,12 @@ public class WaterReportTask {
 //        sourceList.add(sourceReport);
 //    }
 
+    /**
+     * attempt to add a water source report
+     * @param user user
+     * @param reportJson the json to be added
+     * @return whether it was added or not
+     */
     public static boolean addWaterSourceReport(User user, JSONObject reportJson)  {
         try {
             return ServerConnector.addReport(user, reportJson);
@@ -43,12 +47,15 @@ public class WaterReportTask {
     /**
      * Search for water source report
      * @param position the latitude longitude position of the water source
+     * @param list list of data
      * @return a string representation of the position
      */
-    public static String getSourceReportInfo(LatLng position, ArrayList<WaterSourceReport> list) {
+    public static String getSourceReportInfo(LatLng position, Iterable<WaterSourceReport> list) {
         String returnData = "";
         for (WaterSourceReport element: list) {
-            if (element.getLocation().getLatitude() == position.latitude && element.getLocation().getLongitude() == position.longitude) {
+
+            if ((element.getLocation().getLatitude() == position.latitude)
+                    && (element.getLocation().getLongitude() == position.longitude)) {
                 returnData += element.toString() + "\n\n";
             }
         }
@@ -57,6 +64,8 @@ public class WaterReportTask {
 
     /**
      * List of the water sources reports
+     * @param user user to log in
+     * @return the list
      */
     public static List<WaterSourceReport> waterSourceReportList(User user) {
         try {
@@ -66,33 +75,37 @@ public class WaterReportTask {
         }
     }
 
-    /**
-     * Adds Water Source Report to database
-     * @param sourceReport the source report to be added to the list.
+
+    /*
+      Adds Water Source Report to database
+      @param sourceReport the source report to be added to the list.
      */
+    /*
     public static void addWaterPurityReport(WaterPurityReport sourceReport) {
         //temp debugging code
         purityList.add(sourceReport);
     }
+    */
 
 
-    /**
-     * Search for water source report
-     * @param position the latitude longitude position of the water report
-     * @return the string representation of the data in the water report
-     */
+
+    /*
     public static String getPurityReportInfo(LatLng position) {
         String returnData = "";
         for (WaterPurityReport element: purityList) {
-            if (element.getLocation().getLatitude() == position.latitude && element.getLocation().getLongitude() == position.longitude) {
+            if ((element.getLocation().getLatitude() == position.latitude)
+                    && (element.getLocation().getLongitude() == position.longitude)) {
                 returnData += element.toString() + "\n\n";
             }
         }
         return returnData;
     }
+    */
 
     /**
      * List of the water sources reports
+     * @param user user to log in
+     * @return the list
      */
     public static List<WaterPurityReport> waterPurityReportList(User user) {
         try {

@@ -10,12 +10,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,16 +61,20 @@ public class SubmitSourceReport extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar made = Snackbar.make(view,
+                        "Replace with your own action", Snackbar.LENGTH_LONG);
+                Snackbar action = made.setAction("Action", null);
+                action.show();
             }
         });
 
-        Bundle extras = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
 
         loginUser =(User)extras.getSerializable("user");
         assert loginUser != null;
-        Log.d("SubmitSourceReport", "User received, Email = " + loginUser.getEmail() + " " + loginUser.getPassword());
+        Log.d("SubmitSourceReport", "User received, Email = " + loginUser.getEmail() + " " +
+                loginUser.getPassword());
 
         address.setLatitude(0.0);
         address.setLongitude(0.0);
@@ -81,17 +87,20 @@ public class SubmitSourceReport extends AppCompatActivity {
         conditionSpinner = (Spinner) findViewById(R.id.spinner2);
         Button cancelButton = (Button) findViewById(R.id.water_report_cancel);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterType.values());
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,
+                WaterType.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeWaterSpinner.setAdapter(adapter);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, WaterCondition.values());
+        SpinnerAdapter adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item,
+                WaterCondition.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         conditionSpinner.setAdapter(adapter2);
 
         newReport = new WaterSourceReport(loginUser.getEmail());
 
-        newReport.setReportNumber(UUID.randomUUID().toString());
+        UUID random = UUID.randomUUID();
+        newReport.setReportNumber(random.toString());
         dateView.setText(newReport.getDateString());
         reportNumView.setText(newReport.getReportNumber());
         reporterView.setText(newReport.getReporter());
@@ -107,12 +116,14 @@ public class SubmitSourceReport extends AppCompatActivity {
     }
 
     /**
-     * Searches for the location base on the input string for the edit text field and sets location to the predicted address
+     * Searches for the location base on the input string
+     * for the edit text field and sets location to the predicted address
      * @param view the view you are attempting to reach
      */
     public void searchLocation(View view) {
-        if (!location.getText().toString().equals("")) {
-            String locationName = location.getText().toString();
+        Editable locText = location.getText();
+        if (!"".equals(locText.toString())) {
+            String locationName = locText.toString();
             List<Address> addressList = null;
             Geocoder geocoder = new Geocoder(this);
             try {
@@ -125,7 +136,9 @@ public class SubmitSourceReport extends AppCompatActivity {
             address = addressList.get(0);
             location.setText(address.getFeatureName());
         } else {
-            Toast.makeText(getApplicationContext(), "Input Location", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Input Location", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -134,13 +147,14 @@ public class SubmitSourceReport extends AppCompatActivity {
      * @param view the view you are attempting to reach
      */
     public void submitSourceReport(View view) {
-        if (address.getLatitude() != 0 && address.getLongitude() != 0) {
+        if ((address.getLatitude() != 0) && (address.getLongitude() != 0)) {
 
 
 
+            Location loc = newReport.getLocation();
             newReport.setLocation(new Location(address.getFeatureName()));
-            newReport.getLocation().setLatitude(address.getLatitude());
-            newReport.getLocation().setLongitude(address.getLongitude());
+            loc.setLatitude(address.getLatitude());
+            loc.setLongitude(address.getLongitude());
 
             newReport.setCondition((WaterCondition) conditionSpinner.getSelectedItem());
             newReport.setType((WaterType) typeWaterSpinner.getSelectedItem());
@@ -156,12 +170,14 @@ public class SubmitSourceReport extends AppCompatActivity {
 
 
         } else {
-            Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(this, "Invalid address", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
 
     private class HTTPSubmitReportTask extends AsyncTask<Object, Integer, Boolean> {
+        @Override
         protected Boolean doInBackground(Object[] params) {
             try {
                 User castedUser = (User) params[0];
@@ -174,6 +190,7 @@ public class SubmitSourceReport extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
                 afterHTTPSuccess();

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,7 +33,7 @@ public class ServerConnector {
      */
     public static User attemptLogin(String email, String password) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
+        Call.Factory client = new OkHttpClient();
 
         String authentication = email + ":" + password;
         byte[] authentication_bytes = authentication.getBytes("UTF-8");
@@ -64,8 +65,6 @@ public class ServerConnector {
 
         Response response = client.newCall(request).execute();
         String responseString = response.body().string();
-        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
-        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
 
         Log.d("ServerConnector", "Server returned response for attempt login = " +responseString );
         JSONObject received;
@@ -101,7 +100,8 @@ public class ServerConnector {
             Log.d("ServerConnector", "JsonObj " + received.toString());
 
         } catch (JSONException E){
-            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() +
+                    " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
         return retrieved_user;
@@ -117,8 +117,9 @@ public class ServerConnector {
      * @return whether the user could be added or not
      * @throws IOException if the user could not be added or failure to reach server.
      */
-    public static boolean addUser(String username, String password, String address, String email) throws IOException{
-        //users.add(Math.abs(new User(username, password).hashCode()) % (users.size() + 1), new User(username, password, address, email, title));
+    public static boolean addUser(String username, String password, String address, String email)
+            throws IOException{
+
 
         String authentication = email + ":" + password;
         byte[] authentication_bytes = authentication.getBytes("UTF-8");
@@ -141,7 +142,7 @@ public class ServerConnector {
         }
 
 
-        OkHttpClient client = new OkHttpClient();
+        Call.Factory client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
@@ -172,7 +173,8 @@ public class ServerConnector {
      * @return whether the operation was successful
      * @throws IOException if something goes bad
      */
-    public static boolean editUser(String username, String password, String email) throws IOException{
+    public static boolean editUser(String username, String password, String email) throws
+            IOException{
 
         String authentication = email + ":" + password;
         byte[] authentication_bytes = authentication.getBytes("UTF-8");
@@ -193,7 +195,7 @@ public class ServerConnector {
             ex.printStackTrace();
         }
 
-        OkHttpClient client = new OkHttpClient();
+        Call.Factory client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
@@ -205,8 +207,7 @@ public class ServerConnector {
 
         Response response = client.newCall(request).execute();
         String responseString = response.body().string();
-        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
-        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+
 
         Log.d("[HTTP]", "Server Response " + responseString + responseString.indexOf("Successful"));
         if (responseString.indexOf("Failed") > 0) {
@@ -231,7 +232,7 @@ public class ServerConnector {
 
         String bodyString = reportJson.toString();
 
-        OkHttpClient client = new OkHttpClient();
+        Call.Factory client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
@@ -243,8 +244,7 @@ public class ServerConnector {
 
         Response response = client.newCall(request).execute();
         String responseString = response.body().string();
-        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
-        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+
 
         Log.d("[HTTP]", "Server Response " + responseString + responseString.indexOf("Successful"));
         if (responseString.indexOf("Failed") > 0) {
@@ -268,7 +268,7 @@ public class ServerConnector {
 
         String bodyString = "";
 
-        OkHttpClient client = new OkHttpClient();
+        Call.Factory client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
@@ -280,8 +280,7 @@ public class ServerConnector {
 
         Response response = client.newCall(request).execute();
         String responseString = response.body().string();
-        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
-        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+
         Log.d("ServerConnector", "Server returned response for get reports = " +responseString );
         JSONObject received;
         JSONArray return_array = null;
@@ -290,7 +289,8 @@ public class ServerConnector {
             Log.d("ServerConnector", "JsonObj " + received.toString());
             return_array = received.getJSONArray("reports");
         } catch (JSONException E){
-            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() +
+                    " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
 
@@ -310,7 +310,7 @@ public class ServerConnector {
 
         String bodyString = "";
 
-        OkHttpClient client = new OkHttpClient();
+        Call.Factory client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
@@ -322,8 +322,7 @@ public class ServerConnector {
 
         Response response = client.newCall(request).execute();
         String responseString = response.body().string();
-        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
-        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+
         Log.d("ServerConnector", "Server returned response for get reports = " +responseString );
 
 
@@ -338,11 +337,14 @@ public class ServerConnector {
                 WaterSourceReport new_report = WaterSourceReport.fromJSONObject(reportJsonChild);
                 return_array.add(new_report);
                 assert new_report != null;
-                Log.e("ServerConnector", "Populating the water source report " + new_report.toString());
+                @SuppressWarnings("LawOfDemeter") String newReportToString = new_report.toString();
+                Log.e("ServerConnector", "Populating the water source report " +
+                        newReportToString);
             }
 
         } catch (JSONException E){
-            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() +
+                    " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
 
@@ -362,7 +364,7 @@ public class ServerConnector {
 
         String bodyString = "";
 
-        OkHttpClient client = new OkHttpClient();
+        Call.Factory client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, bodyString);
@@ -374,8 +376,7 @@ public class ServerConnector {
 
         Response response = client.newCall(request).execute();
         String responseString = response.body().string();
-        //Yo WTF you can only check the response object once! FUCK JAVA #LAME
-        //Log.d("[HTTP]", "Server Response " + response.toString() + "\n" + response.body().string());
+
         Log.d("ServerConnector", "Server returned response for get reports = " + responseString );
 
 
@@ -390,11 +391,19 @@ public class ServerConnector {
                 Log.e("Server Connector", "Json Object " + reportJsonChild.toString());
 
                 return_array.add(WaterPurityReport.fromJSONObject(reportJsonChild));
-                Log.e("Server Connector", "Populating the list " + WaterPurityReport.fromJSONObject(reportJsonChild).toString());
+                WaterPurityReport report = WaterPurityReport.fromJSONObject(reportJsonChild);
+
+                if (report != null) {
+                    @SuppressWarnings("LawOfDemeter") String jsonToString = report.toString();
+
+                    Log.e("Server Connector", "Populating the list " + jsonToString);
+                }
+
             }
 
         } catch (JSONException E){
-            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() + " " +E.getLocalizedMessage() + " " + E.toString() );
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() +
+                    " " +E.getLocalizedMessage() + " " + E.toString() );
         }
 
 

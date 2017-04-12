@@ -10,6 +10,9 @@ import android.widget.TextView;
 import gatech.water_app.R;
 import gatech.water_app.model.User;
 
+/**
+ * makes the landing page
+ */
 public class LandingPage extends AppCompatActivity {
 //    String email;
 //    String password;
@@ -19,12 +22,14 @@ public class LandingPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle extras = getIntent().getExtras();
+        Intent extrasIntent = getIntent();
+        Bundle extras = extrasIntent.getExtras();
 //        email = extras.getString("username");
 //        password = extras.getString("password");
         loginUser =(User)extras.getSerializable("user");
         assert loginUser != null;
-        Log.d("LandingPage", "User received Email = " + loginUser.getEmail() + " " + loginUser.getPassword() );
+        Log.d("LandingPage", "User received Email = " +
+                loginUser.getEmail() + " " + loginUser.getPassword() );
 
         setContentView(R.layout.activity_logout);
 
@@ -92,6 +97,10 @@ public class LandingPage extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+    /**
+     * logs the person out
+     * @param view view you are attempting to reach
+     */
     public void logout(View view) {
         Intent intent = new Intent(this, welcomePage.class);
         startActivity(intent);

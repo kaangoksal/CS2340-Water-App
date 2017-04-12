@@ -8,12 +8,16 @@ import android.widget.TextView;
 import gatech.water_app.R;
 import gatech.water_app.model.User;
 
+/**
+ * worker landing page
+ */
 public class WorkerLandingPage extends LandingPage {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle extras = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
         loginUser =(User)extras.getSerializable("user");
         setContentView(R.layout.activity_worker_landing);
         TextView text1 = (TextView) findViewById(R.id.textView3);

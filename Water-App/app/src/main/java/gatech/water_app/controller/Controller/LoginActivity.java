@@ -1,4 +1,5 @@
 package gatech.water_app.controller.Controller;
+import android.text.Editable;
 import android.util.Log;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser = new User("", password.getText().toString(), email.getText().toString());
+                Editable passwordText = password.getText();
+                Editable emailText = email.getText();
+                loginUser = new User("", passwordText.toString(), emailText.toString());
                 new HTTPLoginTask().execute(loginUser);
             }
         });
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     //you cant execute http requests in the main thread, because it would freeze the app
     //so we need a task which executes by itself and when it is done it does something (after login)
     private class HTTPLoginTask extends AsyncTask<Object, Integer, User> {
+        @Override
         protected User doInBackground(Object[] params) {
             try {
                 return UserLoginTask.attemptLogin((User)params[0]);
@@ -61,12 +65,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(User database_User) {
             if (database_User != null) {
                 afterLogin(database_User);
             }else {
                 Log.d("[Login]", "Login failed http returned false");
-                Toast.makeText(getApplicationContext(), "Login Failed. Please try again!" ,Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Login Failed. Please try again!"
+                        ,Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }
@@ -80,7 +88,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void afterLogin(User database_User) {
-        if (database_User.getTitle().equals(Title.USER)) {
+        Title userTitle = database_User.getTitle();
+        if (userTitle.equals(Title.USER)) {
             loginUser = database_User;
             Intent intent = new Intent(this, LandingPage.class);
             Bundle bundle1 = new Bundle();
@@ -89,14 +98,14 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             this.overridePendingTransition(R.anim.slide_in_left,
                     R.anim.slide_out_left);
-        } else if (database_User.getTitle().equals(Title.WORKER)) {
+        } else if (userTitle.equals(Title.WORKER)) {
             loginUser = database_User;
             Intent intent = new Intent(this, WorkerLandingPage.class);
             intent.putExtra("user", loginUser);
             startActivity(intent);
             this.overridePendingTransition(R.anim.slide_in_left,
                     R.anim.slide_out_left);
-        } else if (database_User.getTitle().equals(Title.MANAGER)) {
+        } else if (userTitle.equals(Title.MANAGER)) {
             loginUser = database_User;
             Intent intent = new Intent(this, ManagerLandingPage.class);
             intent.putExtra("user", loginUser);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,9 @@ import gatech.water_app.model.UserLoginTask;
 
 import gatech.water_app.R;
 
+/**
+ * registration page
+ */
 public class Registration extends AppCompatActivity {
 
     private EditText username;
@@ -38,13 +42,21 @@ public class Registration extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username.getText().toString().equals("")
-                        || password.getText().toString().equals("")
-                        || email.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "One of your fields was empty!" ,Toast.LENGTH_SHORT).show();
+
+                Editable userNameText = username.getText();
+                Editable userEmailText = email.getText();
+                Editable passwordText = password.getText();
+                Editable addressText = address.getText();
+                if ("".equals(userNameText.toString())
+                        || "".equals(passwordText.toString())
+                        || "".equals(userEmailText.toString())) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "One of your fields was empty!" ,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
                 } else {
-                    //UserLoginTask.addUser(username.getText().toString(), password.getText().toString(), address.getText().toString(), email.getText().toString(), (Title) newSpin.getSelectedItem());
-                    new HTTPRegisterTask().execute(username.getText().toString(), password.getText().toString(), address.getText().toString(), email.getText().toString());
+                    new HTTPRegisterTask().execute(userNameText.toString(), passwordText
+                            .toString(), addressText.toString(), userEmailText.toString());
                 }
             }
         });
@@ -63,6 +75,7 @@ public class Registration extends AppCompatActivity {
     }
 
     private class HTTPRegisterTask extends AsyncTask<String, Integer, Boolean> {
+        @Override
         protected Boolean doInBackground(String[] params) {
             try {
                 return UserLoginTask.addUser(params[0], params[1], params[2], params[3]);
@@ -72,12 +85,15 @@ public class Registration extends AppCompatActivity {
             }
         }
 
+        @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
                 afterEdit();
             }else {
                 Log.d("[Login]", "Registration Failed");
-                Toast.makeText(getApplicationContext(), "Registration Failed" ,Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(getApplicationContext(), "Registration Failed" ,
+                        Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }

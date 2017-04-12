@@ -1,7 +1,6 @@
 package gatech.water_app.model;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Arrays;
+
 /**
  * Created by Alex Thien An Le on 2/20/2017. Edited by John Ho 2/22/2017
  * Standard user class with all getters and setters available
@@ -9,7 +8,6 @@ import java.util.Arrays;
 
 public class User implements Serializable {
 
-    public static List<String> titles = Arrays.asList("Administrator","Worker","Manager","User");
 
     private String username;
     private String password;
@@ -18,7 +16,12 @@ public class User implements Serializable {
     private Title title;
 
 
-
+    /**
+     * constructor for user
+     * @param Username username
+     * @param password password
+     * @param email email
+     */
     public User(String Username, String password, String email) {
         this.username = Username;
         this.password = password;
@@ -53,19 +56,36 @@ public class User implements Serializable {
         this(username, password, null, email, title);
     }
 
+    /**
+     * constructor for user
+     * @param password password
+     * @param email email
+     */
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
+    /**
+     * get username
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * set username
+     * @param username username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * get password
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
@@ -82,6 +102,10 @@ public class User implements Serializable {
         this.address = address;
     }
 
+    /**
+     * get email
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
@@ -90,10 +114,18 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    /**
+     * get title
+     * @return title
+     */
     public Title getTitle() {
         return title;
     }
 
+    /**
+     * set title
+     * @param title title
+     */
     public void setTitle(Title title) {
         this.title = title;
     }
@@ -101,8 +133,12 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
 
         User user = (User) o;
 
@@ -113,7 +149,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int result = password.hashCode();
-        result = 31 * result + username.hashCode();
+        result = (31 * result) + username.hashCode();
         return result;
     }
 
