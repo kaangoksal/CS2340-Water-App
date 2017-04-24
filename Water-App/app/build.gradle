@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -30,12 +30,12 @@ dependencies {
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.androidplot:androidplot-core:1.4.1'
-    testCompile 'junit:junit:4.12'
-
     compile 'junit:junit:4.12'
     compile 'org.mockito:mockito-core:1.7'
-
-
     compile 'org.powermock:powermock-api-mockito:1.6.6'
     compile 'org.powermock:powermock-module-junit4:1.6.6'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/activation.jar')
+    compile files('libs/mail.jar')
+    compile files('libs/additionnal.jar')
 }

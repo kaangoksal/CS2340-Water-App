@@ -22,4 +22,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_manager_landing_page">ManagerLandingPage</string>
     <string name="title_activity_historical_report">HistoricalReport</string>
+    <string name="title_activity_recovery_page">RecoveryPage</string>
 </resources>

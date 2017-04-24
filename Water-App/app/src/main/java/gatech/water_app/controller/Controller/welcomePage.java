@@ -39,4 +39,14 @@ public class welcomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * start registration page
+     * @param view view you are attempting to reach
+     */
+    public void startRecoveryPage(View view) {
+        System.out.println("Starting recovery page!");
+        Intent intent = new Intent(this, RecoveryPage.class);
+        startActivity(intent);
+    }
+
 }
