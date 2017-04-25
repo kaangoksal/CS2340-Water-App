@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import gatech.water_app.R;
+import gatech.water_app.model.ServerConnector;
 import gatech.water_app.model.User;
 import gatech.water_app.model.GMailSender;
 
@@ -33,15 +34,22 @@ public class RecoveryPage extends Activity {
         Button submitButton = (Button) findViewById(R.id.submitButton);
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
 
-        Log.d("log", "memes");
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Editable emailText = email.getText();
+                sendEmail(emailText.toString());
+                Toast.makeText(RecoveryPage.this, "Mail Send Successfully.....", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
     public void cancelButtonAction(View v) {
         finish();
     }
-    public void sendEmail(View v) {
-        new emailSender().execute(0);
+    public void sendEmail(String email) {
+        new emailSender().execute(email);
     }
 
     private class emailSender extends AsyncTask<Object, User, Integer> {
@@ -49,9 +57,9 @@ public class RecoveryPage extends Activity {
         @Override
         protected Integer doInBackground(Object... params) {
             try {
+                User retrieved = ServerConnector.getUserPassword((String) params[0]);
                 GMailSender sender = new GMailSender("team74waterapp@gmail.com", "nicememe");
-                sender.sendMail("memes", "memes", "samgilson98@gmail.com", "samgilson98@gmail.com");
-                Toast.makeText(RecoveryPage.this, "Mail Send Successfully.....", Toast.LENGTH_LONG).show();
+                sender.sendMail("Your Password", retrieved.getPassword(), "team74waterapp@gmail.com", (String) params[0]);
 
             } catch (Exception e) {
                 e.printStackTrace();

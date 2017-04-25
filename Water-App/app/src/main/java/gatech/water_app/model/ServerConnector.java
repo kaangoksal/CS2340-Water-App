@@ -426,5 +426,59 @@ public class ServerConnector {
         return base64_encoded;
     }
 
+    public static User getUserPassword(String email) throws IOException {
+
+        Call.Factory client = new OkHttpClient();
+
+        String authentication = email;
+        byte[] authentication_bytes = authentication.getBytes("UTF-8");
+
+        String base64_encoded = Base64.encodeToString(authentication_bytes, Base64.DEFAULT);
+        base64_encoded = "Basic " + base64_encoded;
+        base64_encoded = base64_encoded.replace("\n", "");
+
+        String bodyString = "";
+//        try {
+//            JSONObject bodyJson = new JSONObject();
+//            bodyJson.put("email", email);
+//            bodyJson.put("password", password);
+//            bodyJson.put("username", "");
+//            bodyJson.put("token", "");
+//            bodyString = bodyJson.toString();
+//
+//        } catch (JSONException ex) {
+//            ex.printStackTrace();
+//        }
+
+        MediaType mediaType = MediaType.parse("application/octet-stream");
+        RequestBody body = RequestBody.create(mediaType, bodyString);
+        Request request = new Request.Builder()
+                .url("http://umb.kaangoksal.com:5235/login")
+                .post(body)
+                .addHeader("Authorization", base64_encoded)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseString = response.body().string();
+
+        Log.d("ServerConnector", "Server returned response for attempt login = " +responseString );
+        JSONObject received;
+        User retrieved_user = null;
+        try {
+
+            received = new JSONObject(responseString);
+            retrieved_user = new User(received.getString("email"), received.getString("password"));
+
+            Log.d("ServerConnector", "JsonObj " + received.toString());
+
+        } catch (JSONException E){
+            Log.d("ServerConnector", "get Reports Json problem! " +responseString + E.getMessage() +
+                    " " +E.getLocalizedMessage() + " " + E.toString() );
+        }
+
+        return retrieved_user;
+
+    }
+
 
 }
